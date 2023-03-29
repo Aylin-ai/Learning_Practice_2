@@ -23,6 +23,17 @@
             <Setter Property="BorderThickness" Value="2"/>
             <Setter Property="Background" Value="White"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}" 
+            x:Name="Bd" BorderBrush="Black"
+            BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
+                            <ScrollViewer Name="PART_ContentHost"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
 
         <Style TargetType="Button">
@@ -31,6 +42,19 @@
             <Setter Property="BorderBrush" Value="Black"/>
             <Setter Property="BorderThickness" Value="2"/>
             <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="10"
+                                BorderBrush="Black"
+                                Background="White"
+                                BorderThickness="2">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
 
         <Style TargetType="TabControl">
@@ -51,27 +75,23 @@
             <Setter Property="BorderThickness" Value="2"/>
             <Setter Property="Background" Value="White"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="PasswordBox">
+                        <Border Background="{TemplateBinding Background}" 
+                                x:Name="Bd" BorderBrush="Black"
+                                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
+                            <ScrollViewer Name="PART_ContentHost" 
+                                          SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
 
-        <ControlTemplate x:Key="passwordBox" TargetType="PasswordBox">
+        <Style TargetType="DataGrid">
+            <Setter Property="FontSize" Value="15"/>
+        </Style>
 
-            <Border Background="{TemplateBinding Background}" 
-            x:Name="Bd" BorderBrush="Black"
-            BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
-                <ScrollViewer Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
-            </Border>
-
-        </ControlTemplate>
-
-        <ControlTemplate x:Key="textBox" TargetType="TextBox">
-
-            <Border Background="{TemplateBinding Background}" 
-            x:Name="Bd" BorderBrush="Black"
-            BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
-                <ScrollViewer Name="PART_ContentHost"/>
-            </Border>
-
-        </ControlTemplate>
-        
     </Application.Resources>
 </Application>

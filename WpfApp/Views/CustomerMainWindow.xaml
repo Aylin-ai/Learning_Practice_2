@@ -4,9 +4,25 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp.Views"
+        xmlns:vm="clr-namespace:WpfApp.ViewModels"
         mc:Ignorable="d"
-        Title="CustomerMainWindow" Height="450" Width="800">
-    <Grid>
+        Icon="{Binding IconSource}"
+        Title="CustomerMainWindow" 
+        MinHeight="470" MinWidth="400"
+        MaxHeight="800" MaxWidth="800"
+        Height="470" Width="400">
+    <Window.DataContext>
+        <vm:CustomerMainWindowViewModel/>
+    </Window.DataContext>
+    <DockPanel LastChildFill="True">
+
+        <WrapPanel DockPanel.Dock="Top" Orientation="Horizontal"
+                   HorizontalAlignment="Center">
+
+            <Image Source="{Binding ImageSource}" Width="70"/>
+            <Label Content="Клиент" VerticalAlignment="Center"/>
+
+        </WrapPanel>
         
-    </Grid>
+    </DockPanel>
 </Window>

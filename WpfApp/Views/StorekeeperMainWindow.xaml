@@ -3,10 +3,34 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:WpfApp.ViewModels"
         xmlns:local="clr-namespace:WpfApp.Views"
         mc:Ignorable="d"
-        Title="StorekeeperMainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Icon="{Binding IconSource}"
+        Title="StorekeeperMainWindow"
+        MinHeight="470" MinWidth="400"
+        MaxHeight="800" MaxWidth="800"
+        Height="470" Width="400">
+    <Window.DataContext>
+        <vm:StorekeeperMainWindowViewModel/>
+    </Window.DataContext>
+    <DockPanel LastChildFill="True">
+
+        <WrapPanel DockPanel.Dock="Top" Orientation="Horizontal"
+                   HorizontalAlignment="Center">
+
+            <Image Source="{Binding ImageSource}" Width="70"/>
+            <Label Content="Кладовщик" VerticalAlignment="Center"/>
+
+        </WrapPanel>
+
+        <StackPanel>
+            <Button Content="Список изделий"
+                    Command="{Binding ProductListWindowCommand}"/>
+            <Button Content="Список тканей"
+                    Command="{Binding ClothListWindowCommand}"/>
+            <Button Content="Список фурнитуры"
+                    Command="{Binding FurnitureListWindowCommand}"/>
+        </StackPanel>
+    </DockPanel>
 </Window>

@@ -24,21 +24,13 @@
                 <StackPanel>
 
                     <Label Content="Логин"/>
-                    <TextBox Template="{StaticResource textBox}" 
-                             Text="{Binding Login, Mode=TwoWay}"/>
+                    <TextBox Text="{Binding Login, Mode=TwoWay}"/>
 
                     <Label Content="Пароль"/>
-                    <TextBox Template="{StaticResource textBox}" 
-                         Text="{Binding Password1, Mode=TwoWay}">
+                    <TextBox Text="{Binding Password1, Mode=TwoWay}">
                     </TextBox>
 
-                    <Button Content="Войти" Command="{Binding AuthorizationCommand}">
-                        <Button.Resources>
-                            <Style TargetType="{x:Type Border}">
-                                <Setter Property="CornerRadius" Value="10"/>
-                            </Style>
-                        </Button.Resources>
-                    </Button>
+                    <Button Content="Войти" Command="{Binding AuthorizationCommand}"/>
 
                 </StackPanel>
                 
@@ -49,27 +41,18 @@
                 <StackPanel>
 
                     <Label Content="Логин"/>
-                    <TextBox Template="{StaticResource textBox}" 
-                             Text="{Binding Login, Mode=TwoWay}"/>
+                    <TextBox Text="{Binding Login, Mode=TwoWay}"/>
                     
                     <Label Content="Пароль"/>
-                    <TextBox Template="{StaticResource textBox}" 
-                         Text="{Binding Password1, Mode=TwoWay}">
+                    <TextBox Text="{Binding Password1, Mode=TwoWay}">
                     </TextBox>
 
                     <Label Content="Повторите пароль"/>
-                    <TextBox Template="{StaticResource textBox}" 
-                         Text="{Binding Password2, Mode=TwoWay}">
+                    <TextBox Text="{Binding Password2, Mode=TwoWay}">
                     </TextBox>
 
                     <Button Content="Зарегистрироваться" 
-                            Command="{Binding RegistrationCommand}">
-                        <Button.Resources>
-                            <Style TargetType="{x:Type Border}">
-                                <Setter Property="CornerRadius" Value="10"/>
-                            </Style>
-                        </Button.Resources>
-                    </Button>
+                            Command="{Binding RegistrationCommand}"/>
 
                 </StackPanel>
 
