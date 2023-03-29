@@ -11,9 +11,7 @@
         MinHeight="470" MinWidth="400"
         MaxHeight="800" MaxWidth="800"
         Height="470" Width="400">
-    <Window.DataContext>
-        <vm:ManagerMainWindowViewModel/>
-    </Window.DataContext>
+    
     <DockPanel LastChildFill="True">
 
         <WrapPanel DockPanel.Dock="Top" Orientation="Horizontal"
@@ -25,8 +23,13 @@
         </WrapPanel>
 
         <StackPanel>
+            
             <Button Content="Список изделий"
                     Command="{Binding ProductListWindowCommand}"/>
+
+            <Button Content="Выход из системы"
+                    Command="{Binding AuthorizationWindowCommand}"/>
+            
         </StackPanel>
     </DockPanel>
 </Window>

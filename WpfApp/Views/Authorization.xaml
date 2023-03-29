@@ -18,8 +18,8 @@
         </WrapPanel>
 
         <TabControl>
-            
-            <TabItem Header="Вход">
+
+            <TabItem Header="Вход" IsSelected="True">
 
                 <StackPanel>
 
@@ -36,7 +36,7 @@
                 
             </TabItem>
 
-            <TabItem Header="Регистрация" IsSelected="True">
+            <TabItem Header="Регистрация">
 
                 <StackPanel>
 

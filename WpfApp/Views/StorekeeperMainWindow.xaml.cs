@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfApp.ViewModels;
 
 namespace WpfApp.Views
 {
@@ -21,7 +22,11 @@ namespace WpfApp.Views
     {
         public StorekeeperMainWindow()
         {
+            StorekeeperMainWindowViewModel viewModel = new StorekeeperMainWindowViewModel();
+            DataContext = viewModel;
             InitializeComponent();
+            if (viewModel.CloseAction == null)
+                viewModel.CloseAction = new Action(this.Close);
         }
     }
 }

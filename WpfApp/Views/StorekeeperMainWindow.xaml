@@ -11,9 +11,6 @@
         MinHeight="470" MinWidth="400"
         MaxHeight="800" MaxWidth="800"
         Height="470" Width="400">
-    <Window.DataContext>
-        <vm:StorekeeperMainWindowViewModel/>
-    </Window.DataContext>
     <DockPanel LastChildFill="True">
 
         <WrapPanel DockPanel.Dock="Top" Orientation="Horizontal"
@@ -31,6 +28,8 @@
                     Command="{Binding ClothListWindowCommand}"/>
             <Button Content="Список фурнитуры"
                     Command="{Binding FurnitureListWindowCommand}"/>
+            <Button Content="Выход из системы"
+                    Command="{Binding AuthorizationWindowCommand}"/>
         </StackPanel>
     </DockPanel>
 </Window>

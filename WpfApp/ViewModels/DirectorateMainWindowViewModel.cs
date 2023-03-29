@@ -12,6 +12,7 @@ namespace WpfApp.ViewModels
 {
     internal class DirectorateMainWindowViewModel : ViewModel
     {
+        public Action CloseAction { get; set; }
 
         #region Данные внешнего вида страницы
 
@@ -35,12 +36,32 @@ namespace WpfApp.ViewModels
 
         #endregion
 
+        #region Команда для перехода на страницу авторизации
+
+        public ICommand AuthorizationWindowCommand { get; }
+
+        private bool CanAuthorizationWindowCommandExecute(object parameter) => true;
+        private void OnAuthorizationWindowCommandExecuted(object parameter)
+        {
+            Authorization authorization = new Authorization();
+            authorization.Show();
+            CloseAction();
+        }
+
+        #endregion
+
         #endregion
 
         public DirectorateMainWindowViewModel()
         {
 
+            #region Команды
+
             ProductListWindowCommand = new LambdaCommand(OnProductKistWindowCommandExecuted, CanProductKistWindowCommandExecute);
+            AuthorizationWindowCommand = new LambdaCommand(OnAuthorizationWindowCommandExecuted, CanAuthorizationWindowCommandExecute);
+
+            #endregion
+
         }
 
     }

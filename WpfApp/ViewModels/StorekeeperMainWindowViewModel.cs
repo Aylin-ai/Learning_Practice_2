@@ -12,6 +12,8 @@ namespace WpfApp.ViewModels
 {
     internal class StorekeeperMainWindowViewModel : ViewModel
     {
+        public Action CloseAction { get; set; }
+
 
         #region Данные внешнего вида страницы
 
@@ -61,6 +63,20 @@ namespace WpfApp.ViewModels
 
         #endregion
 
+        #region Команда для перехода на страницу авторизации
+
+        public ICommand AuthorizationWindowCommand { get; }
+
+        private bool CanAuthorizationWindowCommandExecute(object parameter) => true;
+        private void OnAuthorizationWindowCommandExecuted(object parameter)
+        {
+            Authorization authorization = new Authorization();
+            authorization.Show();
+            CloseAction();
+        }
+
+        #endregion
+
         #endregion
 
         public StorekeeperMainWindowViewModel()
@@ -70,6 +86,7 @@ namespace WpfApp.ViewModels
             ClothListWindowCommand = new LambdaCommand(OnClothListWindowCommandExecuted, CanClothListWindowCommandExecute);
             ProductListWindowCommand = new LambdaCommand(OnProductKistWindowCommandExecuted, CanProductKistWindowCommandExecute);
             FurnitureListWindowCommand = new LambdaCommand(OnFurnitureListWindowCommandExecuted, CanFurnitureListWindowCommandExecute);
+            AuthorizationWindowCommand = new LambdaCommand(OnAuthorizationWindowCommandExecuted, CanAuthorizationWindowCommandExecute);
 
             #endregion
         }
