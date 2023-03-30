@@ -2,6 +2,7 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using WpfApp.Models;
 using WpfApp.ViewModels;
 
@@ -82,6 +82,46 @@ namespace WpfApp.Views
             //    ObjWorkBook.Close(false, Type.Missing, Type.Missing);
             //    ObjWorkExcel.Quit();
             //    GC.Collect();
+            //}
+
+            //OpenFileDialog images = new OpenFileDialog
+            //{
+            //    Multiselect = true,
+            //    Title = "Выберите изображения",
+            //    InitialDirectory = "D:\\Учеба\\Учебная практика 2\\Данные для базы данных\\images"
+            //};
+            //images.ShowDialog();
+            //if (images.FileName == String.Empty)
+            //    return;
+            //MySqlConnection conn = DBUtils.GetDBConnection();
+            //conn.Open();
+            //int i = 0;
+            //try
+            //{
+            //    string ImageNotFound = @"D:\Учеба\Учебная практика 2\Данные для базы данных\images\ImageNotFound.jpg";
+            //    string sql = $"update product set Product_Image = @Image where Product_Image = @true";
+            //    MySqlCommand cmd = new MySqlCommand();
+            //    cmd.Connection = conn;
+            //    cmd.CommandText = sql;
+
+            //    for (i = 0; i < 945; i++)
+            //    {
+            //        cmd.Parameters.AddWithValue("@Image", ImageNotFound);
+            //        cmd.Parameters.AddWithValue("@true", 1);
+            //        cmd.ExecuteNonQuery();
+            //        cmd.Parameters.Clear();
+            //    }
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //    MessageBox.Show(images.SafeFileNames[i].Split('.')[0]);
+            //}
+            //finally
+            //{
+            //    conn.Close();
+            //    conn.Dispose();
             //}
         }
     }

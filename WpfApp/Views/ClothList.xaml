@@ -9,8 +9,8 @@
         mc:Ignorable="d"
         Icon="{Binding IconSource}"
         Title="ClothList" 
-        MinHeight="400"  Height="400" 
-        MinWidth="750" Width="750">
+        MinHeight="400"  Height="600" 
+        MinWidth="800" Width="800">
     <Window.DataContext>
         <vm:ClothListViewModel/>
     </Window.DataContext>
@@ -24,11 +24,53 @@
 
         </WrapPanel>
 
+        <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Left" Margin="10">
+
+            <Label Content="Выберите е.и. размерности"/>
+            <ComboBox>
+                <ComboBoxItem Content="см"
+                              IsSelected="True">
+                    <ComboBoxItem.InputBindings>
+                        <MouseBinding Command="{Binding ToCMCommand}"
+                                      MouseAction="LeftClick"/>
+                    </ComboBoxItem.InputBindings>
+                </ComboBoxItem>
+                <ComboBoxItem Content="м">
+                    <ComboBoxItem.InputBindings>
+                        <MouseBinding Command="{Binding ToMCommand}"
+                                      MouseAction="LeftClick"/>
+                    </ComboBoxItem.InputBindings>
+                </ComboBoxItem>
+                <ComboBoxItem Content="дм">
+                    <ComboBoxItem.InputBindings>
+                        <MouseBinding Command="{Binding ToDMCommand}"
+                                      MouseAction="LeftClick"/>
+                    </ComboBoxItem.InputBindings>
+                </ComboBoxItem>
+                <ComboBoxItem Content="мм">
+                    <ComboBoxItem.InputBindings>
+                        <MouseBinding Command="{Binding ToMMCommand}"
+                                      MouseAction="LeftClick"/>
+                    </ComboBoxItem.InputBindings>
+                </ComboBoxItem>
+            </ComboBox>
+
+        </StackPanel>
+
         <ScrollViewer>
-            <DataGrid ItemsSource="{Binding Cloths}" AutoGenerateColumns="False">
-                <DataGrid.Columns>
+            <DataGrid ItemsSource="{Binding FrontCloths}" 
+                      AutoGenerateColumns="False">
+                <DataGrid.Columns >
+                    <DataGridTemplateColumn Header="Картинка">
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <Image Width="300" Height="300" Source="{Binding Image}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTextColumn Header="Артикул" Binding="{Binding Articul}"/>
-                    <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="Название" Binding="{Binding Name}"
+                                        MinWidth="250" Width="250"/>
                     <DataGridTextColumn Header="Длина(см)" Binding="{Binding Length}"/>
                     <DataGridTextColumn Header="Ширина(см)" Binding="{Binding Width}"/>
                     <DataGridTextColumn Header="Цена(руб)" Binding="{Binding Cost}"/>

@@ -9,8 +9,8 @@
         mc:Ignorable="d"
         Icon="{Binding IconSource}"
         Title="FurnitureList" 
-        MinHeight="400"  Height="400" 
-        MinWidth="950" Width="950">
+        MinHeight="400"  Height="600" 
+        MinWidth="800" Width="850">
     <Window.DataContext>
         <vm:FurnitureListViewModel/>
     </Window.DataContext>
@@ -24,15 +24,84 @@
 
         </WrapPanel>
 
+        <WrapPanel DockPanel.Dock="Top" HorizontalAlignment="Left" Margin="10"
+                    Orientation="Horizontal">
+
+            <StackPanel Margin="10">
+                <Label Content="Выберите е.и. размерности"/>
+                <ComboBox>
+                    <ComboBoxItem Content="см"
+                                  IsSelected="True">
+                        <ComboBoxItem.InputBindings>
+                            <MouseBinding Command="{Binding ToCMCommand}"
+                                      MouseAction="LeftClick"/>
+                        </ComboBoxItem.InputBindings>
+                    </ComboBoxItem>
+                    <ComboBoxItem Content="м">
+                        <ComboBoxItem.InputBindings>
+                            <MouseBinding Command="{Binding ToMCommand}"
+                                      MouseAction="LeftClick"/>
+                        </ComboBoxItem.InputBindings>
+                    </ComboBoxItem>
+                    <ComboBoxItem Content="дм">
+                        <ComboBoxItem.InputBindings>
+                            <MouseBinding Command="{Binding ToDMCommand}"
+                                      MouseAction="LeftClick"/>
+                        </ComboBoxItem.InputBindings>
+                    </ComboBoxItem>
+                    <ComboBoxItem Content="мм">
+                        <ComboBoxItem.InputBindings>
+                            <MouseBinding Command="{Binding ToMMCommand}"
+                                      MouseAction="LeftClick"/>
+                        </ComboBoxItem.InputBindings>
+                    </ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel Margin="10">
+                <Label Content="Выберите е.и. веса"/>
+                <ComboBox>
+                    <ComboBoxItem Content="гр"
+                                  IsSelected="True">
+                        <ComboBoxItem.InputBindings>
+                            <MouseBinding Command="{Binding ToGRCommand}"
+                                      MouseAction="LeftClick"/>
+                        </ComboBoxItem.InputBindings>
+                    </ComboBoxItem>
+                    <ComboBoxItem Content="кг">
+                        <ComboBoxItem.InputBindings>
+                            <MouseBinding Command="{Binding ToKGCommand}"
+                                      MouseAction="LeftClick"/>
+                        </ComboBoxItem.InputBindings>
+                    </ComboBoxItem>
+                    <ComboBoxItem Content="т">
+                        <ComboBoxItem.InputBindings>
+                            <MouseBinding Command="{Binding ToTCommand}"
+                                      MouseAction="LeftClick"/>
+                        </ComboBoxItem.InputBindings>
+                    </ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+
+        </WrapPanel>
+
         <ScrollViewer>
-            <DataGrid ItemsSource="{Binding Furnitures}" AutoGenerateColumns="False">
-                <DataGrid.Columns>
+            <DataGrid ItemsSource="{Binding FrontFurnitures}" 
+                      AutoGenerateColumns="False">
+                <DataGrid.Columns >
+                    <DataGridTemplateColumn Header="Картинка">
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <Image Width="300" Height="300" Source="{Binding Image}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTextColumn Header="Артикул" Binding="{Binding Articul}"/>
                     <DataGridTextColumn Header="Название" Binding="{Binding Name}"
-                                        Width="400"/>
-                    <DataGridTextColumn Header="Ширина(см)" Binding="{Binding Width}"/>
-                    <DataGridTextColumn Header="Длина(см)" Binding="{Binding Length}"/>
-                    <DataGridTextColumn Header="Вес(гр)" Binding="{Binding Weight}"/>
+                                        MinWidth="250" Width="250"/>
+                    <DataGridTextColumn Header="Ширина" Binding="{Binding Width}"/>
+                    <DataGridTextColumn Header="Длина" Binding="{Binding Length}"/>
+                    <DataGridTextColumn Header="Вес" Binding="{Binding Weight}"/>
                     <DataGridTextColumn Header="Цена(руб)" Binding="{Binding Cost}"/>
                 </DataGrid.Columns>
             </DataGrid>
