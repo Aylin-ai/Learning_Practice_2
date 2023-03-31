@@ -30,6 +30,8 @@
                     Command="{Binding MaterialsAtStoreWindowCommand}"/>
             <Button Content="Списание материалов"
                     Command="{Binding MaterialWriteOffWindowCommand}"/>
+            <Button Content="Поступление материалов"
+                    Command="{Binding MaterialComingWindowCommand}"/>
             <Button Content="Выход из системы"
                     Command="{Binding AuthorizationWindowCommand}"/>
         </StackPanel>

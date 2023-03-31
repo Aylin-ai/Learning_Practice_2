@@ -89,6 +89,19 @@ namespace WpfApp.ViewModels
 
         #endregion
 
+        #region Команда перехода на страницу поступления материалов
+
+        public ICommand MaterialComingWindowCommand { get; }
+
+        private bool CanMaterialComingWindowCommandExecute(object parameter) => true;
+        private void OnMaterialComingWindowCommandExecuted(object parameter)
+        {
+            MaterialComing materialComing = new MaterialComing();
+            materialComing.Show();
+        }
+
+        #endregion
+
         #region Команда для перехода на страницу авторизации
 
         public ICommand AuthorizationWindowCommand { get; }
@@ -114,6 +127,7 @@ namespace WpfApp.ViewModels
             FurnitureListWindowCommand = new LambdaCommand(OnFurnitureListWindowCommandExecuted, CanFurnitureListWindowCommandExecute);
             MaterialsAtStoreWindowCommand = new LambdaCommand(OnMaterialsAtStoreWindowCommandExecuted, CanMaterialsAtStoreWindowCommandExecute);
             MaterialWriteOffWindowCommand = new LambdaCommand(OnMaterialWriteOffWindowCommandExecuted, CanMaterialWriteOffWindowCommandExecute);
+            MaterialComingWindowCommand = new LambdaCommand(OnMaterialComingWindowCommandExecuted, CanMaterialComingWindowCommandExecute);
             AuthorizationWindowCommand = new LambdaCommand(OnAuthorizationWindowCommandExecuted, CanAuthorizationWindowCommandExecute);
 
             #endregion
