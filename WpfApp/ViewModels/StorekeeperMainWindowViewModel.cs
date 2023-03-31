@@ -63,6 +63,32 @@ namespace WpfApp.ViewModels
 
         #endregion
 
+        #region Команда для перехода на страницу со списком материалов на складе
+
+        public ICommand MaterialsAtStoreWindowCommand { get; }
+
+        private bool CanMaterialsAtStoreWindowCommandExecute(object parameter) => true;
+        private void OnMaterialsAtStoreWindowCommandExecuted(object parameter)
+        {
+            MaterialsAtStore materialsAtStore = new MaterialsAtStore();
+            materialsAtStore.Show();
+        }
+
+        #endregion
+
+        #region Команда перехода на страницу списания материалов
+
+        public ICommand MaterialWriteOffWindowCommand { get; }
+
+        private bool CanMaterialWriteOffWindowCommandExecute(object parameter) => true;
+        private void OnMaterialWriteOffWindowCommandExecuted(object parameter)
+        {
+            MaterialWriteOff materialWriteOff = new MaterialWriteOff();
+            materialWriteOff.Show();
+        }
+
+        #endregion
+
         #region Команда для перехода на страницу авторизации
 
         public ICommand AuthorizationWindowCommand { get; }
@@ -86,6 +112,8 @@ namespace WpfApp.ViewModels
             ClothListWindowCommand = new LambdaCommand(OnClothListWindowCommandExecuted, CanClothListWindowCommandExecute);
             ProductListWindowCommand = new LambdaCommand(OnProductKistWindowCommandExecuted, CanProductKistWindowCommandExecute);
             FurnitureListWindowCommand = new LambdaCommand(OnFurnitureListWindowCommandExecuted, CanFurnitureListWindowCommandExecute);
+            MaterialsAtStoreWindowCommand = new LambdaCommand(OnMaterialsAtStoreWindowCommandExecuted, CanMaterialsAtStoreWindowCommandExecute);
+            MaterialWriteOffWindowCommand = new LambdaCommand(OnMaterialWriteOffWindowCommandExecuted, CanMaterialWriteOffWindowCommandExecute);
             AuthorizationWindowCommand = new LambdaCommand(OnAuthorizationWindowCommandExecuted, CanAuthorizationWindowCommandExecute);
 
             #endregion

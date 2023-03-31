@@ -1,0 +1,112 @@
+﻿<Window x:Class="WpfApp.Views.MaterialsAtStore"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp.Views"
+        xmlns:vm="clr-namespace:WpfApp.ViewModels"
+        xmlns:model="clr-namespace:WpfApp.Models"
+        mc:Ignorable="d"
+        Icon="{Binding IconSource}"
+        Title="FurnitureList" 
+        MinHeight="400"  Height="600" 
+        MinWidth="800" Width="1250">
+    <Window.DataContext>
+        <vm:MaterialsAtStoreViewModel/>
+    </Window.DataContext>
+    <DockPanel LastChildFill="True">
+
+        <WrapPanel DockPanel.Dock="Top" Orientation="Horizontal"
+                   HorizontalAlignment="Center">
+
+            <Image Source="{Binding ImageSource}" Width="70"/>
+            <Label Content="Список материалов на складе" VerticalAlignment="Center"/>
+
+        </WrapPanel>
+
+        <StackPanel DockPanel.Dock="Top" Margin="10" HorizontalAlignment="Left">
+            <Label Content="Выберите е.и. размерности"/>
+            <ComboBox>
+                <ComboBoxItem Content="см"
+                              IsSelected="True">
+                    <ComboBoxItem.InputBindings>
+                        <MouseBinding Command="{Binding ToCMCommand}"
+                                      MouseAction="LeftClick"/>
+                    </ComboBoxItem.InputBindings>
+                </ComboBoxItem>
+                <ComboBoxItem Content="м">
+                    <ComboBoxItem.InputBindings>
+                        <MouseBinding Command="{Binding ToMCommand}"
+                                      MouseAction="LeftClick"/>
+                    </ComboBoxItem.InputBindings>
+                </ComboBoxItem>
+                <ComboBoxItem Content="дм">
+                    <ComboBoxItem.InputBindings>
+                        <MouseBinding Command="{Binding ToDMCommand}"
+                                      MouseAction="LeftClick"/>
+                    </ComboBoxItem.InputBindings>
+                </ComboBoxItem>
+                <ComboBoxItem Content="мм">
+                    <ComboBoxItem.InputBindings>
+                        <MouseBinding Command="{Binding ToMMCommand}"
+                                      MouseAction="LeftClick"/>
+                    </ComboBoxItem.InputBindings>
+                </ComboBoxItem>
+            </ComboBox>
+        </StackPanel>
+
+        <TabControl>
+
+            <TabItem Header="Фурнитура">
+
+                <ScrollViewer>
+                    <DataGrid ItemsSource="{Binding FurnituresAtStore}" 
+                      AutoGenerateColumns="False">
+                        <DataGrid.Columns >
+                            <DataGridTextColumn Header="Артикул" 
+                                                Binding="{Binding Articul}"/>
+                            <DataGridTextColumn Header="Название" 
+                                                Binding="{Binding Name}"
+                                        MinWidth="250" Width="250"/>
+                            <DataGridTextColumn Header="Цена" 
+                                                Binding="{Binding Cost}"/>
+                            <DataGridTextColumn Header="Партия на складе" 
+                                                Binding="{Binding Party}"/>
+                            <DataGridTextColumn Header="Количество на складе" 
+                                                Binding="{Binding Quantity}"/>
+                            <DataGridTextColumn Header="Закупочная стоимость"
+                                                Binding="{Binding CostOfAllFurniture}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </ScrollViewer>
+
+            </TabItem>
+
+            <TabItem Header="Ткани">
+                
+                <ScrollViewer>
+                    <DataGrid ItemsSource="{Binding ClothsAtStore}" 
+                      AutoGenerateColumns="False">
+                        <DataGrid.Columns >
+                            <DataGridTextColumn Header="Артикул" Binding="{Binding Articul}"/>
+                            <DataGridTextColumn Header="Название" Binding="{Binding Name}"
+                                        MinWidth="250" Width="250"/>
+                            <DataGridTextColumn Header="Длина" Binding="{Binding LengthOfCloth}"/>
+                            <DataGridTextColumn Header="Ширина" Binding="{Binding WidthOfCloth}"/>
+                            <DataGridTextColumn Header="Цена (Дл * Шир)" Binding="{Binding CostOfCloth}"/>
+                            <DataGridTextColumn Header="Длина ткани на складе" 
+                                                Binding="{Binding LengthOfClothAtStoreInSM}"/>
+                            <DataGridTextColumn Header="Ширина ткани на складе" 
+                                                Binding="{Binding WidthOfClothAtStoreInSM}"/>
+                            <DataGridTextColumn Header="Закупочная стоимость"
+                                                Binding="{Binding CostOfAllCloth}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </ScrollViewer>
+                
+            </TabItem>
+
+        </TabControl>
+
+    </DockPanel>
+</Window>

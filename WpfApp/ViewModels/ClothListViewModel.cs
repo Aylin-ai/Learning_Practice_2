@@ -16,8 +16,8 @@ namespace WpfApp.ViewModels
     internal class ClothListViewModel : ViewModel
     {
 
-        private ObservableCollection<Product> _cloths = new ObservableCollection<Product>();
-        public ObservableCollection<Product> FrontCloths
+        private ObservableCollection<Cloth> _cloths = new ObservableCollection<Cloth>();
+        public ObservableCollection<Cloth> FrontCloths
         {
             get => _cloths;
             set => Set(ref _cloths, value);
@@ -193,7 +193,7 @@ namespace WpfApp.ViewModels
                     conn.Open();
                     try
                     {
-                        string sql = "SELECT * FROM product";
+                        string sql = "SELECT * FROM cloth";
 
                         MySqlCommand cmd = new MySqlCommand();
                         cmd.CommandText = sql;
@@ -205,7 +205,7 @@ namespace WpfApp.ViewModels
                         {
                             while (reader.Read())
                             {
-                                FrontCloths.Add(new Product()
+                                FrontCloths.Add(new Cloth()
                                 {
                                     Articul = reader.GetString(0),
                                     Name = reader.GetString(1),

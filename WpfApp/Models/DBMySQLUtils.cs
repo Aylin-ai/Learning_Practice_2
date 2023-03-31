@@ -13,7 +13,7 @@ namespace WpfApp.Models
         {
             // Connection String.
             String connString = "Server=" + host + ";Database=" + database
-                + ";port=" + port + ";User Id=" + username + ";password=" + password;
+                + ";port=" + port + ";User Id=" + username + ";password=" + password + ";Allow User Variables=True";
 
             MySqlConnection conn = new MySqlConnection(connString);
 

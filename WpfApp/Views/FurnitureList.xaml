@@ -20,7 +20,7 @@
                    HorizontalAlignment="Center">
 
             <Image Source="{Binding ImageSource}" Width="70"/>
-            <Label Content="Список продуктов" VerticalAlignment="Center"/>
+            <Label Content="Список фурнитуры" VerticalAlignment="Center"/>
 
         </WrapPanel>
 

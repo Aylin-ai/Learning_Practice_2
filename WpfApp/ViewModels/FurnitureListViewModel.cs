@@ -271,8 +271,8 @@ namespace WpfApp.ViewModels
                                     Width = reader.GetFloat(2),
                                     Length = reader.GetFloat(3),
                                     Weight = reader.GetFloat(4),
-                                    Cost = reader.GetFloat(5),
-                                    Image = reader.GetString(6),
+                                    Cost = reader.GetFloat(6),
+                                    Image = reader.GetString(5),
                                 });
                             }
                         }

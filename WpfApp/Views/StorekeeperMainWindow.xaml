@@ -22,12 +22,14 @@
         </WrapPanel>
 
         <StackPanel>
-            <Button Content="Список изделий"
-                    Command="{Binding ProductListWindowCommand}"/>
             <Button Content="Список тканей"
                     Command="{Binding ClothListWindowCommand}"/>
             <Button Content="Список фурнитуры"
                     Command="{Binding FurnitureListWindowCommand}"/>
+            <Button Content="Список материалов на складе"
+                    Command="{Binding MaterialsAtStoreWindowCommand}"/>
+            <Button Content="Списание материалов"
+                    Command="{Binding MaterialWriteOffWindowCommand}"/>
             <Button Content="Выход из системы"
                     Command="{Binding AuthorizationWindowCommand}"/>
         </StackPanel>

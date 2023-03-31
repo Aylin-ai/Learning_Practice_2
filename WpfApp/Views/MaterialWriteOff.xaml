@@ -1,0 +1,81 @@
+﻿<Window x:Class="WpfApp.Views.MaterialWriteOff"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:WpfApp.ViewModels"
+        xmlns:local="clr-namespace:WpfApp.Views"
+        mc:Ignorable="d"
+        Title="MaterialWriteOff" Height="550" Width="800">
+    <Window.DataContext>
+        <vm:MaterialWriteOffViewModel/>
+    </Window.DataContext>
+    <DockPanel Margin="10" LastChildFill="True">
+        <WrapPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center">
+            <Image Source="{Binding ImageSource}" Width="70"/>
+            <Label Style="{StaticResource ResourceKey=TitleStyle}" 
+               Content="Списание материалов" DockPanel.Dock="Top"/>
+        </WrapPanel>
+
+        <TabControl>
+
+            <TabItem Header="Фурнитура">
+
+                
+                
+            </TabItem>
+
+            <TabItem Header="Ткань">
+
+                <StackPanel>
+
+                    <WrapPanel>
+                        
+                        <StackPanel>
+                            <Label Content="Артикул ткани"/>
+                            <ComboBox HorizontalAlignment="Center"
+                              ItemsSource="{Binding ClothsArticuls}"
+                              Text="Выберите артикул ткани"
+                              SelectedItem="{Binding SelectedArticul}"/>
+                        </StackPanel>
+
+                        <StackPanel>
+                            <Label Content="Доступно ширины для списания"/>
+                            <Label Content="{Binding ClothWidth}"
+                                   HorizontalAlignment="Center"/>
+                        </StackPanel>
+
+                        <StackPanel>
+                            <Label Content="Доступно длины для списания"/>
+                            <Label Content="{Binding ClothLength}"
+                                   HorizontalAlignment="Center"/>
+                        </StackPanel>
+
+                    </WrapPanel>
+
+                    <StackPanel HorizontalAlignment="Left">
+                        <Label Content="Единица измерения"/>
+                        <ComboBox HorizontalAlignment="Center"
+                              ItemsSource="{Binding MeasurementUnits}"
+                              SelectedItem="{Binding MeasurementUnit}"/>
+                    </StackPanel>
+
+                    <Label Content="Ширина для списания"/>
+                    <TextBox Text="{Binding UserWidth, Mode=TwoWay, 
+                        UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <Label Content="Длина для списания"/>
+                    <TextBox Text="{Binding UserLength, Mode=TwoWay,
+                        UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <Button Content="Списать"
+                            Command="{Binding ClothWriteOffCommand}"/>
+
+                </StackPanel>
+
+            </TabItem>
+            
+        </TabControl>
+        
+    </DockPanel>
+</Window>
