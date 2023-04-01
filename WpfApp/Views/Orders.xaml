@@ -1,0 +1,186 @@
+﻿<Window x:Class="WpfApp.Views.Orders"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp.Views"
+        mc:Ignorable="d"
+        xmlns:vm="clr-namespace:WpfApp.ViewModels"
+        xmlns:model="clr-namespace:WpfApp.Models"
+        Title="Orders" 
+        Height="550" Width="800"
+        MinHeight="550" MinWidth="800"
+        MaxHeight="700" MaxWidth="1000">
+    <DockPanel LastChildFill="True">
+
+        <WrapPanel DockPanel.Dock="Top" HorizontalAlignment="Center">
+            <Image Source="{Binding ImageSource}" Width="70"/>
+            <Label Style="{StaticResource ResourceKey=TitleStyle}" 
+               Content="Заказы" DockPanel.Dock="Top"/>
+        </WrapPanel>
+
+        <Grid>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.9*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <DockPanel Grid.Column="0">
+
+                <WrapPanel DockPanel.Dock="Top"
+                           HorizontalAlignment="Center">
+
+                    <Label Content="Список заказов" 
+                           HorizontalAlignment="Center"/>
+
+                </WrapPanel>
+
+                <StackPanel DockPanel.Dock="Bottom"
+                           HorizontalAlignment="Center"
+                            Orientation="Horizontal">
+
+                    <Button Content="Одобрить"
+                            Command="{Binding OrderConfirmCommand}"
+                            CommandParameter="{Binding SelectedOrder}"/>
+                    <Button Content="Отказать"
+                            Command="{Binding OrderDenyCommand}"
+                            CommandParameter="{Binding SelectedOrder}"/>
+
+                </StackPanel>
+                
+                <ScrollViewer>
+
+                    <ListView ItemsSource="{Binding Orders}"
+                              SelectedItem="{Binding SelectedOrder}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate DataType="model:Order">
+
+                                <StackPanel>
+
+                                    <WrapPanel>
+                                        <Label Content="Дата создания заказа -"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                        <Label Content="{Binding OrderCreationDate}"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                    </WrapPanel>
+
+                                    <WrapPanel>
+                                        <Label Content="Этап заказа -"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                        <Label Content="{Binding OrderPhase}"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                    </WrapPanel>
+
+                                    <WrapPanel>
+                                        <Label Content="Заказчик -"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                        <Label Content="{Binding OrderCustomer}"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                    </WrapPanel>
+
+                                    <WrapPanel>
+                                        <Label Content="Менеджер -"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                        <Label Content="{Binding OrderManager}"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                    </WrapPanel>
+
+                                    <WrapPanel>
+                                        <Label Content="Общая цена -"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                        <Label Content="{Binding OrderCost}"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                    </WrapPanel>
+
+                                </StackPanel>
+                                
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    
+                </ScrollViewer>
+                
+            </DockPanel>
+
+            <DockPanel Grid.Column="1">
+
+                <WrapPanel HorizontalAlignment="Center"
+                           DockPanel.Dock="Top">
+                    <Label Content="Список товаров в заказе"/>
+                </WrapPanel>
+
+                <ScrollViewer>
+
+                    <ListView ItemsSource="{Binding ProductsInOrder}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate DataType="model:ProductInOrder">
+
+                                <StackPanel Orientation="Horizontal">
+
+                                    <Image Source="{Binding ProductImage}"
+                                           Width="150" Height="150"/>
+
+                                    <StackPanel>
+
+                                        <WrapPanel>
+                                            <Label Content="Артикул -"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                            <Label Content="{Binding ProductArticul}"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                        </WrapPanel>
+
+                                        <WrapPanel>
+                                            <Label Content="Имя -"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                            <Label Content="{Binding ProductName}"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                        </WrapPanel>
+
+                                        <WrapPanel>
+                                            <Label Content="Кол-во -"
+                                               Margin="0"/>
+                                            <Label Content="{Binding ProductQuantity}"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                        </WrapPanel>
+
+                                        <WrapPanel>
+                                            <Label Content="Общая стоимость -"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                            <Label Content="{Binding ProductPriceXQuantity}"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                        </WrapPanel>
+
+                                    </StackPanel>
+
+                                </StackPanel>
+
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    
+                </ScrollViewer>
+                
+            </DockPanel>
+            
+        </Grid>
+        
+    </DockPanel>
+</Window>

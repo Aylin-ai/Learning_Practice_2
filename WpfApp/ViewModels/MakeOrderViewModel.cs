@@ -179,6 +179,28 @@ namespace WpfApp.ViewModels
                 }
                 else
                 {
+                    if (ProductsInOrder.Count != 0)
+                    {
+                        foreach (var product in ProductsInOrder)
+                        {
+                            if (SelectedProductName == $"{product.ProductName}({ProductArticul})")
+                            {
+                                product.ProductQuantity += int.Parse(UserQuantity);
+                                product.ProductPriceXQuantity += float.Parse(ProductCost) * int.Parse(UserQuantity);
+                                IsStackPanel1Enabled = true;
+                                IsStackPanel2Enabled = false;
+                                SelectedProductName = null;
+                                ProductArticul = "";
+                                ProductName = "";
+                                ProductImage = "";
+                                ProductCost = "";
+                                ProductLength = "";
+                                ProductWidth = "";
+                                UserQuantity = "";
+                                return;
+                            }
+                        }
+                    }
                     ProductsInOrder.Add(new ProductInOrder
                     {
                         ProductName = ProductName,

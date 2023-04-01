@@ -36,6 +36,19 @@ namespace WpfApp.ViewModels
 
         #endregion
 
+        #region Команда для перехода на страницу со списком заказов
+
+        public ICommand OrdersWindowCommand { get; }
+
+        private bool CanOrdersWindowCommandExecute(object parameter) => true;
+        private void OnOrdersWindowCommandExecuted(object parameter)
+        {
+            Orders orders = new Orders();
+            orders.Show();
+        }
+
+        #endregion
+
         #region Команда для перехода на страницу авторизации
 
         public ICommand AuthorizationWindowCommand { get; }
@@ -58,6 +71,7 @@ namespace WpfApp.ViewModels
             #region Команды
 
             ProductListWindowCommand = new LambdaCommand(OnProductKistWindowCommandExecuted, CanProductKistWindowCommandExecute);
+            OrdersWindowCommand = new LambdaCommand(OnOrdersWindowCommandExecuted, CanOrdersWindowCommandExecute);
             AuthorizationWindowCommand = new LambdaCommand(OnAuthorizationWindowCommandExecuted, CanAuthorizationWindowCommandExecute);
 
             #endregion

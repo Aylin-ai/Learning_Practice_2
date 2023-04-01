@@ -27,6 +27,9 @@
             <Button Content="Список изделий"
                     Command="{Binding ProductListWindowCommand}"/>
 
+            <Button Content="Список заказов"
+                    Command="{Binding OrdersWindowCommand}"/>
+
             <Button Content="Выход из системы"
                     Command="{Binding AuthorizationWindowCommand}"/>
             
