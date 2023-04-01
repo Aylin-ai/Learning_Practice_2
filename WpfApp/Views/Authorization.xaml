@@ -30,7 +30,9 @@
                     <TextBox Text="{Binding Password1, Mode=TwoWay}">
                     </TextBox>
 
-                    <Button Content="Войти" Command="{Binding AuthorizationCommand}"/>
+                    <Button Content="Войти" 
+                            Command="{Binding AuthorizationCommand}"
+                            CommandParameter="{Binding Login}"/>
 
                 </StackPanel>
                 

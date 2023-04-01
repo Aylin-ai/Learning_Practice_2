@@ -17,11 +17,10 @@ namespace WpfApp.ViewModels
     {
 
         private ObservableCollection<Cloth> _cloths = new ObservableCollection<Cloth>();
-        public ObservableCollection<Cloth> FrontCloths
-        {
-            get => _cloths;
-            set => Set(ref _cloths, value);
-        }
+        public ObservableCollection<Cloth> FrontCloths{ get => _cloths; set => Set(ref _cloths, value); }
+
+        private ObservableCollection<ClothInnerInformation> _clothsInnerInformation = new ObservableCollection<ClothInnerInformation>();
+        public ObservableCollection<ClothInnerInformation> ClothsInnerInformation { get => _clothsInnerInformation; set => Set(ref _clothsInnerInformation, value); }
 
         #region Данные изделий
 
@@ -55,15 +54,15 @@ namespace WpfApp.ViewModels
             switch (_myPreviousSelectedItem)
             {
                 case "см":
-                    GetProducts("/100");
+                    GetCloths("/100");
                     break;
                 case "м":
                     break;
                 case "мм":
-                    GetProducts("/1000");
+                    GetCloths("/1000");
                     break;
                 case "дм":
-                    GetProducts("/10");
+                    GetCloths("/10");
                     break;
             }
             _myPreviousSelectedItem = "м";
@@ -73,13 +72,13 @@ namespace WpfApp.ViewModels
             switch (_myPreviousSelectedItem)
             {
                 case "см":
-                    GetProducts("/10");
+                    GetCloths("/10");
                     break;
                 case "м":
-                    GetProducts("*10");
+                    GetCloths("*10");
                     break;
                 case "мм":
-                    GetProducts("/100");
+                    GetCloths("/100");
                     break;
                 case "дм":
                     break;
@@ -91,15 +90,15 @@ namespace WpfApp.ViewModels
             switch (_myPreviousSelectedItem)
             {
                 case "см":
-                    GetProducts("*10");
+                    GetCloths("*10");
                     break;
                 case "м":
-                    GetProducts("*1000");
+                    GetCloths("*1000");
                     break;
                 case "мм":
                     break;
                 case "дм":
-                    GetProducts("*100");
+                    GetCloths("*100");
                     break;
             }
             _myPreviousSelectedItem = "мм";
@@ -111,13 +110,13 @@ namespace WpfApp.ViewModels
                 case "см":
                     break;
                 case "м":
-                    GetProducts("*100");
+                    GetCloths("*100");
                     break;
                 case "мм":
-                    GetProducts("/10");
+                    GetCloths("/10");
                     break;
                 case "дм":
-                    GetProducts("*10");
+                    GetCloths("*10");
                     break;
             }
             _myPreviousSelectedItem = "см";
@@ -129,7 +128,8 @@ namespace WpfApp.ViewModels
 
         public ClothListViewModel()
         {
-            GetProducts();
+            GetCloths();
+            GetInnerInformationAboutCLoth();
 
             #region Команды
 
@@ -142,7 +142,7 @@ namespace WpfApp.ViewModels
         }
 
 
-        private void GetProducts(string unit = "")
+        private void GetCloths(string unit = "")
         {
             switch (unit)
             {
@@ -229,6 +229,48 @@ namespace WpfApp.ViewModels
                     break;
             }
 
+        }
+
+        private void GetInnerInformationAboutCLoth()
+        {
+            MySqlConnection conn = DBUtils.GetDBConnection();
+            conn.Open();
+            try
+            {
+                string sql = "select cii.ClothInnerInfortmation_Articul, gc.GeneralColor_Name, gp.GeneralPattern_Name, gcm.GeneralComposition_Name " +
+                    "from clothinnerinformation cii inner join generalcolor gc on cii.ClothInnerInfortmation_ClothColor = gc.GeneralColor_Id " +
+                    "inner join generalpattern gp on cii.ClothInnerInfortmation_ClothPattern = gp.GeneralPattern_Id " +
+                    "inner join generalcomposition gcm on cii.ClothInnerInfortmation_ClothComposition = gcm.GeneralComposition_Id; ";
+
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = sql;
+                cmd.Connection = conn;
+
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        ClothsInnerInformation.Add(new ClothInnerInformation()
+                        {
+                            Articul = reader.GetString(0),
+                            Color = reader.GetString(1),
+                            Pattern = reader.GetString(2),
+                            Composition = reader.GetString(3)
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+                conn.Dispose();
+            }
         }
 
     }

@@ -12,6 +12,7 @@ namespace WpfApp.Models
         private float _length;
         private float _width;
         private float _weight;
+        private string _type;
 
         public string Articul { get; set; }
         public string Name { get; set; }
@@ -49,6 +50,19 @@ namespace WpfApp.Models
                 {
                     _weight = value;
                     OnPropertyChanged(nameof(Weight));
+                }
+            }
+        }
+
+        public string Type
+        {
+            get => _type;
+            set
+            {
+                if (_type != value)
+                {
+                    _type = value;
+                    OnPropertyChanged(nameof(Type));
                 }
             }
         }

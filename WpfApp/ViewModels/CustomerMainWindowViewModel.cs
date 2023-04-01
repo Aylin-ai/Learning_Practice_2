@@ -17,12 +17,28 @@ namespace WpfApp.ViewModels
 
         #region Данные внешнего вида страницы
 
+        private string _userLogin;
+
         public string IconSource { get; set; } = "D:\\Учеба\\Учебная практика 2\\WSR2017_NC_Skill09_RU\\Сессия 1\\Logo\\logo-01.jpg";
         public string ImageSource { get; set; } = "D:\\Учеба\\Учебная практика 2\\WSR2017_NC_Skill09_RU\\Сессия 1\\Logo\\logo-02.jpg";
+        public string UserLogin { get => _userLogin; set => Set(ref _userLogin, value); }
 
         #endregion
 
         #region Команды
+
+        #region Команда для перехода на страницу создания заказа
+
+        public ICommand MakeOrderWindowCommand { get; }
+
+        private bool CanMakeOrderWindowCommandExecute(object parameter) => true;
+        private void OnMakeOrderWindowCommandExecuted(object parameter)
+        {
+            MakeOrder makeOrder = new MakeOrder(parameter as string);
+            makeOrder.Show();
+        }
+
+        #endregion
 
         #region Команда для перехода на страницу авторизации
 
@@ -40,10 +56,13 @@ namespace WpfApp.ViewModels
 
         #endregion
 
-        public CustomerMainWindowViewModel()
+        public CustomerMainWindowViewModel(string userLogin)
         {
+            UserLogin = userLogin;
+
             #region Команды
 
+            MakeOrderWindowCommand = new LambdaCommand(OnMakeOrderWindowCommandExecuted, CanMakeOrderWindowCommandExecute);
             AuthorizationWindowCommand = new LambdaCommand(OnAuthorizationWindowCommandExecuted, CanAuthorizationWindowCommandExecute);
 
             #endregion

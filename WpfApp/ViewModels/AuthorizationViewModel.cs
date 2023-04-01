@@ -27,9 +27,13 @@ namespace WpfApp.ViewModels
 
         #region Данные для авторизации
 
-        public string Login { get; set; } = "";
-        public string Password1 { get; set; } = "";
-        public string Password2 { get; set; } = "";
+        private string _login = "";
+        private string _password1 = "";
+        private string _password2 = "";
+
+        public string Login { get => _login; set => Set(ref _login, value); }
+        public string Password1 { get => _password1; set => Set(ref _password1, value); }
+        public string Password2 { get => _password2; set => Set(ref _password2, value); }
 
         #endregion
 
@@ -153,7 +157,7 @@ namespace WpfApp.ViewModels
                                 switch (reader[2].ToString())
                                 {
                                     case "1":
-                                        CustomerMainWindow customerMainWindow = new CustomerMainWindow();
+                                        CustomerMainWindow customerMainWindow = new CustomerMainWindow(parameter as string);
                                         customerMainWindow.Show();
                                         CloseAction();
                                         break;

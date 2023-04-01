@@ -10,7 +10,7 @@
         Icon="{Binding IconSource}"
         Title="FurnitureList" 
         MinHeight="400"  Height="600" 
-        MinWidth="800" Width="850">
+        MinWidth="900" Width="900">
     <Window.DataContext>
         <vm:FurnitureListViewModel/>
     </Window.DataContext>
@@ -96,13 +96,21 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Артикул" Binding="{Binding Articul}"/>
-                    <DataGridTextColumn Header="Название" Binding="{Binding Name}"
+                    <DataGridTextColumn Header="Артикул" 
+                                        Binding="{Binding Articul}"/>
+                    <DataGridTextColumn Header="Название" 
+                                        Binding="{Binding Name}"
                                         MinWidth="250" Width="250"/>
-                    <DataGridTextColumn Header="Ширина" Binding="{Binding Width}"/>
-                    <DataGridTextColumn Header="Длина" Binding="{Binding Length}"/>
-                    <DataGridTextColumn Header="Вес" Binding="{Binding Weight}"/>
-                    <DataGridTextColumn Header="Цена(руб)" Binding="{Binding Cost}"/>
+                    <DataGridTextColumn Header="Ширина" 
+                                        Binding="{Binding Width}"/>
+                    <DataGridTextColumn Header="Длина" 
+                                        Binding="{Binding Length}"/>
+                    <DataGridTextColumn Header="Вес" 
+                                        Binding="{Binding Weight}"/>
+                    <DataGridTextColumn Header="Цена(руб)" 
+                                        Binding="{Binding Cost}"/>
+                    <DataGridTextColumn Header="Тип фурнитуры" 
+                                        Binding="{Binding Type}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </ScrollViewer>

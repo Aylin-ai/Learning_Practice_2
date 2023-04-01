@@ -57,26 +57,62 @@
 
         </StackPanel>
 
-        <ScrollViewer>
-            <DataGrid ItemsSource="{Binding FrontCloths}" 
+        <TabControl>
+
+            <TabItem Header="Ткань">
+
+                <ScrollViewer>
+                    <DataGrid ItemsSource="{Binding FrontCloths}" 
                       AutoGenerateColumns="False">
-                <DataGrid.Columns >
-                    <DataGridTemplateColumn Header="Картинка">
-                        <DataGridTemplateColumn.CellEditingTemplate>
-                            <DataTemplate>
-                                <Image Width="300" Height="300" Source="{Binding Image}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellEditingTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Артикул" Binding="{Binding Articul}"/>
-                    <DataGridTextColumn Header="Название" Binding="{Binding Name}"
-                                        MinWidth="250" Width="250"/>
-                    <DataGridTextColumn Header="Длина(см)" Binding="{Binding Length}"/>
-                    <DataGridTextColumn Header="Ширина(см)" Binding="{Binding Width}"/>
-                    <DataGridTextColumn Header="Цена(руб)" Binding="{Binding Cost}"/>
-                </DataGrid.Columns>
-            </DataGrid>
-        </ScrollViewer>
+                        <DataGrid.Columns >
+                            <DataGridTemplateColumn Header="Картинка">
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <Image Width="300" Height="300" Source="{Binding Image}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Артикул" 
+                                                Binding="{Binding Articul}"/>
+                            <DataGridTextColumn Header="Название" 
+                                                Binding="{Binding Name}"
+                                                MinWidth="250" Width="250"/>
+                            <DataGridTextColumn Header="Длина" 
+                                                Binding="{Binding Length}"/>
+                            <DataGridTextColumn Header="Ширина" 
+                                                Binding="{Binding Width}"/>
+                            <DataGridTextColumn Header="Цена(руб)" 
+                                                Binding="{Binding Cost}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </ScrollViewer>
+
+            </TabItem>
+
+            <TabItem Header="Цвет/Рисунок/Состав ткани">
+
+                <ScrollViewer>
+                    <DataGrid ItemsSource="{Binding ClothsInnerInformation}"
+                              AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Артикул" 
+                                                Binding="{Binding Articul}"/>
+                            <DataGridTextColumn Header="Цвет" 
+                                                Binding="{Binding Color}"/>
+                            <DataGridTextColumn Header="Рисунок" 
+                                                Binding="{Binding Pattern}"/>
+                            <DataGridTextColumn Header="Состав" 
+                                                Binding="{Binding Composition}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </ScrollViewer>
+                
+            </TabItem>
+            
+            
+        </TabControl>
+
+        
 
     </DockPanel>
 </Window>

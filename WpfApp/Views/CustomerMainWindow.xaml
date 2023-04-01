@@ -18,13 +18,16 @@
                    HorizontalAlignment="Center">
 
             <Image Source="{Binding ImageSource}" Width="70"/>
-            <Label Content="Клиент" VerticalAlignment="Center"/>
+            <Label Content="{Binding UserLogin}" VerticalAlignment="Center"/>
             
 
         </WrapPanel>
 
         <StackPanel>
 
+            <Button Content="Создание заказа"
+                    Command="{Binding MakeOrderWindowCommand}"
+                    CommandParameter="{Binding UserLogin}"/>
             <Button Content="Выход из системы"
                     Command="{Binding AuthorizationWindowCommand}"/>
 

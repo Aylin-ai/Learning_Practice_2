@@ -16,17 +16,15 @@ using WpfApp.ViewModels;
 namespace WpfApp.Views
 {
     /// <summary>
-    /// Логика взаимодействия для CustomerMainWindow.xaml
+    /// Логика взаимодействия для MakeOrder.xaml
     /// </summary>
-    public partial class CustomerMainWindow : Window
+    public partial class MakeOrder : Window
     {
-        public CustomerMainWindow(string UserLogin)
+        public MakeOrder(string userLogin)
         {
-            CustomerMainWindowViewModel viewModel = new CustomerMainWindowViewModel(UserLogin);
-            DataContext = viewModel;
+            MakeOrderViewModel vm = new MakeOrderViewModel(userLogin);
+            DataContext = vm;
             InitializeComponent();
-            if (viewModel.CloseAction == null)
-                viewModel.CloseAction = new Action(this.Close);
         }
     }
 }

@@ -252,7 +252,10 @@ namespace WpfApp.ViewModels
                     conn.Open();
                     try
                     {
-                        string sql = "SELECT * FROM furniture";
+                        string sql = "select f.Furniture_Articul, f.Furniture_Name, f.`Furniture_Width(mm)`, f.`Furniture_Length(mm)`, " +
+                            "f.`Furniture_Weight(gr)`, f.Furniture_Image, f.Furniture_Cost, gt.GeneralType_Name " +
+                            "from ( (furniture f inner join furnituretype ft on f.Furniture_Articul = ft.FurnitureType_Furniture_Articul) " +
+                            "inner join generaltype gt on ft.FurnitureType_GeneralType_Id = gt.GeneralType_Id);";
 
                         MySqlCommand cmd = new MySqlCommand();
                         cmd.CommandText = sql;
@@ -268,11 +271,12 @@ namespace WpfApp.ViewModels
                                 {
                                     Articul = reader.GetString(0),
                                     Name = reader.GetString(1),
-                                    Width = reader.GetFloat(2),
-                                    Length = reader.GetFloat(3),
+                                    Width = reader.GetFloat(2) / 10,
+                                    Length = reader.GetFloat(3) / 10,
                                     Weight = reader.GetFloat(4),
                                     Cost = reader.GetFloat(6),
                                     Image = reader.GetString(5),
+                                    Type = reader.GetString(7)
                                 });
                             }
                         }
