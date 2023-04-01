@@ -300,7 +300,7 @@ namespace WpfApp.ViewModels
                             "(@Id, @Date, @Phase, @Customer, @Manager, @Cost);";
                         cmd.CommandText = sql;
                         cmd.Parameters.AddWithValue("@Id", OrderId);
-                        cmd.Parameters.AddWithValue("@Date", DateTime.Now.ToString("yyyy-mm-dd"));
+                        cmd.Parameters.AddWithValue("@Date", DateTime.Now.ToString("yyyy-m-d"));
                         cmd.Parameters.AddWithValue("@Phase", "Ожидает подтверждения");
                         cmd.Parameters.AddWithValue("@Customer", UserLogin);
                         cmd.Parameters.AddWithValue("@Manager", SelectedManager);
@@ -309,18 +309,32 @@ namespace WpfApp.ViewModels
                         if (rowsaffected > 0)
                         {
                             sql = "insert into generalorderproduct values " +
-                                "(@OrderId, @ProductArticul, @ProductQuantity);";
+                                "(@OrderId, @ProductArticul, @ProductQuantity, @CostOfAllProducts);";
                             cmd.CommandText = sql;
                             foreach (var item in ProductsInOrder)
                             {
                                 cmd.Parameters.AddWithValue("@OrderId", OrderId);
                                 cmd.Parameters.AddWithValue("@ProductArticul", item.ProductArticul);
                                 cmd.Parameters.AddWithValue("@ProductQuantity", item.ProductQuantity);
+                                cmd.Parameters.AddWithValue("@CostOfAllProducts", item.ProductPriceXQuantity);
                                 await cmd.ExecuteNonQueryAsync();
                                 cmd.Parameters.Clear();
                             }
                         }
                         MessageBox.Show("Заказ успешно создан");
+                        ProductsInOrder = new ObservableCollection<ProductInOrder>();
+                        IsStackPanel1Enabled = true;
+                        IsStackPanel2Enabled = false;
+                        SelectedProductName = null;
+                        ProductArticul = "";
+                        ProductName = "";
+                        ProductImage = "";
+                        ProductCost = "";
+                        ProductLength = "";
+                        ProductWidth = "";
+                        UserQuantity = "";
+                        SelectedProduct = null;
+                        SelectedManager = null;
                     }
                     catch (Exception ex)
                     {
