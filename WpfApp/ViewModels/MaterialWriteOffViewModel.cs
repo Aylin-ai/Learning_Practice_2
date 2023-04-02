@@ -711,10 +711,12 @@ namespace WpfApp.ViewModels
                     app.Visible = true;
 
                     document.SaveAs2(@$"D:\Учеба\Учебная практика 2\Приложение\Отчеты_Word\{"Отчет о списании материалов за " + DateTime.Now.ToString("yyyy_MM_dd HH_mm") + ".docx"}");
+                    document.SaveAs2(@$"D:\Учеба\Учебная практика 2\Приложение\Отчеты_Pdf\{"Отчет о списании материалов за " + DateTime.Now.ToString("yyyy_MM_dd HH_mm") + ".pdf"}",
+                        WdExportFormat.wdExportFormatPDF);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show(ex.InnerException.ToString());
                 }
             }
         }

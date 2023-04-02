@@ -11,6 +11,7 @@ using WpfApp.Infrastructure.Commands;
 using WpfApp.Models;
 using WpfApp.ViewModels.Base;
 using Word = Microsoft.Office.Interop.Word;
+using Microsoft.Office.Interop.Word;
 
 namespace WpfApp.ViewModels
 {
@@ -699,6 +700,8 @@ namespace WpfApp.ViewModels
                     app.Visible = true;
 
                     document.SaveAs2(@$"D:\Учеба\Учебная практика 2\Приложение\Отчеты_Word\{"Отчет о поступлении материалов за " + DateTime.Now.ToString("yyyy_MM_dd HH_mm") + ".docx"}");
+                    document.SaveAs2(@$"D:\Учеба\Учебная практика 2\Приложение\Отчеты_Pdf\{"Отчет о поступлении материалов за " + DateTime.Now.ToString("yyyy_MM_dd HH_mm") + ".pdf"}",
+                        WdExportFormat.wdExportFormatPDF);
                 }
                 catch(Exception ex)
                 {
