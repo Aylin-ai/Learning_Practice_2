@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp.Views"
         xmlns:vm="clr-namespace:WpfApp.ViewModels"
+        xmlns:model="clr-namespace:WpfApp.Models"
         mc:Ignorable="d"
         Icon="{Binding IconSource}"
         Title="MaterialWriteOff" 
         Height="550" Width="800"
-        MinHeight="550" MinWidth="800"
-        MaxHeight="550" MaxWidth="800">
+        MinHeight="550" MinWidth="850"
+        MaxHeight="550" MaxWidth="850">
     <Window.DataContext>
         <vm:MaterialComingViewModel/>
     </Window.DataContext>
@@ -21,110 +22,188 @@
                Content="Добавление материалов" DockPanel.Dock="Top"/>
         </WrapPanel>
 
-        <TabControl>
+        <Grid>
 
-            <TabItem Header="Фурнитура">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.8*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
 
-                <StackPanel>
+            <DockPanel IsEnabled="{Binding IsDockPanelEnabled}" Grid.Column="0">
 
-                    <WrapPanel>
+                <WrapPanel DockPanel.Dock="Top">
+
+                    <StackPanel>
+                        <Label Content="Выберите материалы"/>
+                        <WrapPanel HorizontalAlignment="Center">
+                            <Button Content="+" Width="30"
+                                    Command="{Binding ToAddMaterialCommand}"/>
+                            <Button Content="-" Width="30"
+                                    Command="{Binding RemoveMaterialFromCollectionCommand}"
+                                    CommandParameter="{Binding SelectedMaterial}"/>
+                        </WrapPanel>
+                    </StackPanel>
+
+                </WrapPanel>
+
+                <Button Content="Утвердить поступление" 
+                        DockPanel.Dock="Bottom"
+                        Command="{Binding ConfirmAdditionOfMaterials}"/>
+
+                <ScrollViewer>
+                    <ListView ItemsSource="{Binding ComingMaterials}"
+                              SelectedItem="{Binding SelectedMaterial}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate DataType="model:ComingMaterial">
+
+                                <StackPanel>
+
+                                    <WrapPanel>
+                                        <Label Content="Артикул - "
+                                               Margin="0"
+                                               FontSize="15"/>
+                                        <Label Content="{Binding Articul}"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                    </WrapPanel>
+
+                                    <WrapPanel>
+                                        <Label Content="Тип материала -"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                        <Label Content="{Binding TypeOfMaterial}"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                    </WrapPanel>
+
+                                    <WrapPanel>
+                                        <Label Content="Кол-во(шт/м2) - "
+                                               Margin="0"/>
+                                        <Label Content="{Binding ComingQuantity}"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                    </WrapPanel>
+
+                                    <WrapPanel>
+                                        <Label Content="Общая стоимость - "
+                                               Margin="0"
+                                               FontSize="15"/>
+                                        <Label Content="{Binding ComingCost}"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                    </WrapPanel>
+
+                                </StackPanel>
+
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollViewer>
+
+            </DockPanel>
+
+            <TabControl Grid.Column="1" IsEnabled="{Binding IsTabControlEnabled}">
+
+                    <TabItem Header="Фурнитура">
 
                         <StackPanel>
-                            <Label Content="Артикул фурнитуры"/>
-                            <ComboBox HorizontalAlignment="Center"
+
+                            <WrapPanel>
+
+                                <StackPanel>
+                                    <Label Content="Артикул фурнитуры"/>
+                                    <ComboBox HorizontalAlignment="Center"
                               ItemsSource="{Binding FurnituresArticuls}"
                               Text="Выберите артикул ткани"
                               SelectedItem="{Binding SelectedArticuleOfFurniture}"/>
-                        </StackPanel>
+                                </StackPanel>
 
-                        <StackPanel>
-                            <Label Content="На складе"/>
-                            <Label Content="{Binding FurnitureQuantity}"
+                                <StackPanel>
+                                    <Label Content="На складе"/>
+                                    <Label Content="{Binding FurnitureQuantity}"
                                    HorizontalAlignment="Center"/>
-                        </StackPanel>
+                                </StackPanel>
 
-                    </WrapPanel>
+                            </WrapPanel>
 
-                    <StackPanel HorizontalAlignment="Left">
-                        <Label Content="Закупочная стоимость добавляемой фурнитуры"/>
-                        <Label Content="{Binding FurnitureComingCost,
+                            <StackPanel HorizontalAlignment="Left">
+                                <Label Content="Закупочная стоимость"/>
+                                <Label Content="{Binding FurnitureComingCost,
                                 UpdateSourceTrigger=PropertyChanged}"
                                    HorizontalAlignment="Center"/>
-                    </StackPanel>
+                            </StackPanel>
 
-                    <Label Content="Количество для добавления"/>
-                    <TextBox Text="{Binding UserQuantity, Mode=TwoWay,
+                            <Label Content="Количество для добавления"/>
+                            <TextBox Text="{Binding UserQuantity, Mode=TwoWay,
                         UpdateSourceTrigger=PropertyChanged}"/>
 
-                    <Button Content="Добавить"
+                            <Button Content="Добавить"
                             Command="{Binding FurnituresComingCommand}"/>
+                            <Button Content="Отмена"
+                                    Command="{Binding CancellAddMaterialCommand}"/>
 
-                </StackPanel>
+                        </StackPanel>
 
-            </TabItem>
+                    </TabItem>
 
-            <TabItem Header="Ткань">
-
-                <StackPanel>
-
-                    <WrapPanel>
+                    <TabItem Header="Ткань">
 
                         <StackPanel>
-                            <Label Content="Артикул ткани"/>
-                            <ComboBox HorizontalAlignment="Center"
+
+                            <WrapPanel>
+
+                                <StackPanel>
+                                    <Label Content="Артикул ткани"/>
+                                    <ComboBox HorizontalAlignment="Center"
                               ItemsSource="{Binding ClothsArticuls}"
                               Text="Выберите артикул ткани"
-                              SelectedItem="{Binding SelectedArticul}"/>
-                        </StackPanel>
+                              SelectedItem="{Binding SelectedArticulOfCloth}"/>
+                                </StackPanel>
 
-                        <StackPanel>
-                            <Label Content="Ширины на складе"/>
-                            <Label Content="{Binding ClothWidth}"
+                                <StackPanel>
+                                    <Label Content="На складе"/>
+                                    <Label Content="{Binding ClothArea}"
                                    HorizontalAlignment="Center"/>
-                        </StackPanel>
+                                </StackPanel>
 
-                        <StackPanel>
-                            <Label Content="Длины на складе"/>
-                            <Label Content="{Binding ClothLength}"
-                                   HorizontalAlignment="Center"/>
-                        </StackPanel>
-
-                    </WrapPanel>
-
-                    <WrapPanel>
-
-                        <StackPanel>
-                            <Label Content="Единица измерения"/>
-                            <ComboBox HorizontalAlignment="Center"
+                                <StackPanel>
+                                    <Label Content="Единица измерения"/>
+                                    <ComboBox HorizontalAlignment="Center"
                               ItemsSource="{Binding MeasurementUnits}"
                               SelectedItem="{Binding MeasurementUnit}"/>
-                        </StackPanel>
+                                </StackPanel>
 
-                        <StackPanel>
-                            <Label Content="Закупочная стоимость добавляемой ткани"/>
-                            <Label Content="{Binding ClothComingCost,
+                            </WrapPanel>
+
+                            <WrapPanel>
+
+                                <StackPanel>
+                                    <Label Content="Закупочная стоимость добавляемой ткани"/>
+                                    <Label Content="{Binding ClothComingCost,
                                 UpdateSourceTrigger=PropertyChanged}"
                                    HorizontalAlignment="Center"/>
+                                </StackPanel>
+
+                            </WrapPanel>
+
+                            <Label Content="Площадь ткани для добавления"/>
+                            <TextBox Text="{Binding UserArea, Mode=TwoWay, 
+                        UpdateSourceTrigger=PropertyChanged}"/>
+
+
+                            <Button Content="Добавить"
+                            Command="{Binding ClothComingCommand}"/>
+                            <Button Content="Отмена"
+                                    Command="{Binding CancellAddMaterialCommand}"/>
+
                         </StackPanel>
 
-                    </WrapPanel>
+                    </TabItem>
 
-                    <Label Content="Ширина для добавления"/>
-                    <TextBox Text="{Binding UserWidth, Mode=TwoWay, 
-                        UpdateSourceTrigger=PropertyChanged}"/>
+                </TabControl>
+            
+        </Grid>
 
-                    <Label Content="Длина для добавления"/>
-                    <TextBox Text="{Binding UserLength, Mode=TwoWay,
-                        UpdateSourceTrigger=PropertyChanged}"/>
-
-                    <Button Content="Добавить"
-                            Command="{Binding ClothComingCommand}"/>
-
-                </StackPanel>
-
-            </TabItem>
-
-        </TabControl>
 
     </DockPanel>
 </Window>

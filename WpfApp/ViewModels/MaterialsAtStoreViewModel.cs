@@ -24,7 +24,7 @@ namespace WpfApp.ViewModels
 
         #region Данные изделий
 
-        private string _myPreviousSelectedItem = "см";
+        private string _myPreviousSelectedItem = "см2";
         private string _myPreviousSelectedWeight = "гр";
 
         #endregion
@@ -55,73 +55,73 @@ namespace WpfApp.ViewModels
         {
             switch (_myPreviousSelectedItem)
             {
-                case "см":
+                case "см2":
+                    GetInformationAboutClothAtStore("/10000");
+                    break;
+                case "м2":
+                    break;
+                case "мм2":
+                    GetInformationAboutClothAtStore("/1000000");
+                    break;
+                case "дм2":
                     GetInformationAboutClothAtStore("/100");
                     break;
-                case "м":
-                    break;
-                case "мм":
-                    GetInformationAboutClothAtStore("/1000");
-                    break;
-                case "дм":
-                    GetInformationAboutClothAtStore("/10");
-                    break;
             }
-            _myPreviousSelectedItem = "м";
+            _myPreviousSelectedItem = "м2";
         }
         private void OnToDMCommandExecuted(object parameter)
         {
             switch (_myPreviousSelectedItem)
             {
-                case "см":
-                    GetInformationAboutClothAtStore("/10");
-                    break;
-                case "м":
-                    GetInformationAboutClothAtStore("*10");
-                    break;
-                case "мм":
+                case "см2":
                     GetInformationAboutClothAtStore("/100");
                     break;
-                case "дм":
+                case "м2":
+                    GetInformationAboutClothAtStore("*100");
+                    break;
+                case "мм2":
+                    GetInformationAboutClothAtStore("/10000");
+                    break;
+                case "дм2":
                     break;
             }
-            _myPreviousSelectedItem = "дм";
+            _myPreviousSelectedItem = "дм2";
         }
         private void OnToMMCommandExecuted(object parameter)
         {
             switch (_myPreviousSelectedItem)
             {
-                case "см":
-                    GetInformationAboutClothAtStore("*10");
-                    break;
-                case "м":
-                    GetInformationAboutClothAtStore("*1000");
-                    break;
-                case "мм":
-                    break;
-                case "дм":
+                case "см2":
                     GetInformationAboutClothAtStore("*100");
                     break;
+                case "м2":
+                    GetInformationAboutClothAtStore("*1000000");
+                    break;
+                case "мм2":
+                    break;
+                case "дм2":
+                    GetInformationAboutClothAtStore("*10000");
+                    break;
             }
-            _myPreviousSelectedItem = "мм";
+            _myPreviousSelectedItem = "мм2";
         }
         private void OnToCMCommandExecuted(object parameter)
         {
             switch (_myPreviousSelectedItem)
             {
-                case "см":
+                case "см2":
                     break;
-                case "м":
+                case "м2":
+                    GetInformationAboutClothAtStore("*10000");
+                    break;
+                case "мм2":
+                    GetInformationAboutClothAtStore("/100");
+                    break;
+                case "дм2":
                     GetInformationAboutClothAtStore("*100");
                     break;
-                case "мм":
-                    GetInformationAboutClothAtStore("/10");
-                    break;
-                case "дм":
-                    GetInformationAboutClothAtStore("*10");
-                    break;
             }
-            _myPreviousSelectedItem = "см";
+            _myPreviousSelectedItem = "см2";
         }
 
         #endregion
@@ -192,58 +192,46 @@ namespace WpfApp.ViewModels
         {
             switch (unit)
             {
-                case "*10":
-                    for (int i = 0; i < ClothsAtStore.Count; i++)
-                    {
-                        ClothsAtStore[i].LengthOfCloth *= 10;
-                        ClothsAtStore[i].WidthOfCloth *= 10;
-                        ClothsAtStore[i].LengthOfClothAtStoreInSM *= 10;
-                        ClothsAtStore[i].WidthOfClothAtStoreInSM *= 10;
-                    }
-                    break;
                 case "*100":
                     for (int i = 0; i < ClothsAtStore.Count; i++)
                     {
-                        ClothsAtStore[i].LengthOfCloth *= 100;
-                        ClothsAtStore[i].WidthOfCloth *= 100;
-                        ClothsAtStore[i].LengthOfClothAtStoreInSM *= 100;
-                        ClothsAtStore[i].WidthOfClothAtStoreInSM *= 100;
+                        ClothsAtStore[i].AreaOfCloth *= 100;
+                        ClothsAtStore[i].AreaOfClothAtStoreInSM *= 100;
                     }
                     break;
-                case "/10":
+                case "*10000":
                     for (int i = 0; i < ClothsAtStore.Count; i++)
                     {
-                        ClothsAtStore[i].LengthOfCloth /= 10;
-                        ClothsAtStore[i].WidthOfCloth /= 10;
-                        ClothsAtStore[i].LengthOfClothAtStoreInSM /= 10;
-                        ClothsAtStore[i].WidthOfClothAtStoreInSM /= 10;
+                        ClothsAtStore[i].AreaOfCloth *= 10000;
+                        ClothsAtStore[i].AreaOfClothAtStoreInSM *= 10000;
                     }
                     break;
                 case "/100":
                     for (int i = 0; i < ClothsAtStore.Count; i++)
                     {
-                        ClothsAtStore[i].LengthOfCloth /= 100;
-                        ClothsAtStore[i].WidthOfCloth /= 100;
-                        ClothsAtStore[i].LengthOfClothAtStoreInSM /= 100;
-                        ClothsAtStore[i].WidthOfClothAtStoreInSM /= 100;
+                        ClothsAtStore[i].AreaOfCloth /= 100;
+                        ClothsAtStore[i].AreaOfClothAtStoreInSM /= 100;
                     }
                     break;
-                case "*1000":
+                case "/10000":
                     for (int i = 0; i < ClothsAtStore.Count; i++)
                     {
-                        ClothsAtStore[i].LengthOfCloth *= 1000;
-                        ClothsAtStore[i].WidthOfCloth *= 1000;
-                        ClothsAtStore[i].LengthOfClothAtStoreInSM *= 1000;
-                        ClothsAtStore[i].WidthOfClothAtStoreInSM *= 1000;
+                        ClothsAtStore[i].AreaOfCloth /= 10000;
+                        ClothsAtStore[i].AreaOfClothAtStoreInSM /= 10000;
                     }
                     break;
-                case "/1000":
+                case "*1000000":
                     for (int i = 0; i < ClothsAtStore.Count; i++)
                     {
-                        ClothsAtStore[i].LengthOfCloth /= 1000;
-                        ClothsAtStore[i].WidthOfCloth /= 1000;
-                        ClothsAtStore[i].LengthOfClothAtStoreInSM /= 1000;
-                        ClothsAtStore[i].WidthOfClothAtStoreInSM /= 1000;
+                        ClothsAtStore[i].AreaOfCloth *= 1000000;
+                        ClothsAtStore[i].AreaOfClothAtStoreInSM *= 1000000;
+                    }
+                    break;
+                case "/1000000":
+                    for (int i = 0; i < ClothsAtStore.Count; i++)
+                    {
+                        ClothsAtStore[i].AreaOfCloth /= 1000000;
+                        ClothsAtStore[i].AreaOfClothAtStoreInSM /= 1000000;
                     }
                     break;
                 default:
@@ -252,7 +240,7 @@ namespace WpfApp.ViewModels
                     try
                     {
                         string sql = "SELECT c.Cloth_Articul, c.Cloth_Name, c.`Cloth_Length(cm)`, c.`Cloth_Width(cm)`, c.`Cloth_Cost(rub)`, cs.ClothStore_Roll, " +
-                            "cs.ClothStore_Width, cs.ClothStore_Length " +
+                            "cs.ClothStore_ClothArea " +
                             "from cloth c " +
                             "inner join clothstore cs " +
                             "on c.Cloth_Articul = cs.ClothStore_Cloth_Articul;";
@@ -271,13 +259,11 @@ namespace WpfApp.ViewModels
                                 {
                                     Articul = reader.GetString(0),
                                     Name = reader.GetString(1),
-                                    LengthOfCloth = reader.GetFloat(2),
-                                    WidthOfCloth = reader.GetFloat(3),
+                                    AreaOfCloth = reader.GetFloat(2) * reader.GetFloat(3),
                                     CostOfCloth = reader.GetFloat(4),
                                     RollAtStore = reader.GetInt32(5),
-                                    WidthOfClothAtStoreInSM = reader.GetFloat(6) * 100,
-                                    LengthOfClothAtStoreInSM = reader.GetFloat(7) * 100,
-                                    CostOfAllCloth = (((reader.GetFloat(6) * 100) * (reader.GetFloat(7) * 100)) / (reader.GetFloat(2) * reader.GetFloat(3))) * reader.GetFloat(4)
+                                    AreaOfClothAtStoreInSM = reader.GetFloat(6) * 10000,
+                                    CostOfAllCloth = ((reader.GetFloat(6) * 10000) / (reader.GetFloat(2) * reader.GetFloat(3))) * reader.GetFloat(4)
                                 });
                             }
                         }

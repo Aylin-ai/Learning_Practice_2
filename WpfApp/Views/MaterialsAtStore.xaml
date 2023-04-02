@@ -27,26 +27,26 @@
         <StackPanel DockPanel.Dock="Top" Margin="10" HorizontalAlignment="Left">
             <Label Content="Выберите е.и. размерности"/>
             <ComboBox>
-                <ComboBoxItem Content="см"
+                <ComboBoxItem Content="см2"
                               IsSelected="True">
                     <ComboBoxItem.InputBindings>
                         <MouseBinding Command="{Binding ToCMCommand}"
                                       MouseAction="LeftClick"/>
                     </ComboBoxItem.InputBindings>
                 </ComboBoxItem>
-                <ComboBoxItem Content="м">
+                <ComboBoxItem Content="м2">
                     <ComboBoxItem.InputBindings>
                         <MouseBinding Command="{Binding ToMCommand}"
                                       MouseAction="LeftClick"/>
                     </ComboBoxItem.InputBindings>
                 </ComboBoxItem>
-                <ComboBoxItem Content="дм">
+                <ComboBoxItem Content="дм2">
                     <ComboBoxItem.InputBindings>
                         <MouseBinding Command="{Binding ToDMCommand}"
                                       MouseAction="LeftClick"/>
                     </ComboBoxItem.InputBindings>
                 </ComboBoxItem>
-                <ComboBoxItem Content="мм">
+                <ComboBoxItem Content="мм2">
                     <ComboBoxItem.InputBindings>
                         <MouseBinding Command="{Binding ToMMCommand}"
                                       MouseAction="LeftClick"/>
@@ -91,13 +91,10 @@
                             <DataGridTextColumn Header="Артикул" Binding="{Binding Articul}"/>
                             <DataGridTextColumn Header="Название" Binding="{Binding Name}"
                                         MinWidth="250" Width="250"/>
-                            <DataGridTextColumn Header="Длина" Binding="{Binding LengthOfCloth}"/>
-                            <DataGridTextColumn Header="Ширина" Binding="{Binding WidthOfCloth}"/>
-                            <DataGridTextColumn Header="Цена (Дл * Шир)" Binding="{Binding CostOfCloth}"/>
-                            <DataGridTextColumn Header="Длина ткани на складе" 
-                                                Binding="{Binding LengthOfClothAtStoreInSM}"/>
-                            <DataGridTextColumn Header="Ширина ткани на складе" 
-                                                Binding="{Binding WidthOfClothAtStoreInSM}"/>
+                            <DataGridTextColumn Header="Площадь" Binding="{Binding AreaOfCloth}"/>
+                            <DataGridTextColumn Header="Цена" Binding="{Binding CostOfCloth}"/>
+                            <DataGridTextColumn Header="Ткани на складе" 
+                                                Binding="{Binding AreaOfClothAtStoreInSM}"/>
                             <DataGridTextColumn Header="Закупочная стоимость"
                                                 Binding="{Binding CostOfAllCloth}"/>
                         </DataGrid.Columns>

@@ -254,7 +254,7 @@ namespace WpfApp.ViewModels
         private bool CanRemoveProductCommandExecute(object parameter) => true;
         private void OnRemoveProductCommandExecuted(object parameter)
         {
-            ProductInOrder productInOrder = parameter as ProductInOrder;
+            ProductInOrder? productInOrder = parameter as ProductInOrder;
             if (productInOrder != null)
             {
                 ProductsInOrder.Remove(productInOrder);

@@ -40,10 +40,10 @@
                            HorizontalAlignment="Center"
                             Orientation="Horizontal">
 
-                    <Button Content="Одобрить"
+                    <Button Content="Подвердить"
                             Command="{Binding OrderConfirmCommand}"
                             CommandParameter="{Binding SelectedOrder}"/>
-                    <Button Content="Отказать"
+                    <Button Content="Отклонить"
                             Command="{Binding OrderDenyCommand}"
                             CommandParameter="{Binding SelectedOrder}"/>
 
