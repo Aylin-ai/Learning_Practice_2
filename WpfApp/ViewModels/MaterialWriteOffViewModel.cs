@@ -83,7 +83,7 @@ namespace WpfApp.ViewModels
                         switch (MeasurementUnit)
                         {
                             case "см2":
-                                ClothArea = item.AreaOfClothAtStoreInSM.ToString();
+                                ClothArea = item.AreaOfClothAtStoreIn.ToString();
                                 if (float.TryParse(_userArea, out UserArea))
                                 {
                                     float first = UserArea * item.CostOfAllCloth;
@@ -93,7 +93,7 @@ namespace WpfApp.ViewModels
                                 }
                                 break;
                             case "м2":
-                                ClothArea = (item.AreaOfClothAtStoreInSM / 10000).ToString();
+                                ClothArea = (item.AreaOfClothAtStoreIn / 10000).ToString();
                                 if (float.TryParse(_userArea, out UserArea))
                                 {
                                     float first = UserArea * item.CostOfAllCloth;
@@ -103,7 +103,7 @@ namespace WpfApp.ViewModels
                                 }
                                 break;
                             case "дм2":
-                                ClothArea = (item.AreaOfClothAtStoreInSM / 100).ToString();
+                                ClothArea = (item.AreaOfClothAtStoreIn / 100).ToString();
                                 if (float.TryParse(_userArea, out UserArea))
                                 {
                                     float first = UserArea * item.CostOfAllCloth;
@@ -113,7 +113,7 @@ namespace WpfApp.ViewModels
                                 }
                                 break;
                             case "мм2":
-                                ClothArea = (item.AreaOfClothAtStoreInSM * 100).ToString();
+                                ClothArea = (item.AreaOfClothAtStoreIn * 100).ToString();
                                 if (float.TryParse(_userArea, out UserArea))
                                 {
                                     float first = UserArea * item.CostOfAllCloth;
@@ -148,7 +148,7 @@ namespace WpfApp.ViewModels
                             switch (MeasurementUnit)
                             {
                                 case "см2":
-                                    ClothArea = item.AreaOfClothAtStoreInSM.ToString();
+                                    ClothArea = item.AreaOfClothAtStoreIn.ToString();
                                     if (float.TryParse(_userArea, out UserArea))
                                     {
                                         float first = UserArea * item.CostOfAllCloth;
@@ -158,7 +158,7 @@ namespace WpfApp.ViewModels
                                     }
                                     break;
                                 case "м2":
-                                    ClothArea = (item.AreaOfClothAtStoreInSM / 10000).ToString();
+                                    ClothArea = (item.AreaOfClothAtStoreIn / 10000).ToString();
                                     if (float.TryParse(_userArea, out UserArea))
                                     {
                                         float first = UserArea * item.CostOfAllCloth;
@@ -168,7 +168,7 @@ namespace WpfApp.ViewModels
                                     }
                                     break;
                                 case "дм2":
-                                    ClothArea = (item.AreaOfClothAtStoreInSM / 100).ToString();
+                                    ClothArea = (item.AreaOfClothAtStoreIn / 100).ToString();
                                     if (float.TryParse(_userArea, out UserArea))
                                     {
                                         float first = UserArea * item.CostOfAllCloth;
@@ -178,7 +178,7 @@ namespace WpfApp.ViewModels
                                     }
                                     break;
                                 case "мм2":
-                                    ClothArea = (item.AreaOfClothAtStoreInSM * 100).ToString();
+                                    ClothArea = (item.AreaOfClothAtStoreIn * 100).ToString();
                                     if (float.TryParse(_userArea, out UserArea))
                                     {
                                         float first = UserArea * item.CostOfAllCloth;
@@ -208,16 +208,16 @@ namespace WpfApp.ViewModels
                         switch (_measurementUnit)
                         {
                             case "см2":
-                                ClothArea = item.AreaOfClothAtStoreInSM.ToString();
+                                ClothArea = item.AreaOfClothAtStoreIn.ToString();
                                 break;
                             case "м2":
-                                ClothArea = (item.AreaOfClothAtStoreInSM / 10000).ToString();
+                                ClothArea = (item.AreaOfClothAtStoreIn / 10000).ToString();
                                 break;
                             case "дм2":
-                                ClothArea = (item.AreaOfClothAtStoreInSM / 100).ToString();
+                                ClothArea = (item.AreaOfClothAtStoreIn / 100).ToString();
                                 break;
                             case "мм2":
-                                ClothArea = (item.AreaOfClothAtStoreInSM * 100).ToString();
+                                ClothArea = (item.AreaOfClothAtStoreIn * 100).ToString();
                                 break;
                         }
                         UserArea = "";
@@ -774,7 +774,7 @@ namespace WpfApp.ViewModels
                             AreaOfCloth = reader.GetFloat(2) * reader.GetFloat(3),
                             CostOfCloth = reader.GetFloat(4),
                             RollAtStore = reader.GetInt32(5),
-                            AreaOfClothAtStoreInSM = reader.GetFloat(6) * 10000,
+                            AreaOfClothAtStoreIn = reader.GetFloat(6) * 10000,
                             CostOfAllCloth = ((reader.GetFloat(6) * 10000) / (reader.GetFloat(2) * reader.GetFloat(3))) * reader.GetFloat(4)
                         });
                     }

@@ -196,42 +196,42 @@ namespace WpfApp.ViewModels
                     for (int i = 0; i < ClothsAtStore.Count; i++)
                     {
                         ClothsAtStore[i].AreaOfCloth *= 100;
-                        ClothsAtStore[i].AreaOfClothAtStoreInSM *= 100;
+                        ClothsAtStore[i].AreaOfClothAtStoreIn *= 100;
                     }
                     break;
                 case "*10000":
                     for (int i = 0; i < ClothsAtStore.Count; i++)
                     {
                         ClothsAtStore[i].AreaOfCloth *= 10000;
-                        ClothsAtStore[i].AreaOfClothAtStoreInSM *= 10000;
+                        ClothsAtStore[i].AreaOfClothAtStoreIn *= 10000;
                     }
                     break;
                 case "/100":
                     for (int i = 0; i < ClothsAtStore.Count; i++)
                     {
                         ClothsAtStore[i].AreaOfCloth /= 100;
-                        ClothsAtStore[i].AreaOfClothAtStoreInSM /= 100;
+                        ClothsAtStore[i].AreaOfClothAtStoreIn /= 100;
                     }
                     break;
                 case "/10000":
                     for (int i = 0; i < ClothsAtStore.Count; i++)
                     {
                         ClothsAtStore[i].AreaOfCloth /= 10000;
-                        ClothsAtStore[i].AreaOfClothAtStoreInSM /= 10000;
+                        ClothsAtStore[i].AreaOfClothAtStoreIn /= 10000;
                     }
                     break;
                 case "*1000000":
                     for (int i = 0; i < ClothsAtStore.Count; i++)
                     {
                         ClothsAtStore[i].AreaOfCloth *= 1000000;
-                        ClothsAtStore[i].AreaOfClothAtStoreInSM *= 1000000;
+                        ClothsAtStore[i].AreaOfClothAtStoreIn *= 1000000;
                     }
                     break;
                 case "/1000000":
                     for (int i = 0; i < ClothsAtStore.Count; i++)
                     {
                         ClothsAtStore[i].AreaOfCloth /= 1000000;
-                        ClothsAtStore[i].AreaOfClothAtStoreInSM /= 1000000;
+                        ClothsAtStore[i].AreaOfClothAtStoreIn /= 1000000;
                     }
                     break;
                 default:
@@ -262,7 +262,7 @@ namespace WpfApp.ViewModels
                                     AreaOfCloth = reader.GetFloat(2) * reader.GetFloat(3),
                                     CostOfCloth = reader.GetFloat(4),
                                     RollAtStore = reader.GetInt32(5),
-                                    AreaOfClothAtStoreInSM = reader.GetFloat(6) * 10000,
+                                    AreaOfClothAtStoreIn = reader.GetFloat(6) * 10000,
                                     CostOfAllCloth = ((reader.GetFloat(6) * 10000) / (reader.GetFloat(2) * reader.GetFloat(3))) * reader.GetFloat(4)
                                 });
                             }

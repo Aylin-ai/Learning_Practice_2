@@ -1,0 +1,497 @@
+﻿<Window x:Class="WpfApp.Views.Inventory"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp.Views"
+        xmlns:vm="clr-namespace:WpfApp.ViewModels"
+        xmlns:model="clr-namespace:WpfApp.Models"
+        mc:Ignorable="d"
+        Title="Inventory" 
+        Height="450" Width="1000">
+    <Window.DataContext>
+        <vm:InventoryViewModel/>
+    </Window.DataContext>
+    <DockPanel LastChildFill="True">
+
+        <WrapPanel DockPanel.Dock="Top" HorizontalAlignment="Center">
+            <Image Source="{Binding ImageSource}" Width="70"/>
+            <Label Content="Инвентаризация" VerticalAlignment="Center"/>
+        </WrapPanel>
+
+        <Button DockPanel.Dock="Bottom"
+                Content="Утвердить инвентаризацию"
+                Command="{Binding ConfirmInventoryCommand}"/>
+
+        <Grid>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.9*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <TabControl>
+
+                <TabItem Header="Продукты">
+
+                    <ListView ItemsSource="{Binding FrontProducts}"
+                      SelectedItem="{Binding SelectedProduct}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate DataType="model:Product">
+
+                                <StackPanel Orientation="Horizontal">
+
+                                    <Image Source="{Binding Image}"
+                               Width="200" Height="200"/>
+
+                                    <StackPanel>
+                                        <WrapPanel>
+                                            <Label Content="Артикул -"/>
+                                            <Label Content="{Binding Articul}"/>
+                                        </WrapPanel>
+
+                                        <WrapPanel>
+                                            <Label Content="Название -"/>
+                                            <Label Content="{Binding Name}"/>
+                                        </WrapPanel>
+
+                                        <WrapPanel>
+                                            <Label Content="Длина(см) -"/>
+                                            <Label Content="{Binding Length}"/>
+                                        </WrapPanel>
+
+                                        <WrapPanel>
+                                            <Label Content="Ширина(см) -"/>
+                                            <Label Content="{Binding Width}"/>
+                                        </WrapPanel>
+
+                                        <WrapPanel>
+                                            <Label Content="Цена -"/>
+                                            <Label Content="{Binding Cost}"/>
+                                        </WrapPanel>
+                                    </StackPanel>
+
+                                </StackPanel>
+
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                </TabItem>
+
+                <TabItem Header="Фурнитура">
+
+                    <TabControl>
+
+                        <TabItem Header="Не прошли">
+
+                            <ListView 
+                                ItemsSource="{Binding FurnituresAtStoreNotInventory}"
+                                SelectedItem="{Binding SelectedFurniture}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate DataType="model:FurnitureStore">
+
+                                        <StackPanel Orientation="Horizontal">
+
+                                            <Image Source="{Binding Image}"
+                               Width="100" Height="100"/>
+
+                                            <StackPanel>
+                                                <WrapPanel>
+                                                    <Label Content="Артикул -"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                    <Label Content="{Binding Articul}"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                </WrapPanel>
+
+                                                <WrapPanel>
+                                                    <Label Content="Название -"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                    <Label Content="{Binding Name}"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                </WrapPanel>
+
+                                                <WrapPanel>
+                                                    <Label Content="Цена -"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                    <Label Content="{Binding Cost}"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                </WrapPanel>
+
+                                                <WrapPanel>
+                                                    <Label Content="Кол-во на складе -"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                    <Label Content="{Binding Quantity}"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                </WrapPanel>
+
+                                                <WrapPanel>
+                                                    <Label Content="Закупочная стоимость -"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                    <Label Content="{Binding CostOfAllFurniture}"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                </WrapPanel>
+                                            </StackPanel>
+
+                                        </StackPanel>
+
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+
+                        </TabItem>
+
+                        <TabItem Header="Прошли">
+
+                            <ListView 
+                                ItemsSource="{Binding FurnituresAtStoreInventory}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate DataType="model:FurnitureStore">
+
+                                        <StackPanel Orientation="Horizontal">
+
+                                            <Image Source="{Binding Image}"
+                               Width="100" Height="100"/>
+
+                                            <StackPanel>
+                                                <WrapPanel>
+                                                    <Label Content="Артикул -"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                    <Label Content="{Binding Articul}"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                </WrapPanel>
+
+                                                <WrapPanel>
+                                                    <Label Content="Название -"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                    <Label Content="{Binding Name}"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                </WrapPanel>
+
+                                                <WrapPanel>
+                                                    <Label Content="Цена -"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                    <Label Content="{Binding Cost}"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                </WrapPanel>
+
+                                                <WrapPanel>
+                                                    <Label Content="Кол-во на складе -"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                    <Label Content="{Binding Quantity}"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                </WrapPanel>
+
+                                                <WrapPanel>
+                                                    <Label Content="Закупочная стоимость -"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                    <Label Content="{Binding CostOfAllFurniture}"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                </WrapPanel>
+                                            </StackPanel>
+
+                                        </StackPanel>
+
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+
+                        </TabItem>
+
+                    </TabControl>
+
+                </TabItem>
+
+                <TabItem Header="Ткани">
+
+                    <TabControl>
+
+                        <TabItem Header="Не прошли">
+
+                            <ListView 
+                                ItemsSource="{Binding ClothsAtStoreNotInventory}"
+                                SelectedItem="{Binding SelectedCloth}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate DataType="model:ClothStore">
+
+                                        <StackPanel Orientation="Horizontal">
+
+                                            <Image Source="{Binding Image}"
+                               Width="100" Height="100"/>
+
+                                            <StackPanel>
+                                                <WrapPanel>
+                                                    <Label Content="Артикул -"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                    <Label Content="{Binding Articul}"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                </WrapPanel>
+
+                                                <WrapPanel>
+                                                    <Label Content="Название -"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                    <Label Content="{Binding Name}"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                </WrapPanel>
+
+                                                <WrapPanel>
+                                                    <Label Content="Площадь ткани -"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                    <Label Content="{Binding AreaOfCloth}"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                </WrapPanel>
+
+                                                <WrapPanel>
+                                                    <Label Content="Цена ткани -"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                    <Label Content="{Binding CostOfCloth}"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                </WrapPanel>
+
+                                                <WrapPanel>
+                                                    <Label Content="Площадь ткани на складе -"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                    <Label Content="{Binding AreaOfClothAtStoreIn}"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                </WrapPanel>
+
+                                                <WrapPanel>
+                                                    <Label Content="Закупочная стоимость"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                    <Label Content="{Binding CostOfAllCloth}"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                </WrapPanel>
+                                            </StackPanel>
+
+                                        </StackPanel>
+
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+
+                        </TabItem>
+
+                        <TabItem Header="Прошли">
+
+                            <ListView 
+                                ItemsSource="{Binding ClothsAtStoreInventory}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate DataType="model:ClothStore">
+
+                                        <StackPanel Orientation="Horizontal">
+
+                                            <Image Source="{Binding Image}"
+                               Width="100" Height="100"/>
+
+                                            <StackPanel>
+                                                <WrapPanel>
+                                                    <Label Content="Артикул -"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                    <Label Content="{Binding Articul}"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                </WrapPanel>
+
+                                                <WrapPanel>
+                                                    <Label Content="Название -"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                    <Label Content="{Binding Name}"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                </WrapPanel>
+
+                                                <WrapPanel>
+                                                    <Label Content="Площадь ткани -"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                    <Label Content="{Binding AreaOfCloth}"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                </WrapPanel>
+
+                                                <WrapPanel>
+                                                    <Label Content="Цена ткани -"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                    <Label Content="{Binding CostOfCloth}"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                </WrapPanel>
+
+                                                <WrapPanel>
+                                                    <Label Content="Площадь ткани на складе -"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                    <Label Content="{Binding AreaOfClothAtStoreIn}"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                </WrapPanel>
+
+                                                <WrapPanel>
+                                                    <Label Content="Закупочная стоимость"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                    <Label Content="{Binding CostOfAllCloth}"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                                </WrapPanel>
+                                            </StackPanel>
+
+                                        </StackPanel>
+
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+
+                        </TabItem>
+
+                    </TabControl>
+
+                    
+
+                </TabItem>
+
+                <TabItem Header="Инвентаризация">
+
+                    <ListView 
+                        ItemsSource="{Binding InventoryMaterials}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate DataType="model:InventoryMaterial">
+
+                                <StackPanel Orientation="Horizontal">
+
+                                    <StackPanel>
+                                        <WrapPanel>
+                                            <Label Content="Артикул -"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                            <Label Content="{Binding Articul}"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                        </WrapPanel>
+
+                                        <WrapPanel>
+                                            <Label Content="Тип -"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                            <Label Content="{Binding Type}"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                        </WrapPanel>
+
+                                        <WrapPanel>
+                                            <Label Content="В системе -"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                            <Label Content="{Binding SystemQuantity}"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                        </WrapPanel>
+
+                                        <WrapPanel>
+                                            <Label Content="На складе -"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                            <Label Content="{Binding RealQuantity}"
+                                                   FontSize="15"
+                                                   Margin="0"/>
+                                        </WrapPanel>
+
+                                    </StackPanel>
+
+                                </StackPanel>
+
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    
+                </TabItem>
+
+            </TabControl>
+            
+            <ScrollViewer Grid.Column="1">
+                <StackPanel>
+
+                    <WrapPanel>
+                        <Label Content="Артикул -"/>
+                        <Label Content="{Binding Articul}"/>
+                    </WrapPanel>
+
+                    <WrapPanel>
+                        <Label Content="Название -"/>
+                        <Label Content="{Binding Name}"/>
+                    </WrapPanel>
+
+                    <WrapPanel>
+                        <Label Content="На складе -"/>
+                        <Label Content="{Binding AtStore}"/>
+                    </WrapPanel>
+
+                    <WrapPanel>
+                        <Label Content="Закупочная стоимость - "/>
+                        <Label Content="{Binding CostOfAllAtStore}"/>
+                    </WrapPanel>
+
+                    <Label Content="Введите данные о реальном кол-ве на складе"/>
+                    <TextBox Text="{Binding UsersDataAtStore, 
+                        Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <WrapPanel>
+                        <Label Content="Выявлено излишек на сумму -"/>
+                        <Label Content="{Binding SurplusCost}"/>
+                    </WrapPanel>
+
+                    <WrapPanel>
+                        <Label Content="Выявлено недостачи на сумму -"/>
+                        <Label Content="{Binding ShortageCost}"/>
+                    </WrapPanel>
+
+                    <Button Content="Утвердить"
+                            Command="{Binding AddInventoryElement}"/>
+
+                    <TextBlock Text="{Binding Discrepancy}"
+                               TextWrapping="Wrap"
+                               FontSize="18"/>
+
+                </StackPanel>
+            </ScrollViewer>
+
+        </Grid>
+
+
+    </DockPanel>
+</Window>

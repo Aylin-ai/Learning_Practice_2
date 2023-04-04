@@ -102,6 +102,19 @@ namespace WpfApp.ViewModels
 
         #endregion
 
+        #region Команда перехода на страницу инвентаризации
+
+        public ICommand InventoryWindowCommand { get; }
+
+        private bool CanInventoryWindowCommandExecute(object parameter) => true;
+        private void OnInventoryWindowCommandExecuted(object parameter)
+        {
+            Inventory inventory = new Inventory();
+            inventory.Show();
+        }
+
+        #endregion
+
         #region Команда для перехода на страницу авторизации
 
         public ICommand AuthorizationWindowCommand { get; }
@@ -128,6 +141,7 @@ namespace WpfApp.ViewModels
             MaterialsAtStoreWindowCommand = new LambdaCommand(OnMaterialsAtStoreWindowCommandExecuted, CanMaterialsAtStoreWindowCommandExecute);
             MaterialWriteOffWindowCommand = new LambdaCommand(OnMaterialWriteOffWindowCommandExecuted, CanMaterialWriteOffWindowCommandExecute);
             MaterialComingWindowCommand = new LambdaCommand(OnMaterialComingWindowCommandExecuted, CanMaterialComingWindowCommandExecute);
+            InventoryWindowCommand = new LambdaCommand(OnInventoryWindowCommandExecuted, CanInventoryWindowCommandExecute);
             AuthorizationWindowCommand = new LambdaCommand(OnAuthorizationWindowCommandExecuted, CanAuthorizationWindowCommandExecute);
 
             #endregion
