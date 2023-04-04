@@ -50,6 +50,32 @@ namespace WpfApp.ViewModels
 
         #endregion
 
+        #region Команда перехода на страницу с остатками материалов/изделий
+
+        public ICommand MaterialProductRemainderWindowCommand { get; }
+
+        private bool CanMaterialProductRemainderWindowCommandExecute(object parameter) => true;
+        private void OnMaterialProductRemainderWindowCommandExecuted(object paramaeter)
+        {
+            MaterialProductRemainder materialProductRemainder = new MaterialProductRemainder();
+            materialProductRemainder.Show();
+        }
+
+        #endregion
+
+        #region Команда перехода на страницу с движением материалов/изделий за период
+
+        public ICommand MaterialProductChangingWindowCommand { get; }
+
+        private bool CanMaterialProductChangingWindowCommandExecute(object paramaeter) => true;
+        private void OnMaterialProductChangingWindowCommandExecuted(object parameter)
+        {
+            MaterialProductChanging window = new MaterialProductChanging();
+            window.Show();
+        }
+
+        #endregion
+
         #endregion
 
         public DirectorateMainWindowViewModel()
@@ -58,6 +84,8 @@ namespace WpfApp.ViewModels
             #region Команды
 
             ProductListWindowCommand = new LambdaCommand(OnProductKistWindowCommandExecuted, CanProductKistWindowCommandExecute);
+            MaterialProductRemainderWindowCommand = new LambdaCommand(OnMaterialProductRemainderWindowCommandExecuted, CanMaterialProductRemainderWindowCommandExecute);
+            MaterialProductChangingWindowCommand = new LambdaCommand(OnMaterialProductChangingWindowCommandExecuted, CanMaterialProductChangingWindowCommandExecute);
             AuthorizationWindowCommand = new LambdaCommand(OnAuthorizationWindowCommandExecuted, CanAuthorizationWindowCommandExecute);
 
             #endregion

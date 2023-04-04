@@ -27,6 +27,12 @@
             <Button Content="Список изделий" 
                     Command="{Binding ProductListWindowCommand}"/>
 
+            <Button Content="Остатки материалов/изделий"
+                    Command="{Binding MaterialProductRemainderWindowCommand}"/>
+
+            <Button Content="Движение материалов/изделий"
+                    Command="{Binding MaterialProductChangingWindowCommand}"/>
+
             <Button Content="Выход из системы"
                     Command="{Binding AuthorizationWindowCommand}"/>
 
