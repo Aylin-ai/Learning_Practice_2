@@ -18,7 +18,8 @@
                    HorizontalAlignment="Center">
 
             <Image Source="{Binding ImageSource}" Width="70"/>
-            <Label Content="{Binding UserLogin}" VerticalAlignment="Center"/>
+            <Label Content="{Binding UserLogin}" VerticalAlignment="Center"
+                   Style="{StaticResource ResourceKey=TitleStyle}"/>
             
 
         </WrapPanel>

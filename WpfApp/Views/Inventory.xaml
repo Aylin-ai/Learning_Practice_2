@@ -16,7 +16,8 @@
 
         <WrapPanel DockPanel.Dock="Top" HorizontalAlignment="Center">
             <Image Source="{Binding ImageSource}" Width="70"/>
-            <Label Content="Инвентаризация" VerticalAlignment="Center"/>
+            <Label Content="Инвентаризация" VerticalAlignment="Center"
+                   Style="{StaticResource ResourceKey=TitleStyle}"/>
         </WrapPanel>
 
         <Button DockPanel.Dock="Bottom"

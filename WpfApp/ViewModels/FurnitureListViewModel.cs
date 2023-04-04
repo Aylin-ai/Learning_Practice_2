@@ -252,7 +252,7 @@ namespace WpfApp.ViewModels
                     conn.Open();
                     try
                     {
-                        string sql = "select f.Furniture_Articul, f.Furniture_Name, f.`Furniture_Width(mm)`, f.`Furniture_Length(mm)`, " +
+                        string sql = "select f.Furniture_Articul, f.Furniture_Name, f.`Furniture_Width`, f.`Furniture_Length`, " +
                             "f.`Furniture_Weight(gr)`, f.Furniture_Image, f.Furniture_Cost, gt.GeneralType_Name " +
                             "from ( (furniture f inner join furnituretype ft on f.Furniture_Articul = ft.FurnitureType_Furniture_Articul) " +
                             "inner join generaltype gt on ft.FurnitureType_GeneralType_Id = gt.GeneralType_Id);";

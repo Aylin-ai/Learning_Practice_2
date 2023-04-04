@@ -8,7 +8,7 @@
         xmlns:model="clr-namespace:WpfApp.Models"
         mc:Ignorable="d"
         Title="MaterialProductChanging" 
-        Height="800" Width="1000">
+        Height="800" Width="1200">
     <Window.DataContext>
         <vm:MaterialProductChangingViewModel/>
     </Window.DataContext>
@@ -18,7 +18,8 @@
                    HorizontalAlignment="Center">
 
             <Image Source="{Binding ImageSource}" Width="70"/>
-            <Label Content="Движения материалов/изделий" VerticalAlignment="Center"/>
+            <Label Content="Движения материалов/изделий" VerticalAlignment="Center"
+                   Style="{StaticResource ResourceKey=TitleStyle}"/>
 
         </WrapPanel>
 

@@ -18,7 +18,8 @@
                    HorizontalAlignment="Center">
 
             <Image Source="{Binding ImageSource}" Width="70"/>
-            <Label Content="Дирекция" VerticalAlignment="Center"/>
+            <Label Content="Дирекция" VerticalAlignment="Center"
+                   Style="{StaticResource ResourceKey=TitleStyle}"/>
 
         </WrapPanel>
 
