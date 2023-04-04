@@ -162,7 +162,7 @@ namespace WpfApp.ViewModels
                                         CloseAction();
                                         break;
                                     case "2":
-                                        ManagerMainWindow managerMainWindow = new ManagerMainWindow();
+                                        ManagerMainWindow managerMainWindow = new ManagerMainWindow(parameter as string);
                                         managerMainWindow.Show();
                                         CloseAction();
                                         break;

@@ -107,9 +107,6 @@ namespace WpfApp.ViewModels
             }
         }
 
-        private string _selectedManager;
-        public string SelectedManager { get => _selectedManager; set => Set(ref _selectedManager, value); }
-
         private ProductInOrder _selectedProduct;
         public ProductInOrder SelectedProduct
         {
@@ -279,94 +276,86 @@ namespace WpfApp.ViewModels
         private bool CanAddOrderCommandExecute(object parameter) => true;
         private async void OnAddOrderCommandExecuted(object parameter)
         {
-            if (SelectedManager == null)
+            if (ProductsInOrder.Count == 0)
             {
-                MessageBox.Show("Вы не выбрали менеджера");
+                MessageBox.Show("Вы не выбрали товары для заказа");
             }
             else
             {
-                if (ProductsInOrder.Count == 0)
+                int OrderId = 0;
+                float Cost = 0;
+                foreach (var item in ProductsInOrder)
                 {
-                    MessageBox.Show("Вы не выбрали товары для заказа");
+                    Cost += item.ProductPriceXQuantity;
                 }
-                else
+                MySqlConnection conn = DBUtils.GetDBConnection();
+                conn.Open();
+                try
                 {
-                    int OrderId = 0;
-                    float Cost = 0;
-                    foreach (var item in ProductsInOrder)
+                    string sql = "SELECT count(*) FROM generalorder;";
+
+                    MySqlCommand cmd = new MySqlCommand();
+                    cmd.CommandText = sql;
+                    cmd.Connection = conn;
+
+                    var reader = cmd.ExecuteReader();
+
+                    if (reader.HasRows)
                     {
-                        Cost += item.ProductPriceXQuantity;
-                    }
-                    MySqlConnection conn = DBUtils.GetDBConnection();
-                    conn.Open();
-                    try
-                    {
-                        string sql = "SELECT count(*) FROM generalorder;";
-
-                        MySqlCommand cmd = new MySqlCommand();
-                        cmd.CommandText = sql;
-                        cmd.Connection = conn;
-
-                        var reader = cmd.ExecuteReader();
-
-                        if (reader.HasRows)
+                        while (reader.Read())
                         {
-                            while (reader.Read())
-                            {
-                                OrderId = reader.GetInt32(0) + 1;
-                            }
+                            OrderId = reader.GetInt32(0) + 1;
                         }
-                        reader.Close();
+                    }
+                    reader.Close();
 
-                        sql = "insert into generalorder values " +
-                            "(@Id, @Date, @Phase, @Customer, @Manager, @Cost);";
+                    sql = "insert into generalorder (GeneralOrder_Id, GeneralOrder_Date, GeneralOrder_Phase, " +
+                        "GeneralOrder_Customer_UserInformation_Login, GeneralOrder_Cost) values " +
+                        "(@Id, @Date, @Phase, @Customer, @Cost);";
+                    cmd.CommandText = sql;
+                    cmd.Parameters.AddWithValue("@Id", OrderId);
+                    cmd.Parameters.AddWithValue("@Date", DateTime.Now.ToString("yyyy-MM-dd"));
+                    cmd.Parameters.AddWithValue("@Phase", "Ожидает");
+                    cmd.Parameters.AddWithValue("@Customer", UserLogin);
+                    cmd.Parameters.AddWithValue("@Cost", Cost);
+                    int rowsaffected = await cmd.ExecuteNonQueryAsync();
+                    if (rowsaffected > 0)
+                    {
+                        sql = "insert into generalorderproduct values " +
+                            "(@OrderId, @ProductArticul, @ProductQuantity, @CostOfAllProducts);";
                         cmd.CommandText = sql;
-                        cmd.Parameters.AddWithValue("@Id", OrderId);
-                        cmd.Parameters.AddWithValue("@Date", DateTime.Now.ToString("yyyy-m-d"));
-                        cmd.Parameters.AddWithValue("@Phase", "Ожидает подтверждения");
-                        cmd.Parameters.AddWithValue("@Customer", UserLogin);
-                        cmd.Parameters.AddWithValue("@Manager", SelectedManager);
-                        cmd.Parameters.AddWithValue("@Cost", Cost);
-                        int rowsaffected = await cmd.ExecuteNonQueryAsync();
-                        if (rowsaffected > 0)
+                        foreach (var item in ProductsInOrder)
                         {
-                            sql = "insert into generalorderproduct values " +
-                                "(@OrderId, @ProductArticul, @ProductQuantity, @CostOfAllProducts);";
-                            cmd.CommandText = sql;
-                            foreach (var item in ProductsInOrder)
-                            {
-                                cmd.Parameters.AddWithValue("@OrderId", OrderId);
-                                cmd.Parameters.AddWithValue("@ProductArticul", item.ProductArticul);
-                                cmd.Parameters.AddWithValue("@ProductQuantity", item.ProductQuantity);
-                                cmd.Parameters.AddWithValue("@CostOfAllProducts", item.ProductPriceXQuantity);
-                                await cmd.ExecuteNonQueryAsync();
-                                cmd.Parameters.Clear();
-                            }
+                            cmd.Parameters.AddWithValue("@OrderId", OrderId);
+                            cmd.Parameters.AddWithValue("@ProductArticul", item.ProductArticul);
+                            cmd.Parameters.AddWithValue("@ProductQuantity", item.ProductQuantity);
+                            cmd.Parameters.AddWithValue("@CostOfAllProducts", item.ProductPriceXQuantity);
+                            await cmd.ExecuteNonQueryAsync();
+                            cmd.Parameters.Clear();
                         }
-                        MessageBox.Show("Заказ успешно создан");
-                        ProductsInOrder = new ObservableCollection<ProductInOrder>();
-                        IsStackPanel1Enabled = true;
-                        IsStackPanel2Enabled = false;
-                        SelectedProductName = null;
-                        ProductArticul = "";
-                        ProductName = "";
-                        ProductImage = "";
-                        ProductCost = "";
-                        ProductLength = "";
-                        ProductWidth = "";
-                        UserQuantity = "";
-                        SelectedProduct = null;
-                        SelectedManager = null;
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                    finally
-                    {
-                        conn.Close();
-                        conn.Dispose();
-                    }
+                    MessageBox.Show("Заказ успешно создан");
+                    ProductsInOrder = new ObservableCollection<ProductInOrder>();
+                    IsStackPanel1Enabled = true;
+                    IsStackPanel2Enabled = false;
+                    SelectedProductName = null;
+                    ProductArticul = "";
+                    ProductName = "";
+                    ProductImage = "";
+                    ProductCost = "";
+                    ProductLength = "";
+                    ProductWidth = "";
+                    UserQuantity = "";
+                    SelectedProduct = null;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                    conn.Dispose();
                 }
             }
         }
@@ -380,7 +369,6 @@ namespace WpfApp.ViewModels
             UserLogin = userLogin;
             GetProducts();
             GetProductNames();
-            GetManagers();
 
             #region Команды
 
@@ -440,40 +428,6 @@ namespace WpfApp.ViewModels
             foreach (var product in Products)
             {
                 ProductsNames.Add($"{product.Name}({product.Articul})");
-            }
-        }
-
-        private void GetManagers()
-        {
-            MySqlConnection conn = DBUtils.GetDBConnection();
-            conn.Open();
-            try
-            {
-                string sql = "SELECT UserInformation_Login FROM userinformation " +
-                    "where UserInformation_UserRole_Id = 2";
-
-                MySqlCommand cmd = new MySqlCommand();
-                cmd.CommandText = sql;
-                cmd.Connection = conn;
-
-                var reader = cmd.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        Managers.Add(reader.GetString(0));
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                conn.Close();
-                conn.Dispose();
             }
         }
 

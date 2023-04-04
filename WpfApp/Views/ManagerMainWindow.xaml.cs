@@ -20,9 +20,9 @@ namespace WpfApp.Views
     /// </summary>
     public partial class ManagerMainWindow : Window
     {
-        public ManagerMainWindow()
+        public ManagerMainWindow(string login)
         {
-            ManagerMainWindowViewModel viewModel = new ManagerMainWindowViewModel();
+            ManagerMainWindowViewModel viewModel = new ManagerMainWindowViewModel(login);
             DataContext = viewModel;
             InitializeComponent();
             if (viewModel.CloseAction == null)

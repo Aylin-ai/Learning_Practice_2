@@ -29,13 +29,7 @@
             <DockPanel IsEnabled="{Binding IsStackPanel1Enabled}" Grid.Column="0">
 
                 <WrapPanel DockPanel.Dock="Top">
-                    
-                    <StackPanel>
-                        <Label Content="Выберите менеджера"/>
-                        <ComboBox ItemsSource="{Binding Managers}"
-                                  SelectedItem="{Binding SelectedManager}"/>
-                    </StackPanel>
-
+                  
                     <StackPanel>
                         <Label Content="Выберите товары"/>
                         <WrapPanel HorizontalAlignment="Center">

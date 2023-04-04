@@ -16,13 +16,13 @@ using WpfApp.ViewModels;
 namespace WpfApp.Views
 {
     /// <summary>
-    /// Логика взаимодействия для Orders.xaml
+    /// Логика взаимодействия для CustomerOrders.xaml
     /// </summary>
-    public partial class Orders : Window
+    public partial class CustomerOrders : Window
     {
-        public Orders(string login)
+        public CustomerOrders(string login)
         {
-            OrdersViewModel vm = new OrdersViewModel(login);
+            CustomerOrdersViewModel vm = new CustomerOrdersViewModel(login);
             DataContext = vm;
             InitializeComponent();
         }

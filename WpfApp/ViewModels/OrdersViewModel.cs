@@ -43,10 +43,20 @@ namespace WpfApp.ViewModels
             {
                 Set(ref _selectedOrder, value);
                 if (_selectedOrder != null)
+                {
                     GetProductsAtSelectedOrder(_selectedOrder.OrderId);
+                    OrderPhaseHandler(_selectedOrder.OrderId);
+                }
 
             }
         }
+
+        #endregion
+
+        #region Данные менеджера
+
+        private string _managerLogin;
+        public string ManagerLogin { get => _managerLogin; set => Set(ref _managerLogin, value); }
 
         #endregion
 
@@ -71,7 +81,7 @@ namespace WpfApp.ViewModels
                 try
                 {
                     string sql = "update generalorder " +
-                        "set GeneralOrder_Phase = 'Подтверждено' " +
+                        "set GeneralOrder_Phase = 'К оплате' " +
                         "where GeneralOrder_Id = @orderId;";
 
                     MySqlCommand cmd = new MySqlCommand();
@@ -117,7 +127,7 @@ namespace WpfApp.ViewModels
                 try
                 {
                     string sql = "update generalorder " +
-                        "set GeneralOrder_Phase = 'Отклонено' " +
+                        "set GeneralOrder_Phase = 'Отклонен' " +
                         "where GeneralOrder_Id = @orderId;";
 
                     MySqlCommand cmd = new MySqlCommand();
@@ -146,8 +156,9 @@ namespace WpfApp.ViewModels
 
         #endregion
 
-        public OrdersViewModel()
+        public OrdersViewModel(string login)
         {
+            ManagerLogin = login;
             GetOrders();
 
             #region Команды
@@ -167,12 +178,14 @@ namespace WpfApp.ViewModels
             try
             {
                 string sql = "SELECT * FROM generalorder " +
-                    "where GeneralOrder_Phase != 'Отклонено'" +
-                    "and GeneralOrder_Phase != 'Подтверждено'";
+                    "where GeneralOrder_Phase != 'Отклонен' " +
+                    "and (GeneralOrder_Manager_UserInformation_Login = 'TestManager' " +
+                    "or GeneralOrder_Manager_UserInformation_Login = @manager);";
 
                 MySqlCommand cmd = new MySqlCommand();
                 cmd.CommandText = sql;
                 cmd.Connection = conn;
+                cmd.Parameters.AddWithValue("@manager", ManagerLogin);
 
                 var reader = cmd.ExecuteReader();
 
@@ -203,7 +216,7 @@ namespace WpfApp.ViewModels
             }
         }
 
-        private void GetProductsAtSelectedOrder(int orderId)
+        private async void GetProductsAtSelectedOrder(int orderId)
         {
             ProductsInOrder.Clear();
             MySqlConnection conn = DBUtils.GetDBConnection();
@@ -220,7 +233,52 @@ namespace WpfApp.ViewModels
                 cmd.Connection = conn;
                 cmd.Parameters.AddWithValue("@orderId", orderId);
 
-                var reader = cmd.ExecuteReader();
+                var reader = await cmd.ExecuteReaderAsync();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        ProductsInOrder.Add(new ProductInOrder()
+                        {
+                            OrderId = reader.GetInt32(0),
+                            ProductArticul = reader.GetString(1),
+                            ProductName = reader.GetString(2),
+                            ProductImage = reader.GetString(3),
+                            ProductQuantity = reader.GetInt32(4),
+                            ProductPriceXQuantity = reader.GetFloat(5),
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+                conn.Dispose();
+            }
+        }
+
+        private async void OrderPhaseHandler(int orderId)
+        {
+            MySqlConnection conn = DBUtils.GetDBConnection();
+            conn.Open();
+            try
+            {
+                string sql = "update generalorder set GeneralOrder_Phase = 'Обработка', " +
+                    "GeneralOrder_Manager_UserInformation_Login = @login " +
+                    "where GeneralOrder_Id = @orderId";
+
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = sql;
+                cmd.Connection = conn;
+                cmd.Parameters.AddWithValue("@orderId", orderId);
+                cmd.Parameters.AddWithValue("@login", ManagerLogin);
+
+                var reader = await cmd.ExecuteReaderAsync();
 
                 if (reader.HasRows)
                 {

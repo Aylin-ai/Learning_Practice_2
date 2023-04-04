@@ -21,6 +21,13 @@ namespace WpfApp.ViewModels
 
         #endregion
 
+        #region Данные менеджера
+
+        private string _managerLogin;
+        public string ManagerLogin { get => _managerLogin; set => Set(ref  _managerLogin, value); } 
+
+        #endregion
+
         #region Команды
 
         #region Команда для перехода на страницу со списком изделий
@@ -43,7 +50,7 @@ namespace WpfApp.ViewModels
         private bool CanOrdersWindowCommandExecute(object parameter) => true;
         private void OnOrdersWindowCommandExecuted(object parameter)
         {
-            Orders orders = new Orders();
+            Orders orders = new Orders(ManagerLogin);
             orders.Show();
         }
 
@@ -65,8 +72,9 @@ namespace WpfApp.ViewModels
 
         #endregion
 
-        public ManagerMainWindowViewModel()
+        public ManagerMainWindowViewModel(string login)
         {
+            ManagerLogin = login;
 
             #region Команды
 
