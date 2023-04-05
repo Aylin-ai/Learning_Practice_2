@@ -19,9 +19,9 @@ namespace WpfApp.ViewModels
         #region Коллекции элементов
 
         private ObservableCollection<FurnitureStore> _furnitures = new ObservableCollection<FurnitureStore>();
-        private ObservableCollection<ClothStore> _cloths = new ObservableCollection<ClothStore>();
-
         public ObservableCollection<FurnitureStore> FurnituresAtStore { get => _furnitures; set => Set(ref _furnitures, value); }
+
+        private ObservableCollection<ClothStore> _cloths = new ObservableCollection<ClothStore>();
         public ObservableCollection<ClothStore> ClothsAtStore { get => _cloths; set => Set(ref _cloths, value); }
 
         #endregion
@@ -243,7 +243,7 @@ namespace WpfApp.ViewModels
                     try
                     {
                         string sql = "SELECT c.Cloth_Articul, c.Cloth_Name, c.`Cloth_Length(cm)`, c.`Cloth_Width(cm)`, c.`Cloth_Cost(rub)`, cs.ClothStore_Roll, " +
-                            "cs.ClothStore_AreaOfRoll" +
+                            "cs.ClothStore_AreaOfRoll " +
                             "from cloth c " +
                             "inner join clothstore cs " +
                             "on c.Cloth_Articul = cs.ClothStore_Cloth_Articul;";
@@ -266,7 +266,7 @@ namespace WpfApp.ViewModels
                                     CostOfCloth = reader.GetFloat(4),
                                     RollAtStore = reader.GetInt32(5),
                                     AreaOfClothAtStoreIn = reader.GetFloat(6),
-                                    CostOfAllCloth = (reader.GetFloat(6) / (reader.GetFloat(2) * reader.GetFloat(3)) / 10000) * reader.GetFloat(4)
+                                    CostOfAllCloth = (reader.GetFloat(6) / (reader.GetFloat(2) * reader.GetFloat(3))) * reader.GetFloat(4)
                                 });
                             }
                         }

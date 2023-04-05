@@ -103,9 +103,8 @@
                                                 Binding="{Binding Composition}"/>
                     </DataGrid.Columns>
                 </DataGrid>
-                
+
             </TabItem>
-            
             
         </TabControl>
 

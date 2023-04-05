@@ -9,8 +9,8 @@
         mc:Ignorable="d"
         Icon="{Binding IconSource}"
         Title="Список фурнитуры" 
-        MinHeight="400"  Height="600" 
-        MinWidth="1000" Width="1000">
+        Width="800"  Height="1000" 
+        MinWidth="800" MinHeight="600">
     <Window.DataContext>
         <vm:FurnitureListViewModel/>
     </Window.DataContext>
@@ -20,7 +20,8 @@
                    HorizontalAlignment="Center">
 
             <Image Source="{Binding ImageSource}" Width="70"/>
-            <Label Content="Список фурнитуры" VerticalAlignment="Center"/>
+            <Label Content="Список фурнитуры" VerticalAlignment="Center"
+                   Style="{StaticResource TitleStyle}"/>
 
         </WrapPanel>
 
@@ -85,35 +86,73 @@
 
         </WrapPanel>
 
-        <ScrollViewer>
-            <DataGrid ItemsSource="{Binding FrontFurnitures}" 
-                      AutoGenerateColumns="False">
-                <DataGrid.Columns >
-                    <DataGridTemplateColumn Header="Картинка">
-                        <DataGridTemplateColumn.CellEditingTemplate>
-                            <DataTemplate>
-                                <Image Width="300" Height="300" Source="{Binding Image}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellEditingTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Артикул" 
-                                        Binding="{Binding Articul}"/>
-                    <DataGridTextColumn Header="Название" 
-                                        Binding="{Binding Name}"
-                                        MinWidth="250" Width="250"/>
-                    <DataGridTextColumn Header="Ширина" 
-                                        Binding="{Binding Width}"/>
-                    <DataGridTextColumn Header="Длина" 
-                                        Binding="{Binding Length}"/>
-                    <DataGridTextColumn Header="Вес" 
-                                        Binding="{Binding Weight}"/>
-                    <DataGridTextColumn Header="Цена(руб)" 
-                                        Binding="{Binding Cost}"/>
-                    <DataGridTextColumn Header="Тип фурнитуры" 
-                                        Binding="{Binding Type}"/>
-                </DataGrid.Columns>
-            </DataGrid>
-        </ScrollViewer>
+        <ListView ItemsSource="{Binding Furnitures}">
+            <ListView.ItemTemplate>
+                <DataTemplate DataType="model:Furniture">
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <Image Source="{Binding Image}"
+                               Width="200" Height="200"/>
+
+                        <StackPanel>
+
+                            <WrapPanel>
+                                <Label Content="Артикул -"
+                                       Margin="0"/>
+                                <Label Content="{Binding Articul}"
+                                       Margin="0"/>
+                            </WrapPanel>
+
+                            <WrapPanel>
+                                <Label Content="Название -"
+                                       Margin="0"/>
+                                <Label Content="{Binding Name}"
+                                       Margin="0"/>
+                            </WrapPanel>
+
+                            <WrapPanel>
+                                <Label Content="Ширина -"
+                                       Margin="0"/>
+                                <Label Content="{Binding Width}"
+                                       Margin="0"/>
+                            </WrapPanel>
+
+                            <WrapPanel>
+                                <Label Content="Длина -"
+                                       Margin="0"/>
+                                <Label Content="{Binding Length}"
+                                       Margin="0"/>
+                            </WrapPanel>
+
+                            <WrapPanel>
+                                <Label Content="Вес -"
+                                       Margin="0"/>
+                                <Label Content="{Binding Weight}"
+                                       Margin="0"/>
+                            </WrapPanel>
+
+                            <WrapPanel>
+                                <Label Content="Цена -"
+                                       Margin="0"/>
+                                <Label Content="{Binding Cost}"
+                                       Margin="0"/>
+                            </WrapPanel>
+
+                            <WrapPanel>
+                                <Label Content="Тип фурнитуры -"
+                                       Margin="0"/>
+                                <Label Content="{Binding Type}"
+                                       Margin="0"/>
+                            </WrapPanel>
+
+                        </StackPanel>
+
+                    </StackPanel>
+                    
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
 
     </DockPanel>
 </Window>

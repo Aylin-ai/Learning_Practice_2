@@ -26,7 +26,7 @@ namespace WpfApp.ViewModels
         #region Коллекции элементов
 
         private ObservableCollection<Furniture> _furnitures = new ObservableCollection<Furniture>();
-        public ObservableCollection<Furniture> FrontFurnitures { get => _furnitures; set => Set(ref _furnitures, value); }
+        public ObservableCollection<Furniture> Furnitures { get => _furnitures; set => Set(ref _furnitures, value); }
         
         #endregion
 
@@ -36,7 +36,6 @@ namespace WpfApp.ViewModels
         private string _myPreviousSelectedWeight = "гр";
 
         #endregion
-
 
         #region Команды
 
@@ -208,45 +207,45 @@ namespace WpfApp.ViewModels
             switch (unit)
             {
                 case "*10":
-                    for (int i = 0; i < FrontFurnitures.Count; i++)
+                    for (int i = 0; i < Furnitures.Count; i++)
                     {
-                        FrontFurnitures[i].Length *= 10;
-                        FrontFurnitures[i].Width *= 10;
+                        Furnitures[i].Length *= 10;
+                        Furnitures[i].Width *= 10;
                     }
                     break;
                 case "*100":
-                    for (int i = 0; i < FrontFurnitures.Count; i++)
+                    for (int i = 0; i < Furnitures.Count; i++)
                     {
-                        FrontFurnitures[i].Length *= 100;
-                        FrontFurnitures[i].Width *= 100;
+                        Furnitures[i].Length *= 100;
+                        Furnitures[i].Width *= 100;
                     }
                     break;
                 case "/10":
-                    for (int i = 0; i < FrontFurnitures.Count; i++)
+                    for (int i = 0; i < Furnitures.Count; i++)
                     {
-                        FrontFurnitures[i].Length /= 10;
-                        FrontFurnitures[i].Width /= 10;
+                        Furnitures[i].Length /= 10;
+                        Furnitures[i].Width /= 10;
                     }
                     break;
                 case "/100":
-                    for (int i = 0; i < FrontFurnitures.Count; i++)
+                    for (int i = 0; i < Furnitures.Count; i++)
                     {
-                        FrontFurnitures[i].Length /= 100;
-                        FrontFurnitures[i].Width /= 100;
+                        Furnitures[i].Length /= 100;
+                        Furnitures[i].Width /= 100;
                     }
                     break;
                 case "*1000":
-                    for (int i = 0; i < FrontFurnitures.Count; i++)
+                    for (int i = 0; i < Furnitures.Count; i++)
                     {
-                        FrontFurnitures[i].Length *= 1000;
-                        FrontFurnitures[i].Width *= 1000;
+                        Furnitures[i].Length *= 1000;
+                        Furnitures[i].Width *= 1000;
                     }
                     break;
                 case "/1000":
-                    for (int i = 0; i < FrontFurnitures.Count; i++)
+                    for (int i = 0; i < Furnitures.Count; i++)
                     {
-                        FrontFurnitures[i].Length /= 1000;
-                        FrontFurnitures[i].Width /= 1000;
+                        Furnitures[i].Length /= 1000;
+                        Furnitures[i].Width /= 1000;
                     }
                     break;
                 default:
@@ -269,7 +268,7 @@ namespace WpfApp.ViewModels
                         {
                             while (reader.Read())
                             {
-                                FrontFurnitures.Add(new Furniture()
+                                Furnitures.Add(new Furniture()
                                 {
                                     Articul = reader.GetString(0),
                                     Name = reader.GetString(1),
@@ -303,51 +302,51 @@ namespace WpfApp.ViewModels
             switch (weight)
             {
                 case "*10":
-                    for (int i = 0; i < FrontFurnitures.Count; i++)
+                    for (int i = 0; i < Furnitures.Count; i++)
                     {
-                        FrontFurnitures[i].Weight *= 10;
+                        Furnitures[i].Weight *= 10;
                     }
                     break;
                 case "*100":
-                    for (int i = 0; i < FrontFurnitures.Count; i++)
+                    for (int i = 0; i < Furnitures.Count; i++)
                     {
-                        FrontFurnitures[i].Weight *= 100;
+                        Furnitures[i].Weight *= 100;
                     }
                     break;
                 case "/10":
-                    for (int i = 0; i < FrontFurnitures.Count; i++)
+                    for (int i = 0; i < Furnitures.Count; i++)
                     {
-                        FrontFurnitures[i].Weight /= 10;
+                        Furnitures[i].Weight /= 10;
                     }
                     break;
                 case "/100":
-                    for (int i = 0; i < FrontFurnitures.Count; i++)
+                    for (int i = 0; i < Furnitures.Count; i++)
                     {
-                        FrontFurnitures[i].Weight /= 100;
+                        Furnitures[i].Weight /= 100;
                     }
                     break;
                 case "*1000":
-                    for (int i = 0; i < FrontFurnitures.Count; i++)
+                    for (int i = 0; i < Furnitures.Count; i++)
                     {
-                        FrontFurnitures[i].Weight *= 1000;
+                        Furnitures[i].Weight *= 1000;
                     }
                     break;
                 case "/1000":
-                    for (int i = 0; i < FrontFurnitures.Count; i++)
+                    for (int i = 0; i < Furnitures.Count; i++)
                     {
-                        FrontFurnitures[i].Weight /= 1000;
+                        Furnitures[i].Weight /= 1000;
                     }
                     break;
                 case "*1000000":
-                    for (int i = 0; i < FrontFurnitures.Count; i++)
+                    for (int i = 0; i < Furnitures.Count; i++)
                     {
-                        FrontFurnitures[i].Weight *= 1000000;
+                        Furnitures[i].Weight *= 1000000;
                     }
                     break;
                 case "/1000000":
-                    for (int i = 0; i < FrontFurnitures.Count; i++)
+                    for (int i = 0; i < Furnitures.Count; i++)
                     {
-                        FrontFurnitures[i].Weight /= 1000000;
+                        Furnitures[i].Weight /= 1000000;
                     }
                     break;
             }

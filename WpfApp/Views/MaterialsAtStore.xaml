@@ -9,8 +9,8 @@
         mc:Ignorable="d"
         Icon="{Binding IconSource}"
         Title="Список материалов на складе" 
-        MinHeight="400"  Height="600" 
-        MinWidth="800" Width="1250">
+        Width="1000" Height="600" 
+        MinWidth="800" MinHeight="400">
     <Window.DataContext>
         <vm:MaterialsAtStoreViewModel/>
     </Window.DataContext>
@@ -60,48 +60,44 @@
 
             <TabItem Header="Фурнитура">
 
-                <ScrollViewer>
-                    <DataGrid ItemsSource="{Binding FurnituresAtStore}" 
+                <DataGrid ItemsSource="{Binding FurnituresAtStore}" 
                       AutoGenerateColumns="False">
-                        <DataGrid.Columns >
-                            <DataGridTextColumn Header="Артикул" 
+                    <DataGrid.Columns >
+                        <DataGridTextColumn Header="Артикул" 
                                                 Binding="{Binding Articul}"/>
-                            <DataGridTextColumn Header="Название" 
+                        <DataGridTextColumn Header="Название" 
                                                 Binding="{Binding Name}"
                                         MinWidth="250" Width="250"/>
-                            <DataGridTextColumn Header="Цена" 
+                        <DataGridTextColumn Header="Цена" 
                                                 Binding="{Binding Cost}"/>
-                            <DataGridTextColumn Header="Партия на складе" 
+                        <DataGridTextColumn Header="Партия на складе" 
                                                 Binding="{Binding Party}"/>
-                            <DataGridTextColumn Header="Количество на складе" 
+                        <DataGridTextColumn Header="Количество на складе" 
                                                 Binding="{Binding Quantity}"/>
-                            <DataGridTextColumn Header="Закупочная стоимость"
+                        <DataGridTextColumn Header="Закупочная стоимость"
                                                 Binding="{Binding CostOfAllFurniture}"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </ScrollViewer>
+                    </DataGrid.Columns>
+                </DataGrid>
 
             </TabItem>
 
             <TabItem Header="Ткани">
-                
-                <ScrollViewer>
-                    <DataGrid ItemsSource="{Binding ClothsAtStore}" 
+
+                <DataGrid ItemsSource="{Binding ClothsAtStore}" 
                       AutoGenerateColumns="False">
-                        <DataGrid.Columns >
-                            <DataGridTextColumn Header="Артикул" Binding="{Binding Articul}"/>
-                            <DataGridTextColumn Header="Название" Binding="{Binding Name}"
+                    <DataGrid.Columns >
+                        <DataGridTextColumn Header="Артикул" Binding="{Binding Articul}"/>
+                        <DataGridTextColumn Header="Название" Binding="{Binding Name}"
                                         MinWidth="250" Width="250"/>
-                            <DataGridTextColumn Header="Площадь" Binding="{Binding AreaOfCloth}"/>
-                            <DataGridTextColumn Header="Цена" Binding="{Binding CostOfCloth}"/>
-                            <DataGridTextColumn Header="Ткани на складе" 
+                        <DataGridTextColumn Header="Площадь" Binding="{Binding AreaOfCloth}"/>
+                        <DataGridTextColumn Header="Цена" Binding="{Binding CostOfCloth}"/>
+                        <DataGridTextColumn Header="Ткани на складе" 
                                                 Binding="{Binding AreaOfClothAtStoreIn}"/>
-                            <DataGridTextColumn Header="Закупочная стоимость"
+                        <DataGridTextColumn Header="Закупочная стоимость"
                                                 Binding="{Binding CostOfAllCloth}"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </ScrollViewer>
-                
+                    </DataGrid.Columns>
+                </DataGrid>
+
             </TabItem>
 
         </TabControl>
