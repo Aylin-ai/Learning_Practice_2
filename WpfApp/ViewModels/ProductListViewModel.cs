@@ -10,6 +10,7 @@ using System.Windows.Input;
 using WpfApp.Infrastructure.Commands;
 using WpfApp.Models;
 using WpfApp.ViewModels.Base;
+using WpfApp.Views;
 
 namespace WpfApp.ViewModels
 {
@@ -165,6 +166,25 @@ namespace WpfApp.ViewModels
 
         #endregion
 
+        #region Команда для перехода к окну производства изделия
+
+        public ICommand ProductManufacturingWindowCommand { get; }
+
+        private bool CanProductManufacturingWindowCommandExecute(object parameter) => true;
+        private void OnProductManufacturingWindowCommandExecuted(object parameter)
+        {
+            if (parameter == null)
+                MessageBox.Show("Вы не выбрали изделие");
+            else
+            {
+                Product product = parameter as Product;
+                ProductManufacturing productManufacturing = new ProductManufacturing(product);
+                productManufacturing.Show();
+            }
+        }
+
+        #endregion
+
         #endregion
 
         public ProductListViewModel()
@@ -177,6 +197,7 @@ namespace WpfApp.ViewModels
             ToCMCommand = new LambdaCommand(OnToCMCommandExecuted, CanToCMCommandExecute);
             ToDMCommand = new LambdaCommand(OnToDMCommandExecuted, CanToDMCommandExecute);
             ToMMCommand = new LambdaCommand(OnToMMCommandExecuted, CanToMMCommandExecute);
+            ProductManufacturingWindowCommand = new LambdaCommand(OnProductManufacturingWindowCommandExecuted, CanProductManufacturingWindowCommandExecute);
 
             #endregion
         }

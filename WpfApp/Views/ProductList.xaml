@@ -25,38 +25,44 @@
 
         </WrapPanel>
 
-        <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Left" Margin="10">
+        <WrapPanel DockPanel.Dock="Top" HorizontalAlignment="Left" Margin="10">
 
-            <Label Content="Выберите е.и. размерности"/>
-            <ComboBox>
-                <ComboBoxItem Content="см"
+            <StackPanel>
+                <Label Content="Выберите е.и. размерности"/>
+                <ComboBox>
+                    <ComboBoxItem Content="см"
                               IsSelected="True">
-                    <ComboBoxItem.InputBindings>
-                        <MouseBinding Command="{Binding ToCMCommand}"
+                        <ComboBoxItem.InputBindings>
+                            <MouseBinding Command="{Binding ToCMCommand}"
                                       MouseAction="LeftClick"/>
-                    </ComboBoxItem.InputBindings>
-                </ComboBoxItem>
-                <ComboBoxItem Content="м">
-                    <ComboBoxItem.InputBindings>
-                        <MouseBinding Command="{Binding ToMCommand}"
+                        </ComboBoxItem.InputBindings>
+                    </ComboBoxItem>
+                    <ComboBoxItem Content="м">
+                        <ComboBoxItem.InputBindings>
+                            <MouseBinding Command="{Binding ToMCommand}"
                                       MouseAction="LeftClick"/>
-                    </ComboBoxItem.InputBindings>
-                </ComboBoxItem>
-                <ComboBoxItem Content="дм">
-                    <ComboBoxItem.InputBindings>
-                        <MouseBinding Command="{Binding ToDMCommand}"
+                        </ComboBoxItem.InputBindings>
+                    </ComboBoxItem>
+                    <ComboBoxItem Content="дм">
+                        <ComboBoxItem.InputBindings>
+                            <MouseBinding Command="{Binding ToDMCommand}"
                                       MouseAction="LeftClick"/>
-                    </ComboBoxItem.InputBindings>
-                </ComboBoxItem>
-                <ComboBoxItem Content="мм">
-                    <ComboBoxItem.InputBindings>
-                        <MouseBinding Command="{Binding ToMMCommand}"
+                        </ComboBoxItem.InputBindings>
+                    </ComboBoxItem>
+                    <ComboBoxItem Content="мм">
+                        <ComboBoxItem.InputBindings>
+                            <MouseBinding Command="{Binding ToMMCommand}"
                                       MouseAction="LeftClick"/>
-                    </ComboBoxItem.InputBindings>
-                </ComboBoxItem>
-            </ComboBox>
+                        </ComboBoxItem.InputBindings>
+                    </ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
 
-        </StackPanel>
+            <Button Content="Производство" IsEnabled="{Binding}"
+                    Command="{Binding ProductManufacturingWindowCommand}"
+                    CommandParameter="{Binding SelectedProduct}"/>
+
+        </WrapPanel>
 
         <Grid>
 

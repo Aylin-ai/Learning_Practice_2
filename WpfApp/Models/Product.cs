@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WpfApp.Models
 {
-    internal class Product : INotifyPropertyChanged
+    public class Product : INotifyPropertyChanged
     {
         private float _length;
         private float _width;
