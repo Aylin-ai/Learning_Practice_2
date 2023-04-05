@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WpfApp.ViewModels.Base;
 
-namespace WpfApp.ViewModels
+namespace WpfApp.Models
 {
     internal class HistoryOfChangesAtStore : ViewModel
     {

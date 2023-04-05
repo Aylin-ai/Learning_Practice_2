@@ -162,7 +162,7 @@ namespace WpfApp.ViewModels
                 MySqlCommand cmd = new MySqlCommand();
                 cmd.Connection = conn;
                 string sql = "select cloth.Cloth_Image, clothstore.ClothStore_Cloth_Articul, cloth.Cloth_Name, " +
-                    "cloth.Cloth_Area / 10000, cloth.`Cloth_Cost(rub)`, clothstore.ClothStore_ClothArea " +
+                    "cloth.Cloth_Area / 10000, cloth.`Cloth_Cost(rub)`, clothstore.ClothStore_AreaOfRoll / 10000 " +
                     "from clothstore inner join cloth on " +
                     "clothstore.ClothStore_Cloth_Articul = cloth.Cloth_Articul;";
                 cmd.CommandText = sql;

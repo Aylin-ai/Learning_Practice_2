@@ -184,16 +184,7 @@ namespace WpfApp.ViewModels
                             {
                                 product.ProductQuantity += int.Parse(UserQuantity);
                                 product.ProductPriceXQuantity += float.Parse(ProductCost) * int.Parse(UserQuantity);
-                                IsStackPanel1Enabled = true;
-                                IsStackPanel2Enabled = false;
-                                SelectedProductName = null;
-                                ProductArticul = "";
-                                ProductName = "";
-                                ProductImage = "";
-                                ProductCost = "";
-                                ProductLength = "";
-                                ProductWidth = "";
-                                UserQuantity = "";
+                                Cleaner();
                                 return;
                             }
                         }
@@ -206,16 +197,7 @@ namespace WpfApp.ViewModels
                         ProductQuantity = int.Parse(UserQuantity),
                         ProductPriceXQuantity = float.Parse(ProductCost) * int.Parse(UserQuantity)
                     });
-                    IsStackPanel1Enabled = true;
-                    IsStackPanel2Enabled = false;
-                    SelectedProductName = null;
-                    ProductArticul = "";
-                    ProductName = "";
-                    ProductImage = "";
-                    ProductCost = "";
-                    ProductLength = "";
-                    ProductWidth = "";
-                    UserQuantity = "";
+                    Cleaner();
                 }
             }
         }
@@ -229,16 +211,7 @@ namespace WpfApp.ViewModels
         private bool CanCancelAddProductCommandExecute(object parameter) => true;
         private void OnCancelAddProductCommandExecuted(object parameter)
         {
-            IsStackPanel1Enabled = true;
-            IsStackPanel2Enabled = false;
-            SelectedProductName = null;
-            ProductArticul = "";
-            ProductName = "";
-            ProductImage = "";
-            ProductCost = "";
-            ProductLength = "";
-            ProductWidth = "";
-            UserQuantity = "";
+            Cleaner();
             SelectedProduct = null;
         }
 
@@ -335,17 +308,8 @@ namespace WpfApp.ViewModels
                         }
                     }
                     MessageBox.Show("Заказ успешно создан");
-                    ProductsInOrder = new ObservableCollection<ProductInOrder>();
-                    IsStackPanel1Enabled = true;
-                    IsStackPanel2Enabled = false;
-                    SelectedProductName = null;
-                    ProductArticul = "";
-                    ProductName = "";
-                    ProductImage = "";
-                    ProductCost = "";
-                    ProductLength = "";
-                    ProductWidth = "";
-                    UserQuantity = "";
+                    ProductsInOrder.Clear();
+                    Cleaner();
                     SelectedProduct = null;
                 }
                 catch (Exception ex)
@@ -429,6 +393,20 @@ namespace WpfApp.ViewModels
             {
                 ProductsNames.Add($"{product.Name}({product.Articul})");
             }
+        }
+
+        private void Cleaner()
+        {
+            IsStackPanel1Enabled = true;
+            IsStackPanel2Enabled = false;
+            SelectedProductName = null;
+            ProductArticul = "";
+            ProductName = "";
+            ProductImage = "";
+            ProductCost = "";
+            ProductLength = "";
+            ProductWidth = "";
+            UserQuantity = "";
         }
 
     }

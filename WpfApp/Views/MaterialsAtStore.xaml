@@ -8,7 +8,7 @@
         xmlns:model="clr-namespace:WpfApp.Models"
         mc:Ignorable="d"
         Icon="{Binding IconSource}"
-        Title="FurnitureList" 
+        Title="Список материалов на складе" 
         MinHeight="400"  Height="600" 
         MinWidth="800" Width="1250">
     <Window.DataContext>
@@ -95,7 +95,7 @@
                             <DataGridTextColumn Header="Площадь" Binding="{Binding AreaOfCloth}"/>
                             <DataGridTextColumn Header="Цена" Binding="{Binding CostOfCloth}"/>
                             <DataGridTextColumn Header="Ткани на складе" 
-                                                Binding="{Binding AreaOfClothAtStoreInSM}"/>
+                                                Binding="{Binding AreaOfClothAtStoreIn}"/>
                             <DataGridTextColumn Header="Закупочная стоимость"
                                                 Binding="{Binding CostOfAllCloth}"/>
                         </DataGrid.Columns>

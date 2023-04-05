@@ -16,8 +16,6 @@ namespace WpfApp.ViewModels
 {
     internal class ProductManufacturingViewModel : ViewModel
     {
-        private string _warning;
-        public string Warning { get => _warning; set => Set(ref _warning, value); }
 
         #region Данные внешнего вида страницы
 
@@ -40,6 +38,9 @@ namespace WpfApp.ViewModels
         public string ProductName { get => _productName; set => Set(ref _productName, value); }
         public float SystemProductSelfCost { get => _systemProductSelfCost; set => Set(ref _systemProductSelfCost, value); }
         public float RealProductSelfCost { get => _realProductSelfCost; set => Set(ref _realProductSelfCost, value); }
+
+        private string _warning;
+        public string Warning { get => _warning; set => Set(ref _warning, value); }
 
         #endregion
 

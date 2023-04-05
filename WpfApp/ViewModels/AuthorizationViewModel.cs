@@ -16,7 +16,12 @@ namespace WpfApp.ViewModels
 {
     internal class AuthorizationViewModel : ViewModel
     {
+
+        #region Actions
+
         public Action CloseAction { get; set; }
+
+        #endregion
 
         #region Данные внешнего вида страницы
 

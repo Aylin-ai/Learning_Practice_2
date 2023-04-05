@@ -12,8 +12,12 @@ namespace WpfApp.ViewModels
 {
     internal class StorekeeperMainWindowViewModel : ViewModel
     {
-        public Action CloseAction { get; set; }
 
+        #region Actions
+        
+        public Action CloseAction { get; set; }
+        
+        #endregion
 
         #region Данные внешнего вида страницы
 

@@ -8,7 +8,7 @@
         xmlns:local="clr-namespace:WpfApp.Views"
         mc:Ignorable="d"
         Icon="{Binding IconSource}"
-        Title="ClothList" 
+        Title="Список тканей" 
         MinHeight="400"  Height="600" 
         MinWidth="800" Width="800">
     <Window.DataContext>
@@ -62,58 +62,52 @@
 
             <TabItem Header="Ткань">
 
-                <ScrollViewer>
-                    <DataGrid ItemsSource="{Binding FrontCloths}" 
+                <DataGrid ItemsSource="{Binding Cloths}" 
                       AutoGenerateColumns="False">
-                        <DataGrid.Columns >
-                            <DataGridTemplateColumn Header="Картинка">
-                                <DataGridTemplateColumn.CellEditingTemplate>
-                                    <DataTemplate>
-                                        <Image Width="300" Height="300" Source="{Binding Image}"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellEditingTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTextColumn Header="Артикул" 
+                    <DataGrid.Columns >
+                        <DataGridTemplateColumn Header="Картинка">
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <Image Width="300" Height="300" Source="{Binding Image}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Артикул" 
                                                 Binding="{Binding Articul}"/>
-                            <DataGridTextColumn Header="Название" 
+                        <DataGridTextColumn Header="Название" 
                                                 Binding="{Binding Name}"
                                                 MinWidth="250" Width="250"/>
-                            <DataGridTextColumn Header="Длина" 
+                        <DataGridTextColumn Header="Длина" 
                                                 Binding="{Binding Length}"/>
-                            <DataGridTextColumn Header="Ширина" 
+                        <DataGridTextColumn Header="Ширина" 
                                                 Binding="{Binding Width}"/>
-                            <DataGridTextColumn Header="Цена(руб)" 
+                        <DataGridTextColumn Header="Цена(руб)" 
                                                 Binding="{Binding Cost}"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </ScrollViewer>
-
+                    </DataGrid.Columns>
+                </DataGrid>
+                
             </TabItem>
 
             <TabItem Header="Цвет/Рисунок/Состав ткани">
 
-                <ScrollViewer>
-                    <DataGrid ItemsSource="{Binding ClothsInnerInformation}"
+                <DataGrid ItemsSource="{Binding ClothsInnerInformation}"
                               AutoGenerateColumns="False">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Артикул" 
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Артикул" 
                                                 Binding="{Binding Articul}"/>
-                            <DataGridTextColumn Header="Цвет" 
+                        <DataGridTextColumn Header="Цвет" 
                                                 Binding="{Binding Color}"/>
-                            <DataGridTextColumn Header="Рисунок" 
+                        <DataGridTextColumn Header="Рисунок" 
                                                 Binding="{Binding Pattern}"/>
-                            <DataGridTextColumn Header="Состав" 
+                        <DataGridTextColumn Header="Состав" 
                                                 Binding="{Binding Composition}"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </ScrollViewer>
+                    </DataGrid.Columns>
+                </DataGrid>
                 
             </TabItem>
             
             
         </TabControl>
-
-        
 
     </DockPanel>
 </Window>

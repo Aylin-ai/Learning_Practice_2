@@ -8,7 +8,7 @@
         xmlns:model="clr-namespace:WpfApp.Models"
         mc:Ignorable="d"
         Icon="{Binding IconSource}"
-        Title="ProductList" 
+        Title="Список изделий" 
         MinHeight="400"  Height="600" 
         MinWidth="1200" Width="100">
     <Window.DataContext>
@@ -20,7 +20,7 @@
                    HorizontalAlignment="Center">
 
             <Image Source="{Binding ImageSource}" Width="70"/>
-            <Label Content="Список продуктов" VerticalAlignment="Center"
+            <Label Content="Список изделий" VerticalAlignment="Center"
                    Style="{StaticResource ResourceKey=TitleStyle}"/>
 
         </WrapPanel>
@@ -60,7 +60,8 @@
 
             <Button Content="Производство" IsEnabled="{Binding}"
                     Command="{Binding ProductManufacturingWindowCommand}"
-                    CommandParameter="{Binding SelectedProduct}"/>
+                    CommandParameter="{Binding SelectedProduct}"
+                    VerticalAlignment="Bottom"/>
 
         </WrapPanel>
 

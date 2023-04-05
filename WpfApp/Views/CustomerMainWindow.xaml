@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:WpfApp.ViewModels"
         mc:Ignorable="d"
         Icon="{Binding IconSource}"
-        Title="CustomerMainWindow" 
+        Title="Главное окно заказчика" 
         MinHeight="470" MinWidth="400"
         MaxHeight="800" MaxWidth="800"
         Height="470" Width="400">

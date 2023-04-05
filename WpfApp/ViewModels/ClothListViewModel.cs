@@ -16,11 +16,15 @@ namespace WpfApp.ViewModels
     internal class ClothListViewModel : ViewModel
     {
 
+        #region Коллекции элементов
+
         private ObservableCollection<Cloth> _cloths = new ObservableCollection<Cloth>();
-        public ObservableCollection<Cloth> FrontCloths{ get => _cloths; set => Set(ref _cloths, value); }
+        public ObservableCollection<Cloth> Cloths { get => _cloths; set => Set(ref _cloths, value); }
 
         private ObservableCollection<ClothInnerInformation> _clothsInnerInformation = new ObservableCollection<ClothInnerInformation>();
         public ObservableCollection<ClothInnerInformation> ClothsInnerInformation { get => _clothsInnerInformation; set => Set(ref _clothsInnerInformation, value); }
+
+        #endregion
 
         #region Данные изделий
 
@@ -147,45 +151,45 @@ namespace WpfApp.ViewModels
             switch (unit)
             {
                 case "*10":
-                    for (int i = 0; i < FrontCloths.Count; i++)
+                    for (int i = 0; i < Cloths.Count; i++)
                     {
-                        FrontCloths[i].Length *= 10;
-                        FrontCloths[i].Width *= 10;
+                        Cloths[i].Length *= 10;
+                        Cloths[i].Width *= 10;
                     }
                     break;
                 case "*100":
-                    for (int i = 0; i < FrontCloths.Count; i++)
+                    for (int i = 0; i < Cloths.Count; i++)
                     {
-                        FrontCloths[i].Length *= 100;
-                        FrontCloths[i].Width *= 100;
+                        Cloths[i].Length *= 100;
+                        Cloths[i].Width *= 100;
                     }
                     break;
                 case "/10":
-                    for (int i = 0; i < FrontCloths.Count; i++)
+                    for (int i = 0; i < Cloths.Count; i++)
                     {
-                        FrontCloths[i].Length /= 10;
-                        FrontCloths[i].Width /= 10;
+                        Cloths[i].Length /= 10;
+                        Cloths[i].Width /= 10;
                     }
                     break;
                 case "/100":
-                    for (int i = 0; i < FrontCloths.Count; i++)
+                    for (int i = 0; i < Cloths.Count; i++)
                     {
-                        FrontCloths[i].Length /= 100;
-                        FrontCloths[i].Width /= 100;
+                        Cloths[i].Length /= 100;
+                        Cloths[i].Width /= 100;
                     }
                     break;
                 case "*1000":
-                    for (int i = 0; i < FrontCloths.Count; i++)
+                    for (int i = 0; i < Cloths.Count; i++)
                     {
-                        FrontCloths[i].Length *= 1000;
-                        FrontCloths[i].Width *= 1000;
+                        Cloths[i].Length *= 1000;
+                        Cloths[i].Width *= 1000;
                     }
                     break;
                 case "/1000":
-                    for (int i = 0; i < FrontCloths.Count; i++)
+                    for (int i = 0; i < Cloths.Count; i++)
                     {
-                        FrontCloths[i].Length /= 1000;
-                        FrontCloths[i].Width /= 1000;
+                        Cloths[i].Length /= 1000;
+                        Cloths[i].Width /= 1000;
                     }
                     break;
                 default:
@@ -205,7 +209,7 @@ namespace WpfApp.ViewModels
                         {
                             while (reader.Read())
                             {
-                                FrontCloths.Add(new Cloth()
+                                Cloths.Add(new Cloth()
                                 {
                                     Articul = reader.GetString(0),
                                     Name = reader.GetString(1),

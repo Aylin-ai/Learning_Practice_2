@@ -18,17 +18,24 @@ namespace WpfApp.ViewModels
     internal class MaterialComingViewModel : ViewModel
     {
 
-        #region Коллекции элементов для добавления
+        #region Данные внешнего вида страницы
+
+        public string IconSource { get; set; } = "D:\\Учеба\\Учебная практика 2\\WSR2017_NC_Skill09_RU\\Сессия 1\\Logo\\logo-01.jpg";
+        public string ImageSource { get; set; } = "D:\\Учеба\\Учебная практика 2\\WSR2017_NC_Skill09_RU\\Сессия 1\\Logo\\logo-02.jpg";
+
+        #endregion
+
+        #region Коллекции элементов
 
         private ObservableCollection<ComingMaterial> _comingMaterials = new ObservableCollection<ComingMaterial>();
         public ObservableCollection<ComingMaterial> ComingMaterials { get => _comingMaterials; set => Set(ref _comingMaterials, value); }
 
-        #endregion
 
-        #region Коллекции элементов тканей
 
         private ObservableCollection<string> _measurementUnits = new ObservableCollection<string>() { "см2", "м2", "дм2", "мм2" };
         public ObservableCollection<string> MeasurementUnits { get => _measurementUnits; set => Set(ref _measurementUnits, value); }
+
+
 
         private ObservableCollection<string> _clothsArticuls = new ObservableCollection<string>();
         public ObservableCollection<string> ClothsArticuls { get => _clothsArticuls; set => Set(ref _clothsArticuls, value); }
@@ -36,9 +43,7 @@ namespace WpfApp.ViewModels
         private ObservableCollection<ClothStore> _cloths = new ObservableCollection<ClothStore>();
         public ObservableCollection<ClothStore> Cloths { get => _cloths; set => Set(ref _cloths, value); }
 
-        #endregion
 
-        #region Коллекция элементов фурнитуры
 
         private ObservableCollection<FurnitureStore> _furnitures = new ObservableCollection<FurnitureStore>();
         public ObservableCollection<FurnitureStore> Furnitures { get => _furnitures; set => Set(ref _furnitures, value); }
@@ -285,13 +290,6 @@ namespace WpfApp.ViewModels
         }
         public string FurnitureQuantity { get => _furnitureQuantity; set => Set(ref _furnitureQuantity, value); }
         public string FurnitureComingCost { get => _furnitureComingCost; set => Set(ref _furnitureComingCost, value); }
-
-        #endregion
-
-        #region Данные внешнего вида страницы
-
-        public string IconSource { get; set; } = "D:\\Учеба\\Учебная практика 2\\WSR2017_NC_Skill09_RU\\Сессия 1\\Logo\\logo-01.jpg";
-        public string ImageSource { get; set; } = "D:\\Учеба\\Учебная практика 2\\WSR2017_NC_Skill09_RU\\Сессия 1\\Logo\\logo-02.jpg";
 
         #endregion
 
@@ -630,7 +628,7 @@ namespace WpfApp.ViewModels
                         "set FurnitureStore_Quantity = FurnitureStore_Quantity + @quantity " +
                         "where FurnitureStore_Furniture_Articul = @furnitureArticul;";
                     string sqlCloth = "update clothstore " +
-                        "set ClothStore_ClothArea = ClothStore_ClothArea + @area " +
+                        "set ClothStore_AreaOfRoll = ClothStore_AreaOfRoll + @area " +
                         "where ClothStore_Cloth_Articul = @clothArticul";
                     MySqlCommand cmd = new MySqlCommand();
                     cmd.Connection = conn;
@@ -741,7 +739,7 @@ namespace WpfApp.ViewModels
             try
             {
                 string sql = "SELECT c.Cloth_Articul, c.Cloth_Name, c.`Cloth_Length(cm)`, c.`Cloth_Width(cm)`, c.`Cloth_Cost(rub)`, cs.ClothStore_Roll, " +
-                    "cs.ClothStore_ClothArea " +
+                    "cs.ClothStore_AreaOfRoll " +
                     "from cloth c " +
                     "inner join clothstore cs " +
                     "on c.Cloth_Articul = cs.ClothStore_Cloth_Articul;";
@@ -763,8 +761,8 @@ namespace WpfApp.ViewModels
                             AreaOfCloth = reader.GetFloat(2) * reader.GetFloat(3),
                             CostOfCloth = reader.GetFloat(4),
                             RollAtStore = reader.GetInt32(5),
-                            AreaOfClothAtStoreIn = reader.GetFloat(6) * 10000,
-                            CostOfAllCloth = ((reader.GetFloat(6) * 10000) / (reader.GetFloat(2) * reader.GetFloat(3))) * reader.GetFloat(4)
+                            AreaOfClothAtStoreIn = reader.GetFloat(6),
+                            CostOfAllCloth = ((reader.GetFloat(6)) / (reader.GetFloat(2) * reader.GetFloat(3))) * reader.GetFloat(4)
                         });
                     }
                 }

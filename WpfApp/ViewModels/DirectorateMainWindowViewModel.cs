@@ -12,7 +12,12 @@ namespace WpfApp.ViewModels
 {
     internal class DirectorateMainWindowViewModel : ViewModel
     {
+
+        #region Actions
+        
         public Action CloseAction { get; set; }
+        
+        #endregion
 
         #region Данные внешнего вида страницы
 

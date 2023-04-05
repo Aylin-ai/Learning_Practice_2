@@ -222,14 +222,7 @@ namespace WpfApp.ViewModels
                                 break;
                             }
                         }
-                        Articul = "";
-                        Name = "";
-                        AtStore = 0;
-                        CostOfAllAtStore = 0;
-                        ShortageCost = 0;
-                        SurplusCost = 0;
-                        Discrepancy = "";
-                        UsersDataAtStore = 0;
+                        Cleaner();
                     }
                     else if (FurnituresAtStoreNotInventory.Any(x => x.Articul == Articul))
                     {
@@ -250,14 +243,7 @@ namespace WpfApp.ViewModels
                                 break;
                             }
                         }
-                        Articul = "";
-                        Name = "";
-                        AtStore = 0;
-                        CostOfAllAtStore = 0;
-                        ShortageCost = 0;
-                        SurplusCost = 0;
-                        Discrepancy = "";
-                        UsersDataAtStore = 0;
+                        Cleaner();
                     }
                 }
 
@@ -403,6 +389,7 @@ namespace WpfApp.ViewModels
             #region Команды
 
             AddInventoryElement = new LambdaCommand(OnAddInventoryElementExecuted, CanAddInventoryElementExecute);
+            ConfirmInventoryCommand = new LambdaCommand(OnConfirmInventoryCommandExecuted, CanConfirmInventoryCommandExecute);
 
             #endregion
         }
@@ -463,7 +450,7 @@ namespace WpfApp.ViewModels
             {
                 string sql = "select cloth.Cloth_Image, cloth.Cloth_Articul, cloth.Cloth_Name, " +
                     "cloth.Cloth_Area, cloth.`Cloth_Cost(rub)`, " +
-                    "clothstore.ClothStore_ClothArea from clothstore  " +
+                    "clothstore.ClothStore_AreaOfRoll from clothstore  " +
                     "inner join cloth " +
                     "on clothstore.ClothStore_Cloth_Articul = cloth.Cloth_Articul;";
 
@@ -482,10 +469,10 @@ namespace WpfApp.ViewModels
                             Image = reader.GetString(0),
                             Articul = reader.GetString(1),
                             Name = reader.GetString(2),
-                            AreaOfCloth = reader.GetFloat(3) / 10000,
+                            AreaOfCloth = reader.GetFloat(3),
                             CostOfCloth = reader.GetFloat(4),
                             AreaOfClothAtStoreIn = reader.GetFloat(5),
-                            CostOfAllCloth = reader.GetFloat(5) / (reader.GetFloat(3) / 10000) * reader.GetFloat(4),
+                            CostOfAllCloth = reader.GetFloat(5) / (reader.GetFloat(3)) * reader.GetFloat(4),
                         });
                     }
                 }
@@ -500,6 +487,18 @@ namespace WpfApp.ViewModels
                 conn.Close();
                 conn.Dispose();
             }
+        }
+
+        private void Cleaner()
+        {
+            Articul = "";
+            Name = "";
+            AtStore = 0;
+            CostOfAllAtStore = 0;
+            ShortageCost = 0;
+            SurplusCost = 0;
+            Discrepancy = "";
+            UsersDataAtStore = 0;
         }
 
     }

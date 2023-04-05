@@ -8,9 +8,9 @@
         xmlns:model="clr-namespace:WpfApp.Models"
         mc:Ignorable="d"
         Icon="{Binding IconSource}"
-        Title="FurnitureList" 
+        Title="Список фурнитуры" 
         MinHeight="400"  Height="600" 
-        MinWidth="900" Width="900">
+        MinWidth="1000" Width="1000">
     <Window.DataContext>
         <vm:FurnitureListViewModel/>
     </Window.DataContext>

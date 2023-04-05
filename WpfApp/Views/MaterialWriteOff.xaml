@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:WpfApp.Views"
         mc:Ignorable="d"
         Icon="{Binding IconSource}"
-        Title="MaterialWriteOff" 
+        Title="Списание материалов" 
         Height="550" Width="800"
         MinHeight="550" MinWidth="850"
         MaxHeight="550" MaxWidth="850">

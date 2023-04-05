@@ -7,8 +7,11 @@
         xmlns:vm="clr-namespace:WpfApp.ViewModels"
         xmlns:model="clr-namespace:WpfApp.Models"
         mc:Ignorable="d"
-        Title="MaterialProductChanging" 
-        Height="800" Width="1200">
+        Icon="{Binding IconSource}"
+        Title="Движение материалов/изделий" 
+        Height="800" Width="800"
+        MinHeight="600" MinWidth="800"
+        MaxHeight="1000" MaxWidth="1000">
     <Window.DataContext>
         <vm:MaterialProductChangingViewModel/>
     </Window.DataContext>
@@ -27,12 +30,14 @@
 
             <StackPanel>
                 <Label Content="Начало промежутка"/>
-                <DatePicker SelectedDate="{Binding SelectedFirstDate}"/>
+                <DatePicker SelectedDate="{Binding SelectedFirstDate}"
+                            Margin="5"/>
             </StackPanel>
 
             <StackPanel>
                 <Label Content="Конец промежутка"/>
-                <DatePicker SelectedDate="{Binding SelectedSecondDate}"/>
+                <DatePicker SelectedDate="{Binding SelectedSecondDate}"
+                            Margin="5"/>
             </StackPanel>
             
         </StackPanel>

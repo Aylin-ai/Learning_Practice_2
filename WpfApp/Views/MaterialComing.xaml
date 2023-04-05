@@ -8,10 +8,10 @@
         xmlns:model="clr-namespace:WpfApp.Models"
         mc:Ignorable="d"
         Icon="{Binding IconSource}"
-        Title="MaterialWriteOff" 
-        Height="550" Width="800"
+        Title="Поступление материалов" 
+        Height="550" Width="850"
         MinHeight="550" MinWidth="850"
-        MaxHeight="550" MaxWidth="850">
+        MaxHeight="800" MaxWidth="1000">
     <Window.DataContext>
         <vm:MaterialComingViewModel/>
     </Window.DataContext>
@@ -19,7 +19,7 @@
         <WrapPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center">
             <Image Source="{Binding ImageSource}" Width="70"/>
             <Label Style="{StaticResource ResourceKey=TitleStyle}" 
-               Content="Добавление материалов" DockPanel.Dock="Top"/>
+               Content="Поступление материалов" DockPanel.Dock="Top"/>
         </WrapPanel>
 
         <Grid>

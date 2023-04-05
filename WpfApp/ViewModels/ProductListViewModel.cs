@@ -17,12 +17,17 @@ namespace WpfApp.ViewModels
     internal class ProductListViewModel : ViewModel
     {
 
+        #region Данные внешнего вида страницы
+
+        public string IconSource { get; set; } = "D:\\Учеба\\Учебная практика 2\\WSR2017_NC_Skill09_RU\\Сессия 1\\Logo\\logo-01.jpg";
+        public string ImageSource { get; set; } = "D:\\Учеба\\Учебная практика 2\\WSR2017_NC_Skill09_RU\\Сессия 1\\Logo\\logo-02.jpg";
+
+        #endregion
+
+        #region Коллекции элементов
+
         private ObservableCollection<Product> _products = new ObservableCollection<Product>();
-        public ObservableCollection<Product> FrontProducts
-        {
-            get => _products;
-            set => Set(ref _products, value);
-        }
+        public ObservableCollection<Product> Products { get => _products; set => Set(ref _products, value); }
 
         private ObservableCollection<ClothInProduct> _clothsInProduct = new ObservableCollection<ClothInProduct>();
         public ObservableCollection<ClothInProduct> ClothsInProduct { get => _clothsInProduct; set => Set(ref _clothsInProduct, value); }
@@ -35,6 +40,8 @@ namespace WpfApp.ViewModels
 
         private ObservableCollection<FurnitureInProduct> _previousFurnitureInProduct = new ObservableCollection<FurnitureInProduct>();
         public ObservableCollection<FurnitureInProduct> PreviousFurnitureInProduct { get => _previousFurnitureInProduct; set => Set(ref _previousFurnitureInProduct, value); }
+
+        #endregion
 
         #region Данные изделий
 
@@ -52,7 +59,7 @@ namespace WpfApp.ViewModels
         }
 
         private float _selfCost = 0;
-        public float SelCost { get => _selfCost; set => Set(ref _selfCost, value); }
+        public float SelfCost { get => _selfCost; set => Set(ref _selfCost, value); }
 
         private string _productImage;
         private string _productArticul;
@@ -67,13 +74,6 @@ namespace WpfApp.ViewModels
         public float ProductLength { get => _productLength; set => Set(ref _productLength, value); }
         public float ProductWidth { get => _productWidth; set => Set(ref _productWidth, value); }
         public float ProductCost { get => _productCost; set => Set(ref _productCost, value); }
-
-        #endregion
-
-        #region Данные внешнего вида страницы
-
-        public string IconSource { get; set; } = "D:\\Учеба\\Учебная практика 2\\WSR2017_NC_Skill09_RU\\Сессия 1\\Logo\\logo-01.jpg";
-        public string ImageSource { get; set; } = "D:\\Учеба\\Учебная практика 2\\WSR2017_NC_Skill09_RU\\Сессия 1\\Logo\\logo-02.jpg";
 
         #endregion
 
@@ -208,45 +208,45 @@ namespace WpfApp.ViewModels
             switch (unit)
             {
                 case "*10":
-                    for (int i = 0; i < FrontProducts.Count; i++)
+                    for (int i = 0; i < Products.Count; i++)
                     {
-                        FrontProducts[i].Length *= 10;
-                        FrontProducts[i].Width *= 10;
+                        Products[i].Length *= 10;
+                        Products[i].Width *= 10;
                     }
                     break;
                 case "*100":
-                    for (int i = 0; i < FrontProducts.Count; i++)
+                    for (int i = 0; i < Products.Count; i++)
                     {
-                        FrontProducts[i].Length *= 100;
-                        FrontProducts[i].Width *= 100;
+                        Products[i].Length *= 100;
+                        Products[i].Width *= 100;
                     }
                     break;
                 case "/10":
-                    for (int i = 0; i < FrontProducts.Count; i++)
+                    for (int i = 0; i < Products.Count; i++)
                     {
-                        FrontProducts[i].Length /= 10;
-                        FrontProducts[i].Width /= 10;
+                        Products[i].Length /= 10;
+                        Products[i].Width /= 10;
                     }
                     break;
                 case "/100":
-                    for (int i = 0; i < FrontProducts.Count; i++)
+                    for (int i = 0; i < Products.Count; i++)
                     {
-                        FrontProducts[i].Length /= 100;
-                        FrontProducts[i].Width /= 100;
+                        Products[i].Length /= 100;
+                        Products[i].Width /= 100;
                     }
                     break;
                 case "*1000":
-                    for (int i = 0; i < FrontProducts.Count; i++)
+                    for (int i = 0; i < Products.Count; i++)
                     {
-                        FrontProducts[i].Length *= 1000;
-                        FrontProducts[i].Width *= 1000;
+                        Products[i].Length *= 1000;
+                        Products[i].Width *= 1000;
                     }
                     break;
                 case "/1000":
-                    for (int i = 0; i < FrontProducts.Count; i++)
+                    for (int i = 0; i < Products.Count; i++)
                     {
-                        FrontProducts[i].Length /= 1000;
-                        FrontProducts[i].Width /= 1000;
+                        Products[i].Length /= 1000;
+                        Products[i].Width /= 1000;
                     }
                     break;
                 default:
@@ -266,7 +266,7 @@ namespace WpfApp.ViewModels
                         {
                             while (reader.Read())
                             {
-                                FrontProducts.Add(new Product()
+                                Products.Add(new Product()
                                 {
                                     Articul = reader.GetString(0),
                                     Name = reader.GetString(1),
@@ -302,7 +302,7 @@ namespace WpfApp.ViewModels
             ProductCost = product.Cost;
 
 
-            SelCost = 0;
+            SelfCost = 0;
             ClothsInProduct.Clear();
             FurnituresInProduct.Clear();
             MySqlConnection conn = DBUtils.GetDBConnection();
@@ -333,7 +333,7 @@ namespace WpfApp.ViewModels
                             ClothArea = reader.GetFloat(5),
                             Cost = (reader.GetFloat(5) / reader.GetFloat(3)) * reader.GetFloat(4),
                         });
-                        SelCost += (reader.GetFloat(5) / reader.GetFloat(3)) * reader.GetFloat(4);
+                        SelfCost += (reader.GetFloat(5) / reader.GetFloat(3)) * reader.GetFloat(4);
                     }
                 }
                 reader.Close();
@@ -365,7 +365,7 @@ namespace WpfApp.ViewModels
                             Quantity = readerOfFurnitures.GetInt32(7),
                             Cost = readerOfFurnitures.GetFloat(8) * readerOfFurnitures.GetInt32(7),
                         });
-                        SelCost += readerOfFurnitures.GetFloat(8) * readerOfFurnitures.GetInt32(7);
+                        SelfCost += readerOfFurnitures.GetFloat(8) * readerOfFurnitures.GetInt32(7);
                     }
                 }
             }

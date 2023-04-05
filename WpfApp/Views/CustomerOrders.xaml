@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         xmlns:vm="clr-namespace:WpfApp.ViewModels"
         xmlns:model="clr-namespace:WpfApp.Models"
-        Title="Orders" 
+        Icon="{Binding IconSource}"
+        Title="Заказы" 
         Height="550" Width="800"
         MinHeight="550" MinWidth="800"
         MaxHeight="700" MaxWidth="1000">

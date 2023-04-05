@@ -19,14 +19,20 @@ namespace WpfApp.ViewModels
     internal class MaterialWriteOffViewModel : ViewModel
     {
 
-        #region Коллекции элементов для добавления
+        #region Данные внешнего вида страницы
+
+        public string IconSource { get; set; } = "D:\\Учеба\\Учебная практика 2\\WSR2017_NC_Skill09_RU\\Сессия 1\\Logo\\logo-01.jpg";
+        public string ImageSource { get; set; } = "D:\\Учеба\\Учебная практика 2\\WSR2017_NC_Skill09_RU\\Сессия 1\\Logo\\logo-02.jpg";
+
+        #endregion
+
+        #region Коллекции элементов
 
         private ObservableCollection<ComingMaterial> _writeOffMaterials = new ObservableCollection<ComingMaterial>();
         public ObservableCollection<ComingMaterial> WriteOffMaterials { get => _writeOffMaterials; set => Set(ref _writeOffMaterials, value); }
 
-        #endregion
 
-        #region Коллекции элементов тканей
+
 
         private ObservableCollection<string> _measurementUnits = new ObservableCollection<string>() { "см2", "м2", "дм2", "мм2" };
         public ObservableCollection<string> MeasurementUnits { get => _measurementUnits; set => Set(ref _measurementUnits, value); }
@@ -37,9 +43,8 @@ namespace WpfApp.ViewModels
         private ObservableCollection<ClothStore> _cloths = new ObservableCollection<ClothStore>();
         public ObservableCollection<ClothStore> Cloths { get => _cloths; set => Set(ref _cloths, value); }
 
-        #endregion
 
-        #region Коллекция элементов фурнитуры
+
 
         private ObservableCollection<FurnitureStore> _furnitures = new ObservableCollection<FurnitureStore>();
         public ObservableCollection<FurnitureStore> Furnitures { get => _furnitures; set => Set(ref _furnitures, value); }
@@ -84,44 +89,23 @@ namespace WpfApp.ViewModels
                         {
                             case "см2":
                                 ClothArea = item.AreaOfClothAtStoreIn.ToString();
-                                if (float.TryParse(_userArea, out UserArea))
-                                {
-                                    float first = UserArea * item.CostOfAllCloth;
-                                    float second = float.Parse(ClothArea);
-                                    float third = (first / second);
-                                    ClothWriteOffCost = third.ToString();
-                                }
                                 break;
                             case "м2":
                                 ClothArea = (item.AreaOfClothAtStoreIn / 10000).ToString();
-                                if (float.TryParse(_userArea, out UserArea))
-                                {
-                                    float first = UserArea * item.CostOfAllCloth;
-                                    float second = float.Parse(ClothArea);
-                                    float third = (first / second);
-                                    ClothWriteOffCost = third.ToString();
-                                }
                                 break;
                             case "дм2":
                                 ClothArea = (item.AreaOfClothAtStoreIn / 100).ToString();
-                                if (float.TryParse(_userArea, out UserArea))
-                                {
-                                    float first = UserArea * item.CostOfAllCloth;
-                                    float second = float.Parse(ClothArea);
-                                    float third = (first / second);
-                                    ClothWriteOffCost = third.ToString();
-                                }
                                 break;
                             case "мм2":
                                 ClothArea = (item.AreaOfClothAtStoreIn * 100).ToString();
-                                if (float.TryParse(_userArea, out UserArea))
-                                {
-                                    float first = UserArea * item.CostOfAllCloth;
-                                    float second = float.Parse(ClothArea);
-                                    float third = (first / second);
-                                    ClothWriteOffCost = third.ToString();
-                                }
                                 break;
+                        }
+                        if (float.TryParse(_userArea, out UserArea))
+                        {
+                            float first = UserArea * item.CostOfAllCloth;
+                            float second = float.Parse(ClothArea);
+                            float third = (first / second);
+                            ClothWriteOffCost = third.ToString();
                         }
                     }
                 }
@@ -149,44 +133,23 @@ namespace WpfApp.ViewModels
                             {
                                 case "см2":
                                     ClothArea = item.AreaOfClothAtStoreIn.ToString();
-                                    if (float.TryParse(_userArea, out UserArea))
-                                    {
-                                        float first = UserArea * item.CostOfAllCloth;
-                                        float second = float.Parse(ClothArea);
-                                        float third = (first / second);
-                                        ClothWriteOffCost = third.ToString();
-                                    }
                                     break;
                                 case "м2":
                                     ClothArea = (item.AreaOfClothAtStoreIn / 10000).ToString();
-                                    if (float.TryParse(_userArea, out UserArea))
-                                    {
-                                        float first = UserArea * item.CostOfAllCloth;
-                                        float second = float.Parse(ClothArea);
-                                        float third = (first / second);
-                                        ClothWriteOffCost = third.ToString();
-                                    }
                                     break;
                                 case "дм2":
                                     ClothArea = (item.AreaOfClothAtStoreIn / 100).ToString();
-                                    if (float.TryParse(_userArea, out UserArea))
-                                    {
-                                        float first = UserArea * item.CostOfAllCloth;
-                                        float second = float.Parse(ClothArea);
-                                        float third = (first / second);
-                                        ClothWriteOffCost = third.ToString();
-                                    }
                                     break;
                                 case "мм2":
                                     ClothArea = (item.AreaOfClothAtStoreIn * 100).ToString();
-                                    if (float.TryParse(_userArea, out UserArea))
-                                    {
-                                        float first = UserArea * item.CostOfAllCloth;
-                                        float second = float.Parse(ClothArea);
-                                        float third = (first / second);
-                                        ClothWriteOffCost = third.ToString();
-                                    }
                                     break;
+                            }
+                            if (float.TryParse(_userArea, out UserArea))
+                            {
+                                float first = UserArea * item.CostOfAllCloth;
+                                float second = float.Parse(ClothArea);
+                                float third = (first / second);
+                                ClothWriteOffCost = third.ToString();
                             }
                         }
                     }
@@ -289,13 +252,6 @@ namespace WpfApp.ViewModels
 
         #endregion
 
-        #region Данные внешнего вида страницы
-
-        public string IconSource { get; set; } = "D:\\Учеба\\Учебная практика 2\\WSR2017_NC_Skill09_RU\\Сессия 1\\Logo\\logo-01.jpg";
-        public string ImageSource { get; set; } = "D:\\Учеба\\Учебная практика 2\\WSR2017_NC_Skill09_RU\\Сессия 1\\Logo\\logo-02.jpg";
-
-        #endregion
-
         #region Команды
 
         #region Команда добавления ткани
@@ -344,17 +300,7 @@ namespace WpfApp.ViewModels
                                         break;
                                 }
                                 material.ComingCost += float.Parse(ClothWriteOffCost);
-                                SelectedArticuleOfFurniture = null;
-                                FurnitureQuantity = "";
-                                FurnitureWriteOffCost = "";
-                                UserQuantity = "";
-                                SelectedArticulOfCloth = null;
-                                ClothArea = "";
-                                MeasurementUnit = "см2";
-                                ClothWriteOffCost = "";
-                                UserArea = "";
-                                IsDockPanelEnabled = true;
-                                IsTabControlEnabled = false;
+                                Cleaner();
                                 return;
                             }
                         }
@@ -397,17 +343,7 @@ namespace WpfApp.ViewModels
                                 });
                                 break;
                         }
-                        SelectedArticuleOfFurniture = null;
-                        FurnitureQuantity = "";
-                        FurnitureWriteOffCost = "";
-                        UserQuantity = "";
-                        SelectedArticulOfCloth = null;
-                        ClothArea = "";
-                        MeasurementUnit = "см2";
-                        ClothWriteOffCost = "";
-                        UserArea = "";
-                        IsDockPanelEnabled = true;
-                        IsTabControlEnabled = false;
+                        Cleaner();
                         return;
                     }
                     else
@@ -451,17 +387,7 @@ namespace WpfApp.ViewModels
                                 });
                                 break;
                         }
-                        SelectedArticuleOfFurniture = null;
-                        FurnitureQuantity = "";
-                        FurnitureWriteOffCost = "";
-                        UserQuantity = "";
-                        SelectedArticulOfCloth = null;
-                        ClothArea = "";
-                        MeasurementUnit = "см2";
-                        ClothWriteOffCost = "";
-                        UserArea = "";
-                        IsDockPanelEnabled = true;
-                        IsTabControlEnabled = false;
+                        Cleaner();
                     }
                 }
             }
@@ -501,17 +427,7 @@ namespace WpfApp.ViewModels
                             {
                                 material.ComingQuantity += int.Parse(UserQuantity);
                                 material.ComingCost += float.Parse(FurnitureWriteOffCost);
-                                SelectedArticuleOfFurniture = null;
-                                FurnitureQuantity = "";
-                                FurnitureWriteOffCost = "";
-                                UserQuantity = "";
-                                SelectedArticulOfCloth = null;
-                                ClothArea = "";
-                                MeasurementUnit = "см2";
-                                ClothWriteOffCost = "";
-                                UserArea = "";
-                                IsDockPanelEnabled = true;
-                                IsTabControlEnabled = false;
+                                Cleaner();
                                 return;
                             }
                         }
@@ -522,17 +438,7 @@ namespace WpfApp.ViewModels
                             ComingQuantity = float.Parse(UserQuantity),
                             ComingCost = float.Parse(FurnitureWriteOffCost)
                         });
-                        SelectedArticuleOfFurniture = null;
-                        FurnitureQuantity = "";
-                        FurnitureWriteOffCost = "";
-                        UserQuantity = "";
-                        SelectedArticulOfCloth = null;
-                        ClothArea = "";
-                        MeasurementUnit = "см2";
-                        ClothWriteOffCost = "";
-                        UserArea = "";
-                        IsDockPanelEnabled = true;
-                        IsTabControlEnabled = false;
+                        Cleaner();
                         return;
                     }
                     else
@@ -544,17 +450,7 @@ namespace WpfApp.ViewModels
                             ComingQuantity = float.Parse(UserQuantity),
                             ComingCost = float.Parse(FurnitureWriteOffCost)
                         });
-                        SelectedArticuleOfFurniture = null;
-                        FurnitureQuantity = "";
-                        FurnitureWriteOffCost = "";
-                        UserQuantity = "";
-                        SelectedArticulOfCloth = null;
-                        ClothArea = "";
-                        MeasurementUnit = "см2";
-                        ClothWriteOffCost = "";
-                        UserArea = "";
-                        IsDockPanelEnabled = true;
-                        IsTabControlEnabled = false;
+                        Cleaner();
                     }
                 }
             }
@@ -583,18 +479,7 @@ namespace WpfApp.ViewModels
         private bool CanCancellAddMaterialCommandExecute(object parameter) => true;
         private void OnCancellAddMaterialCommandExecuted(object parameter)
         {
-            IsDockPanelEnabled = true;
-            IsTabControlEnabled = false;
-            SelectedArticuleOfFurniture = null;
-            FurnitureQuantity = "";
-            FurnitureWriteOffCost = "";
-            UserQuantity = "";
-            SelectedArticulOfCloth = null;
-            ClothArea = "";
-            MeasurementUnit = "см2";
-            ClothWriteOffCost = "";
-            UserArea = "";
-
+            Cleaner();
         }
 
         #endregion
@@ -752,7 +637,7 @@ namespace WpfApp.ViewModels
             try
             {
                 string sql = "SELECT c.Cloth_Articul, c.Cloth_Name, c.`Cloth_Length(cm)`, c.`Cloth_Width(cm)`, c.`Cloth_Cost(rub)`, cs.ClothStore_Roll, " +
-                    "cs.ClothStore_ClothArea " +
+                    "cs.ClothStore_AreaOfRoll " +
                     "from cloth c " +
                     "inner join clothstore cs " +
                     "on c.Cloth_Articul = cs.ClothStore_Cloth_Articul;";
@@ -774,8 +659,8 @@ namespace WpfApp.ViewModels
                             AreaOfCloth = reader.GetFloat(2) * reader.GetFloat(3),
                             CostOfCloth = reader.GetFloat(4),
                             RollAtStore = reader.GetInt32(5),
-                            AreaOfClothAtStoreIn = reader.GetFloat(6) * 10000,
-                            CostOfAllCloth = ((reader.GetFloat(6) * 10000) / (reader.GetFloat(2) * reader.GetFloat(3))) * reader.GetFloat(4)
+                            AreaOfClothAtStoreIn = reader.GetFloat(6),
+                            CostOfAllCloth = ((reader.GetFloat(6)) / (reader.GetFloat(2) * reader.GetFloat(3))) * reader.GetFloat(4)
                         });
                     }
                 }
@@ -851,6 +736,21 @@ namespace WpfApp.ViewModels
             {
                 FurnituresArticuls.Add(item.Articul);
             }
+        }
+
+        private void Cleaner()
+        {
+            SelectedArticuleOfFurniture = null;
+            FurnitureQuantity = "";
+            FurnitureWriteOffCost = "";
+            UserQuantity = "";
+            SelectedArticulOfCloth = null;
+            ClothArea = "";
+            MeasurementUnit = "см2";
+            ClothWriteOffCost = "";
+            UserArea = "";
+            IsDockPanelEnabled = true;
+            IsTabControlEnabled = false;
         }
     }
 }

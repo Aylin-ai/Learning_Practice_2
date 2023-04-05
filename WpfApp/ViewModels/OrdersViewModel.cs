@@ -16,6 +16,13 @@ namespace WpfApp.ViewModels
     internal class OrdersViewModel : ViewModel
     {
 
+        #region Данные менеджера
+
+        private string _managerLogin;
+        public string ManagerLogin { get => _managerLogin; set => Set(ref _managerLogin, value); }
+
+        #endregion
+
         #region Данные внешнего вида страницы
 
         public string IconSource { get; set; } = "D:\\Учеба\\Учебная практика 2\\WSR2017_NC_Skill09_RU\\Сессия 1\\Logo\\logo-01.jpg";
@@ -50,13 +57,6 @@ namespace WpfApp.ViewModels
 
             }
         }
-
-        #endregion
-
-        #region Данные менеджера
-
-        private string _managerLogin;
-        public string ManagerLogin { get => _managerLogin; set => Set(ref _managerLogin, value); }
 
         #endregion
 

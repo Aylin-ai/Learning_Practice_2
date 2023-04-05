@@ -16,16 +16,19 @@ namespace WpfApp.ViewModels
     internal class MaterialsAtStoreViewModel : ViewModel
     {
 
+        #region Коллекции элементов
+
         private ObservableCollection<FurnitureStore> _furnitures = new ObservableCollection<FurnitureStore>();
         private ObservableCollection<ClothStore> _cloths = new ObservableCollection<ClothStore>();
 
         public ObservableCollection<FurnitureStore> FurnituresAtStore { get => _furnitures; set => Set(ref _furnitures, value); }
         public ObservableCollection<ClothStore> ClothsAtStore { get => _cloths; set => Set(ref _cloths, value); }
 
-        #region Данные изделий
+        #endregion
 
-        private string _myPreviousSelectedItem = "см2";
-        private string _myPreviousSelectedWeight = "гр";
+        #region Единица измерения размеров ткани
+
+        private string _myPreviousSelectedItem = "м2";
 
         #endregion
 
@@ -240,7 +243,7 @@ namespace WpfApp.ViewModels
                     try
                     {
                         string sql = "SELECT c.Cloth_Articul, c.Cloth_Name, c.`Cloth_Length(cm)`, c.`Cloth_Width(cm)`, c.`Cloth_Cost(rub)`, cs.ClothStore_Roll, " +
-                            "cs.ClothStore_ClothArea " +
+                            "cs.ClothStore_AreaOfRoll" +
                             "from cloth c " +
                             "inner join clothstore cs " +
                             "on c.Cloth_Articul = cs.ClothStore_Cloth_Articul;";
@@ -262,8 +265,8 @@ namespace WpfApp.ViewModels
                                     AreaOfCloth = reader.GetFloat(2) * reader.GetFloat(3),
                                     CostOfCloth = reader.GetFloat(4),
                                     RollAtStore = reader.GetInt32(5),
-                                    AreaOfClothAtStoreIn = reader.GetFloat(6) * 10000,
-                                    CostOfAllCloth = ((reader.GetFloat(6) * 10000) / (reader.GetFloat(2) * reader.GetFloat(3))) * reader.GetFloat(4)
+                                    AreaOfClothAtStoreIn = reader.GetFloat(6),
+                                    CostOfAllCloth = (reader.GetFloat(6) / (reader.GetFloat(2) * reader.GetFloat(3)) / 10000) * reader.GetFloat(4)
                                 });
                             }
                         }

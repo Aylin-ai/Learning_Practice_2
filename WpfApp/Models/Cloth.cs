@@ -4,48 +4,25 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WpfApp.ViewModels.Base;
 
 namespace WpfApp.Models
 {
-    internal class Cloth : INotifyPropertyChanged
+    internal class Cloth : ViewModel
     {
+        private string _image;
+        private string _articul;
+        private string _name;
         private float _length;
         private float _width;
+        private float _cost;
 
-        public string Articul { get; set; }
-        public string Name { get; set; }
-        public float Length
-        {
-            get { return _length; }
-            set
-            {
-                if (_length != value)
-                {
-                    _length = value;
-                    OnPropertyChanged("Length");
-                }
-            }
-        }
-        public float Width
-        {
-            get { return _width; }
-            set
-            {
-                if (_width != value)
-                {
-                    _width = value;
-                    OnPropertyChanged("Width");
-                }
-            }
-        }
-        public float Cost { get; set; }
-        public string Image { get; set; }
+        public string Image { get => _image; set => Set(ref _image, value); }
+        public string Articul { get => _articul; set => Set(ref _articul, value); }
+        public string Name { get => _name; set => Set(ref _name, value); }
+        public float Length { get => _length; set => Set(ref _length, value); }
+        public float Width { get => _width; set => Set(ref _width, value); }
+        public float Cost { get => _cost; set => Set(ref _cost, value); }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }

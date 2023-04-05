@@ -12,16 +12,24 @@ namespace WpfApp.ViewModels
 {
     internal class CustomerMainWindowViewModel : ViewModel
     {
-        public Action CloseAction { get; set; }
 
+        #region Данные пользователя
+        
+        private string _userLogin;
+        public string UserLogin { get => _userLogin; set => Set(ref _userLogin, value); }
+        
+        #endregion
+
+        #region Actions
+
+        public Action CloseAction { get; set; }
+        
+        #endregion
 
         #region Данные внешнего вида страницы
 
-        private string _userLogin;
-
         public string IconSource { get; set; } = "D:\\Учеба\\Учебная практика 2\\WSR2017_NC_Skill09_RU\\Сессия 1\\Logo\\logo-01.jpg";
         public string ImageSource { get; set; } = "D:\\Учеба\\Учебная практика 2\\WSR2017_NC_Skill09_RU\\Сессия 1\\Logo\\logo-02.jpg";
-        public string UserLogin { get => _userLogin; set => Set(ref _userLogin, value); }
 
         #endregion
 
