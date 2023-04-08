@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         xmlns:vm="clr-namespace:WpfApp.ViewModels"
         xmlns:model="clr-namespace:WpfApp.Models"
-        Title="ProductCut" 
+        Title="Оценка затрат ткани" 
         Height="800" Width="1000">
     <Window.DataContext>
         <vm:ProductCutViewModel/>
@@ -17,7 +17,7 @@
         <WrapPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center">
             <Image Source="{Binding ImageSource}" Width="70"/>
             <Label Style="{StaticResource ResourceKey=TitleStyle}" 
-               Content="Раскрой" DockPanel.Dock="Top"/>
+               Content="Оценка затрат ткани" DockPanel.Dock="Top"/>
         </WrapPanel>
 
         <Grid>
@@ -146,7 +146,12 @@
                     </ListView.ItemTemplate>
                 </ListView>
 
-                <Viewbox Grid.Column="1" Stretch="Uniform"
+                <WrapPanel HorizontalAlignment="Center">
+                    <Label Content="Требуемая длина рулона(см) -"/>
+                    <Label Content="{Binding Length}"/>
+                </WrapPanel>
+
+                <Viewbox Stretch="Uniform"
                  Height="{Binding Width}" Width="{Binding Length}"
                          Margin="10">
 

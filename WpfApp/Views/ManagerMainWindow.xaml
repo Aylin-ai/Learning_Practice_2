@@ -31,6 +31,9 @@
             <Button Content="Список заказов"
                     Command="{Binding OrdersWindowCommand}"/>
 
+            <Button Content="Оценка затрат ткани"
+                    Command="{Binding ProductCutWindowCommand}"/>
+
             <Button Content="Выход из системы"
                     Command="{Binding AuthorizationWindowCommand}"/>
             

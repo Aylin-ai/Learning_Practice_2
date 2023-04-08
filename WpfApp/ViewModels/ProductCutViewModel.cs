@@ -48,9 +48,18 @@ namespace WpfApp.ViewModels
             set
             {
                 Set(ref _selectedRoll, value);
+                Length = 0;
                 Width = _selectedRoll.WidthOfRoll;
-                Length = _selectedRoll.LengthOfRoll;
                 ProductsInRoll = _selectedRoll.ProductsToCut;
+                for (int i = 0; i < ProductsInRoll.Count; i++)
+                {
+                    if (i == 0)
+                        Length += ProductsInRoll[i].Length;
+                    else if (ProductsInRoll[i - 1].X == ProductsInRoll[i].X)
+                        continue;
+                    else
+                        Length += ProductsInRoll[i].Length;
+                }
             }
         }
 
