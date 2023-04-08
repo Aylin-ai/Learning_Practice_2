@@ -34,6 +34,9 @@
             <Button Content="Оценка затрат ткани"
                     Command="{Binding ProductCutWindowCommand}"/>
 
+            <Button Content="Оценка затрат фурнитуры"
+                    Command="{Binding FurnitureCostAssessmentWindowCommand}"/>
+
             <Button Content="Выход из системы"
                     Command="{Binding AuthorizationWindowCommand}"/>
             

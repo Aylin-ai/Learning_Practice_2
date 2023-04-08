@@ -20,6 +20,7 @@ namespace WpfApp.Models
         private string _rotation;
         private int _quantity;
         private float _cost;
+        private int _quantityAtStore;
         private MySqlDateTime _dateTimeOfWriteOff;
 
         public string Image { get => _image; set => Set(ref _image, value); }
@@ -31,6 +32,7 @@ namespace WpfApp.Models
         public string Rotation { get => _rotation; set => Set(ref _rotation, value); }
         public int Quantity { get => _quantity; set => Set(ref _quantity, value); }
         public float Cost { get => _cost; set => Set(ref _cost, value); }
+        public int QuantityAtStore { get => _quantityAtStore; set => Set(ref _quantityAtStore, value); }
         public MySqlDateTime DateTimeOfWriteOff { get => _dateTimeOfWriteOff; set => Set(ref _dateTimeOfWriteOff, value); }
 
     }

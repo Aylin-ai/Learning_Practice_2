@@ -74,6 +74,19 @@ namespace WpfApp.ViewModels
 
         #endregion
 
+        #region Команда перехода на страницу оценки затрат фурнитуры
+
+        public ICommand FurnitureCostAssessmentWindowCommand { get; }
+
+        private bool CanFurnitureCostAssessmentWindowCommandExecute(object parameter) => true;
+        private void OnFurnitureCostAssessmentWindowCommandExecuted(object parameter)
+        {
+            FurnitureCostAssessment furnitureCostAssessment = new FurnitureCostAssessment();
+            furnitureCostAssessment.Show();
+        }
+
+        #endregion
+
         #region Команда для перехода на страницу авторизации
 
         public ICommand AuthorizationWindowCommand { get; }
@@ -99,6 +112,7 @@ namespace WpfApp.ViewModels
             ProductListWindowCommand = new LambdaCommand(OnProductKistWindowCommandExecuted, CanProductKistWindowCommandExecute);
             OrdersWindowCommand = new LambdaCommand(OnOrdersWindowCommandExecuted, CanOrdersWindowCommandExecute);
             ProductCutWindowCommand = new LambdaCommand(OnProductCutWindowCommandExecuted, CanProductCutWindowCommandExecute);
+            FurnitureCostAssessmentWindowCommand = new LambdaCommand(OnFurnitureCostAssessmentWindowCommandExecuted, CanFurnitureCostAssessmentWindowCommandExecute);
             AuthorizationWindowCommand = new LambdaCommand(OnAuthorizationWindowCommandExecuted, CanAuthorizationWindowCommandExecute);
 
             #endregion

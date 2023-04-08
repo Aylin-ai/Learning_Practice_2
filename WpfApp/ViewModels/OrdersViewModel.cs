@@ -59,6 +59,7 @@ namespace WpfApp.ViewModels
             }
         }
 
+
         #endregion
 
         #region Команды
