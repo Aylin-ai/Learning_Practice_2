@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Crypto;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -37,11 +38,20 @@ namespace WpfApp.ViewModels
         private ObservableCollection<FurnitureStore> _furnituresAtStoreInventory = new ObservableCollection<FurnitureStore>();
         public ObservableCollection<FurnitureStore> FurnituresAtStoreInventory { get => _furnituresAtStoreInventory; set => Set(ref _furnituresAtStoreInventory, value); }
 
+        private ObservableCollection<ProductStore> _productsAtStoreNotInventory = new ObservableCollection<ProductStore>();
+        public ObservableCollection<ProductStore> ProductsAtStoreNotInventory { get => _productsAtStoreNotInventory; set => Set(ref _productsAtStoreNotInventory, value); }
+
+        private ObservableCollection<ProductStore> _productsAtStoreInventory = new ObservableCollection<ProductStore>();
+        public ObservableCollection<ProductStore> ProductsAtStoreInventory { get => _productsAtStoreInventory; set => Set(ref _productsAtStoreInventory, value); }
+
         private ObservableCollection<InventoryMaterial> _inventoryCloths = new ObservableCollection<InventoryMaterial>();
         public ObservableCollection<InventoryMaterial> InventoryCloths { get => _inventoryCloths; set => Set(ref _inventoryCloths, value); }
 
         private ObservableCollection<InventoryMaterial> _inventoryFurnitures = new ObservableCollection<InventoryMaterial>();
         public ObservableCollection<InventoryMaterial> InventoryFurnitures { get => _inventoryFurnitures; set => Set(ref _inventoryFurnitures, value); }
+
+        private ObservableCollection<InventoryMaterial> _inventoryProducts = new ObservableCollection<InventoryMaterial>();
+        public ObservableCollection<InventoryMaterial> InventoryProducts { get => _inventoryProducts; set => Set(ref _inventoryProducts, value); }
 
         #endregion
 
@@ -49,6 +59,7 @@ namespace WpfApp.ViewModels
 
         private int _clothsAtStoreCount;
         private int _furnituresAtStoreCount;
+        private int _productsAtStoreCount;
 
         #endregion
 
@@ -205,6 +216,63 @@ namespace WpfApp.ViewModels
 
         #endregion
 
+        #region Данные о выбранном изделии
+
+        private string _productArticul;
+        public string ProductArticul { get => _productArticul; set => Set(ref _productArticul, value); }
+
+        private string _productName;
+        public string ProductName { get => _productName; set => Set(ref _productName, value); }
+
+        private float _productQuantityAtStore;
+        public float ProductQuantityAtStore { get => _productQuantityAtStore; set => Set(ref _productQuantityAtStore, value); }
+
+        private float _productCostOfAllAtStore;
+        public float ProductCostOfAllAtStore { get => _productCostOfAllAtStore; set => Set(ref _productCostOfAllAtStore, value); }
+
+        private float _productSurplusCost;
+        public float ProductSurplusCost { get => _productSurplusCost; set => Set(ref _productSurplusCost, value); }
+
+        private float _productShortageCost;
+        public float ProductShortageCost { get => _productShortageCost; set => Set(ref _productShortageCost, value); }
+
+        private string _productDiscrepancy;
+        public string ProductDiscrepancy { get => _productDiscrepancy; set => Set(ref _productDiscrepancy, value); }
+
+        private float _usersProductQuantityAtStore;
+        public float UsersProductQuantityAtStore
+        {
+            get => _usersProductQuantityAtStore;
+            set
+            {
+                Set(ref _usersProductQuantityAtStore, value);
+                if (SelectedProduct != null)
+                {
+                    if (_usersProductQuantityAtStore > ProductQuantityAtStore)
+                    {
+                        ProductSurplusCost = (_usersProductQuantityAtStore - ProductQuantityAtStore) * SelectedProduct.Cost;
+                        ProductShortageCost = 0;
+                    }
+                    else if (_usersProductQuantityAtStore < ProductQuantityAtStore)
+                    {
+                        ProductShortageCost = ProductCostOfAllAtStore * _usersProductQuantityAtStore / ProductQuantityAtStore;
+                        ProductSurplusCost = 0;
+                    }
+                }
+                if ((ProductQuantityAtStore - _usersProductQuantityAtStore) > (ProductQuantityAtStore * 0.2) ||
+                    (_usersProductQuantityAtStore - ProductQuantityAtStore) > (ProductQuantityAtStore * 0.2))
+                {
+                    ProductDiscrepancy = "Расхождения между реальными и учетными данными по закупочным суммам превышают 20%";
+                }
+                else
+                {
+                    ProductDiscrepancy = "";
+                }
+            }
+        }
+
+        #endregion
+
         #region Выбранные элементы
 
         private ClothStore _selectedCloth;
@@ -269,8 +337,44 @@ namespace WpfApp.ViewModels
                         FurnitureShortageCost = FurnitureCostOfAllAtStore * UsersQuantityAtStore / FurnitureQuantityAtStore;
                         FurnitureSurplusCost = 0;
                     }
-                    if ((FurnitureQuantityAtStore - UsersQuantityAtStore) > (FurnitureQuantityAtStore * 0.2) || 
-                        (UsersQuantityAtStore - FurnitureQuantityAtStore) > (FurnitureQuantityAtStore * 0.2))
+                    if ((ProductQuantityAtStore - _usersProductQuantityAtStore) > (ProductQuantityAtStore * 0.2) ||
+                        (_usersProductQuantityAtStore - ProductQuantityAtStore) > (ProductQuantityAtStore * 0.2))
+                    {
+                        ProductDiscrepancy = "Расхождения между реальными и учетными данными по закупочным суммам превышают 20%";
+                    }
+                    else
+                    {
+                        ProductDiscrepancy = "";
+                    }
+                }
+            }
+        }
+
+        private ProductStore _selectedProduct;
+        public ProductStore SelectedProduct
+        {
+            get => _selectedProduct;
+            set
+            {
+                Set(ref _selectedProduct, value);
+                if (_selectedProduct != null)
+                {
+                    ProductArticul = _selectedProduct.Articul;
+                    ProductName = _selectedProduct.Name;
+                    ProductQuantityAtStore = _selectedProduct.QuantityAtStore;
+                    ProductCostOfAllAtStore = _selectedProduct.CostOfAllProducts;
+                    if (UsersProductQuantityAtStore > ProductQuantityAtStore)
+                    {
+                        ProductSurplusCost = (UsersProductQuantityAtStore - ProductQuantityAtStore) * SelectedProduct.Cost;
+                        ProductShortageCost = 0;
+                    }
+                    else if (UsersProductQuantityAtStore < ProductQuantityAtStore)
+                    {
+                        ProductShortageCost = ProductCostOfAllAtStore * UsersProductQuantityAtStore / ProductQuantityAtStore;
+                        ProductSurplusCost = 0;
+                    }
+                    if ((ProductQuantityAtStore - UsersProductQuantityAtStore) > (ProductQuantityAtStore * 0.2) ||
+                        (UsersProductQuantityAtStore - ProductQuantityAtStore) > (ProductQuantityAtStore * 0.2))
                     {
                         FurnitureDiscrepancy = "Расхождения между реальными и учетными данными по закупочным суммам превышают 20%";
                     }
@@ -362,6 +466,40 @@ namespace WpfApp.ViewModels
 
         #endregion
 
+        #region Команда подтвержения инвентаризации к изделию
+
+        public ICommand AddProductCommand { get; }
+
+        private bool CanAddProductCommandExecute(object parameter) => true;
+        private void OnAddProductCommandExecuted(object parameter)
+        {
+            if (SelectedProduct == null)
+                MessageBox.Show("Вы не выбрали элемент");
+            else
+            {
+                foreach (var product in ProductsAtStoreNotInventory)
+                {
+                    if (ProductArticul == product.Articul)
+                    {
+                        ProductsAtStoreInventory.Add(product);
+                        ProductsAtStoreNotInventory.Remove(product);
+                        InventoryProducts.Add(new InventoryMaterial()
+                        {
+                            Articul = product.Articul,
+                            Type = "изделие",
+                            SystemQuantity = product.QuantityAtStore,
+                            RealQuantity = UsersProductQuantityAtStore,
+                            CostOfAllMaterials = product.CostOfAllProducts,
+                        });
+                        break;
+                    }
+                }
+                Cleaner();
+            }
+        }
+
+        #endregion
+
         #region Команда утверждения всей инвентаризации
 
         public ICommand ConfirmInventoryCommand { get; }
@@ -382,11 +520,19 @@ namespace WpfApp.ViewModels
             float furnitureSurplusCost = 0;
             float furnitureCostOfAll = 0;
 
-            if (InventoryCloths.Count == 0 || InventoryFurnitures.Count == 0)
+            float productSystemQuantity = 0;
+            float productRealQuantity = 0;
+            float productShortageCost = 0;
+            float productSurplusCost = 0;
+            float productCostOfAll = 0;
+
+            if (InventoryCloths.Count == 0 || InventoryFurnitures.Count == 0 || InventoryProducts.Count == 0)
                 MessageBox.Show("Вы не провели инвентаризацию");
             else
             {
-                if (FurnituresAtStoreInventory.Count != _furnituresAtStoreCount  || ClothsAtStoreInventory.Count != _clothsAtStoreCount)
+                if (FurnituresAtStoreInventory.Count != _furnituresAtStoreCount ||
+                    ClothsAtStoreInventory.Count != _clothsAtStoreCount ||
+                    ProductsAtStoreInventory.Count != _productsAtStoreCount)
                     MessageBox.Show("Вы не провели полную инвентаризацию");
                 else
                 {
@@ -445,12 +591,29 @@ namespace WpfApp.ViewModels
                         if (furnitureSystemQuantity > furnitureRealQuantity)
                         {
                             furnitureShortageCost = furnitureCostOfAll * furnitureRealQuantity / furnitureSystemQuantity;
-                            clothSurplusCost = 0;
+                            furnitureSurplusCost = 0;
                         }
                         else if (furnitureSystemQuantity < furnitureRealQuantity)
                         {
                             furnitureShortageCost = 0;
                             furnitureSurplusCost = (furnitureRealQuantity - furnitureSystemQuantity) * furnitureCostOfAll;
+                        }
+
+                        foreach (var product in InventoryProducts)
+                        {
+                            productSystemQuantity += product.SystemQuantity;
+                            productRealQuantity += product.RealQuantity;
+                            productCostOfAll += product.CostOfAllMaterials;
+                        }
+                        if (productSystemQuantity > productRealQuantity)
+                        {
+                            productShortageCost = productCostOfAll * productRealQuantity / productSystemQuantity;
+                            productSurplusCost = 0;
+                        }
+                        else if (productSystemQuantity < productRealQuantity)
+                        {
+                            productShortageCost = 0;
+                            productSurplusCost = (productRealQuantity - productSystemQuantity) * productCostOfAll;
                         }
 
                         sql = "insert into inventorymaterials values " +
@@ -473,6 +636,16 @@ namespace WpfApp.ViewModels
                         cmd.Parameters.AddWithValue("@shortage", furnitureShortageCost);
                         cmd.Parameters.AddWithValue("@surplus", furnitureSurplusCost);
                         cmd.ExecuteNonQuery();
+                        cmd.Parameters.Clear();
+
+                        cmd.Parameters.AddWithValue("@id", inventory_id);
+                        cmd.Parameters.AddWithValue("@type", "изделие");
+                        cmd.Parameters.AddWithValue("@systemQuantity", productSystemQuantity);
+                        cmd.Parameters.AddWithValue("@realQuantity", productRealQuantity);
+                        cmd.Parameters.AddWithValue("@shortage", productShortageCost);
+                        cmd.Parameters.AddWithValue("@surplus", productSurplusCost);
+                        cmd.ExecuteNonQuery();
+                        cmd.Parameters.Clear();
                     }
                     catch (Exception ex)
                     {
@@ -495,11 +668,13 @@ namespace WpfApp.ViewModels
         {
             GetFurnituresAtStore();
             GetClothsAtStore();
+            GetProductsAtStore();
 
             #region Команды
 
             AddClothCommand = new LambdaCommand(OnAddClothCommandExecuted, CanAddClothCommandExecute);
             AddFurnutureCommand = new LambdaCommand(OnAddFurnutureCommandExecuted, CanAddFurnutureCommandExecute);
+            AddProductCommand = new LambdaCommand(OnAddProductCommandExecuted, CanAddProductCommandExecute);
             ConfirmInventoryCommand = new LambdaCommand(OnConfirmInventoryCommandExecuted, CanConfirmInventoryCommandExecute);
 
             #endregion
@@ -590,6 +765,53 @@ namespace WpfApp.ViewModels
                     }
                 }
                 _clothsAtStoreCount = ClothsAtStoreNotInventory.Count;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+                conn.Dispose();
+            }
+        }
+
+        private void GetProductsAtStore()
+        {
+            ProductsAtStoreNotInventory.Clear();
+            MySqlConnection conn = DBUtils.GetDBConnection();
+            conn.Open();
+            try
+            {
+                string sql = "SELECT p.Product_Image, p.Product_Articul, p.Product_Name, " +
+                    "p.`Product_Cost(rub)`, ps.ProductStore_Quantity " +
+                    "from product p " +
+                    "inner join productstore ps " +
+                    "on p.Product_Articul = ps.ProductStore_Product_Articul;";
+
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = sql;
+                cmd.Connection = conn;
+
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        ProductsAtStoreNotInventory.Add(new ProductStore()
+                        {
+                            Image = reader.GetString(0),
+                            Articul = reader.GetString(1),
+                            Name = reader.GetString(2),
+                            Cost = reader.GetFloat(3),
+                            QuantityAtStore = reader.GetInt32(4),
+                            CostOfAllProducts = reader.GetFloat(3) * reader.GetInt32(4)
+                        });
+                    }
+                }
+                _productsAtStoreCount = ProductsAtStoreNotInventory.Count;
             }
             catch (Exception ex)
             {
