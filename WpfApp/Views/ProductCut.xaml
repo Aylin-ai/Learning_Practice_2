@@ -7,8 +7,11 @@
         mc:Ignorable="d"
         xmlns:vm="clr-namespace:WpfApp.ViewModels"
         xmlns:model="clr-namespace:WpfApp.Models"
+        Icon="{Binding IconSource}"
         Title="Оценка затрат ткани" 
-        Height="800" Width="1000">
+        Height="800" Width="1000"
+        MinHeight="600" MaxHeight="1200"
+        MinWidth="1000">
     <Window.DataContext>
         <vm:ProductCutViewModel/>
     </Window.DataContext>
@@ -40,39 +43,23 @@
                             <StackPanel>
 
                                 <WrapPanel>
-                                    <Label Content="Артикул -"
-                                               Margin="0"
-                                               FontSize="15"/>
-                                    <Label Content="{Binding ClothArticul}"
-                                               Margin="0"
-                                               FontSize="15"/>
+                                    <Label Content="Артикул -"/>
+                                    <Label Content="{Binding ClothArticul}"/>
                                 </WrapPanel>
 
                                 <WrapPanel>
-                                    <Label Content="Ширина рулона -"
-                                               Margin="0"
-                                               FontSize="15"/>
-                                    <Label Content="{Binding WidthOfRoll}"
-                                               Margin="0"
-                                               FontSize="15"/>
+                                    <Label Content="Ширина рулона -"/>
+                                    <Label Content="{Binding WidthOfRoll}"/>
                                 </WrapPanel>
 
                                 <WrapPanel>
-                                    <Label Content="Длина рулона -"
-                                               Margin="0"
-                                               FontSize="15"/>
-                                    <Label Content="{Binding LengthOfRoll}"
-                                               Margin="0"
-                                               FontSize="15"/>
+                                    <Label Content="Длина рулона -"/>
+                                    <Label Content="{Binding LengthOfRoll}"/>
                                 </WrapPanel>
 
                                 <WrapPanel>
-                                    <Label Content="Изделий на рулон -"
-                                               Margin="0"
-                                               FontSize="15"/>
-                                    <Label Content="{Binding ProductQuantity}"
-                                               Margin="0"
-                                               FontSize="15"/>
+                                    <Label Content="Изделий на рулон -"/>
+                                    <Label Content="{Binding ProductQuantity}"/>
                                 </WrapPanel>
 
                             </StackPanel>
@@ -103,39 +90,23 @@
                                 <StackPanel>
 
                                     <WrapPanel>
-                                        <Label Content="Артикул -"
-                                               Margin="0"
-                                               FontSize="15"/>
-                                        <Label Content="{Binding Articul}"
-                                               Margin="0"
-                                               FontSize="15"/>
+                                        <Label Content="Артикул -"/>
+                                        <Label Content="{Binding Articul}"/>
                                     </WrapPanel>
 
                                     <WrapPanel>
-                                        <Label Content="Имя -"
-                                               Margin="0"
-                                               FontSize="15"/>
-                                        <Label Content="{Binding Name}"
-                                               Margin="0"
-                                               FontSize="15"/>
+                                        <Label Content="Имя -"/>
+                                        <Label Content="{Binding Name}"/>
                                     </WrapPanel>
 
                                     <WrapPanel>
-                                        <Label Content="Ширина -"
-                                               Margin="0"
-                                               FontSize="15"/>
-                                        <Label Content="{Binding Width}"
-                                               Margin="0"
-                                               FontSize="15"/>
+                                        <Label Content="Ширина -"/>
+                                        <Label Content="{Binding Width}"/>
                                     </WrapPanel>
 
                                     <WrapPanel>
-                                        <Label Content="Длина -"
-                                               Margin="0"
-                                               FontSize="15"/>
-                                        <Label Content="{Binding Length}"
-                                               Margin="0"
-                                               FontSize="15"/>
+                                        <Label Content="Длина -"/>
+                                        <Label Content="{Binding Length}"/>
                                     </WrapPanel>
 
                                 </StackPanel>
@@ -151,32 +122,36 @@
                     <Label Content="{Binding Length}"/>
                 </WrapPanel>
 
-                <Viewbox Stretch="Uniform"
+                <ScrollViewer
+                    ScrollViewer.HorizontalScrollBarVisibility="Auto" 
+                    ScrollViewer.VerticalScrollBarVisibility="Visible">
+                    <Viewbox Stretch="Uniform"
                  Height="{Binding Width}" Width="{Binding Length}"
                          Margin="10">
 
-                    <ItemsControl ItemsSource="{Binding ProductsInRoll}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <Canvas Background="Silver" 
+                        <ItemsControl ItemsSource="{Binding ProductsInRoll}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Canvas Background="Silver" 
                                 Height="{Binding Width}"
                                 Width="{Binding Length}"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.Resources>
-                            <Style TargetType="ContentPresenter">
-                                <Setter Property="Canvas.Left" Value="{Binding X}"/>
-                                <Setter Property="Canvas.Top" Value="{Binding Y}"/>
-                            </Style>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.Resources>
+                                <Style TargetType="ContentPresenter">
+                                    <Setter Property="Canvas.Left" Value="{Binding X}"/>
+                                    <Setter Property="Canvas.Top" Value="{Binding Y}"/>
+                                </Style>
 
-                            <DataTemplate DataType="{x:Type model:ProductToCut}">
-                                <Rectangle Width="{Binding Length}" Height="{Binding Width}"
+                                <DataTemplate DataType="{x:Type model:ProductToCut}">
+                                    <Rectangle Width="{Binding Length}" Height="{Binding Width}"
                                Stroke="Black" StrokeThickness="0.5"/>
-                            </DataTemplate>
-                        </ItemsControl.Resources>
-                    </ItemsControl>
+                                </DataTemplate>
+                            </ItemsControl.Resources>
+                        </ItemsControl>
 
-                </Viewbox>
+                    </Viewbox>
+                </ScrollViewer>
 
             </StackPanel>
 

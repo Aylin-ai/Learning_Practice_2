@@ -37,8 +37,11 @@ namespace WpfApp.ViewModels
         private ObservableCollection<FurnitureStore> _furnituresAtStoreInventory = new ObservableCollection<FurnitureStore>();
         public ObservableCollection<FurnitureStore> FurnituresAtStoreInventory { get => _furnituresAtStoreInventory; set => Set(ref _furnituresAtStoreInventory, value); }
 
-        private ObservableCollection<InventoryMaterial> _inventoryMaterials = new ObservableCollection<InventoryMaterial>();
-        public ObservableCollection<InventoryMaterial> InventoryMaterials { get => _inventoryMaterials; set => Set(ref _inventoryMaterials, value); }
+        private ObservableCollection<InventoryMaterial> _inventoryCloths = new ObservableCollection<InventoryMaterial>();
+        public ObservableCollection<InventoryMaterial> InventoryCloths { get => _inventoryCloths; set => Set(ref _inventoryCloths, value); }
+
+        private ObservableCollection<InventoryMaterial> _inventoryFurnitures = new ObservableCollection<InventoryMaterial>();
+        public ObservableCollection<InventoryMaterial> InventoryFurnitures { get => _inventoryFurnitures; set => Set(ref _inventoryFurnitures, value); }
 
         #endregion
 
@@ -49,63 +52,153 @@ namespace WpfApp.ViewModels
 
         #endregion
 
-        #region Данные о выбранном элементе
+        #region Данные о выбранной ткани
 
-        private string _articul;
-        private string _name;
-        private float _atStore;
-        private float _costOfAllAtStore;
-        private float _surplusCost;
-        private float _shortageCost;
-        private string _discrepancy;
-        private float _usersDataAtStore;
+        private string _clothArticul;
+        public string ClothArticul { get => _clothArticul; set => Set(ref _clothArticul, value); }
 
-        public string Articul { get => _articul; set => Set(ref _articul, value); }
-        public string Name { get => _name; set => Set(ref _name, value); }
-        public float AtStore { get => _atStore; set => Set(ref _atStore, value); }
-        public float CostOfAllAtStore { get => _costOfAllAtStore; set => Set(ref _costOfAllAtStore, value); }
-        public float SurplusCost { get => _surplusCost; set => Set(ref _surplusCost, value); }
-        public float ShortageCost { get => _shortageCost; set => Set(ref _shortageCost, value); }
-        public string Discrepancy { get => _discrepancy; set => Set(ref _discrepancy, value); }
-        public float UsersDataAtStore 
-        { 
-            get => _usersDataAtStore;
-            set 
-            { 
-                Set(ref _usersDataAtStore, value);
+        private string _clothName;
+        public string ClothName { get => _clothName; set => Set(ref _clothName, value); }
+
+        private float _widthOfRollAtStore;
+        public float WidthOfRollAtStore { get => _widthOfRollAtStore; set => Set(ref _widthOfRollAtStore, value); }
+
+        private float _lengthOfRollAtStore;
+        public float LengthOfRollAtStore { get => _lengthOfRollAtStore; set => Set(ref _lengthOfRollAtStore, value); }
+
+        private float _clothCostOfAllAtStore;
+        public float ClothCostOfAllAtStore { get => _clothCostOfAllAtStore; set => Set(ref _clothCostOfAllAtStore, value); }
+
+        private float _usersWidthOfRollAtStore;
+        public float UsersWidthOfRollAtStore
+        {
+            get => _usersWidthOfRollAtStore;
+            set
+            {
+                Set(ref _usersWidthOfRollAtStore, value);
+                float AreaOfCloth = WidthOfRollAtStore * LengthOfRollAtStore;
+                float UsersAreaOfCloth = _usersWidthOfRollAtStore * UsersLengthOfRollAtStore;
                 if (SelectedCloth != null)
                 {
-                    if (_usersDataAtStore > AtStore)
+                    if (UsersAreaOfCloth > AreaOfCloth)
                     {
-                        SurplusCost = (_usersDataAtStore - AtStore) * _selectedCloth.CostOfCloth;
-                        ShortageCost = 0;
+                        ClothSurplusCost = (UsersAreaOfCloth - AreaOfCloth) * _selectedCloth.CostOfCloth;
+                        ClothShortageCost = 0;
                     }
-                    else if (_usersDataAtStore < AtStore)
+                    else if (UsersAreaOfCloth < AreaOfCloth)
                     {
-                        ShortageCost = CostOfAllAtStore * _usersDataAtStore / AtStore;
-                        SurplusCost = 0;
-                    }
-                }
-                else if (SelectedFurniture != null)
-                {
-                    if (_usersDataAtStore > AtStore)
-                    {
-                        SurplusCost = (_usersDataAtStore - AtStore) * _selectedFurniture.Cost;
-                        ShortageCost = 0;
-                    }
-                    else if (_usersDataAtStore < AtStore)
-                    {
-                        ShortageCost = CostOfAllAtStore * _usersDataAtStore / AtStore;
-                        SurplusCost = 0;
+                        ClothShortageCost = ClothCostOfAllAtStore * UsersAreaOfCloth / AreaOfCloth;
+                        ClothSurplusCost = 0;
                     }
                 }
-                if ((AtStore - _usersDataAtStore) > (AtStore * 0.2) || (_usersDataAtStore - AtStore) > (AtStore * 0.2))
+                if ((AreaOfCloth - UsersAreaOfCloth) > (AreaOfCloth * 0.2) ||
+                    (UsersAreaOfCloth - AreaOfCloth) > (AreaOfCloth * 0.2))
                 {
-                    Discrepancy = "Расхождения между реальными и учетными данными по закупочным суммам превышают 20%";
+                    ClothDiscrepancy = "Расхождения между реальными и учетными данными по закупочным суммам превышают 20%";
                 }
                 else
                 {
-                    Discrepancy = "";
+                    ClothDiscrepancy = "";
+                }
+            }
+        }
+
+        private float _usersLengthOfRollAtStore;
+        public float UsersLengthOfRollAtStore
+        {
+            get => _usersLengthOfRollAtStore;
+            set
+            {
+                Set(ref _usersLengthOfRollAtStore, value);
+                float AreaOfCloth = WidthOfRollAtStore * LengthOfRollAtStore;
+                float UsersAreaOfCloth = UsersWidthOfRollAtStore * _usersLengthOfRollAtStore;
+                if (SelectedCloth != null)
+                {
+                    if (UsersAreaOfCloth > AreaOfCloth)
+                    {
+                        ClothSurplusCost = (UsersAreaOfCloth - AreaOfCloth) * _selectedCloth.CostOfCloth;
+                        ClothShortageCost = 0;
+                    }
+                    else if (UsersAreaOfCloth < AreaOfCloth)
+                    {
+                        ClothShortageCost = ClothCostOfAllAtStore * UsersAreaOfCloth / AreaOfCloth;
+                        ClothSurplusCost = 0;
+                    }
+                }
+                if ((AreaOfCloth - UsersAreaOfCloth) > (AreaOfCloth * 0.2) ||
+                    (UsersAreaOfCloth - AreaOfCloth) > (AreaOfCloth * 0.2))
+                {
+                    ClothDiscrepancy = "Расхождения между реальными и учетными данными по закупочным суммам превышают 20%";
+                }
+                else
+                {
+                    ClothDiscrepancy = "";
+                }
+            }
+        }
+
+        private float _clothSurplusCost;
+        public float ClothSurplusCost { get => _clothSurplusCost; set => Set(ref _clothSurplusCost, value); }
+
+        private float _clothShortageCost;
+        public float ClothShortageCost { get => _clothShortageCost; set => Set(ref _clothShortageCost, value); }
+
+        private string _clothDiscrepancy;
+        public string ClothDiscrepancy { get => _clothDiscrepancy; set => Set(ref _clothDiscrepancy, value); }
+
+        #endregion
+
+        #region Данные о выбранной фурнитуре
+
+        private string _furnitureArticul;
+        public string FurnitureArticul { get => _furnitureArticul; set => Set(ref _furnitureArticul, value); }
+
+        private string _furnitureName;
+        public string FurnitureName { get => _furnitureName; set => Set(ref _furnitureName, value); }
+
+        private float _furnitureQuantityAtStore;
+        public float FurnitureQuantityAtStore { get => _furnitureQuantityAtStore; set => Set(ref _furnitureQuantityAtStore, value); }
+
+        private float _furnitureCostOfAllAtStore;
+        public float FurnitureCostOfAllAtStore { get => _furnitureCostOfAllAtStore; set => Set(ref _furnitureCostOfAllAtStore, value); }
+
+        private float _furnitureSurplusCost;
+        public float FurnitureSurplusCost { get => _furnitureSurplusCost; set => Set(ref _furnitureSurplusCost, value); }
+
+        private float _furnitureShortageCost;
+        public float FurnitureShortageCost { get => _furnitureShortageCost; set => Set(ref _furnitureShortageCost, value); }
+
+        private string _furnitureDiscrepancy;
+        public string FurnitureDiscrepancy { get => _furnitureDiscrepancy; set => Set(ref _furnitureDiscrepancy, value); }
+
+        private float _usersQuantityAtStore;
+        public float UsersQuantityAtStore
+        { 
+            get => _usersQuantityAtStore;
+            set 
+            { 
+                Set(ref _usersQuantityAtStore, value);
+                if (SelectedFurniture != null)
+                {
+                    if (_usersQuantityAtStore > FurnitureQuantityAtStore)
+                    {
+                        FurnitureSurplusCost = (_usersQuantityAtStore - FurnitureQuantityAtStore) * _selectedFurniture.Cost;
+                        FurnitureShortageCost = 0;
+                    }
+                    else if (_usersQuantityAtStore < FurnitureQuantityAtStore)
+                    {
+                        FurnitureShortageCost = FurnitureCostOfAllAtStore * _usersQuantityAtStore / FurnitureQuantityAtStore;
+                        FurnitureSurplusCost = 0;
+                    }
+                }
+                if ((FurnitureQuantityAtStore - _usersQuantityAtStore) > (FurnitureQuantityAtStore * 0.2) || 
+                    (_usersQuantityAtStore - FurnitureQuantityAtStore) > (FurnitureQuantityAtStore * 0.2))
+                {
+                    FurnitureDiscrepancy = "Расхождения между реальными и учетными данными по закупочным суммам превышают 20%";
+                }
+                else
+                {
+                    FurnitureDiscrepancy = "";
                 }
             } 
         }
@@ -123,27 +216,31 @@ namespace WpfApp.ViewModels
                 Set(ref _selectedCloth, value);
                 if (_selectedCloth != null)
                 {
-                    Articul = _selectedCloth.Articul;
-                    Name = _selectedCloth.Name;
-                    AtStore = _selectedCloth.AreaOfClothAtStoreIn;
-                    CostOfAllAtStore = _selectedCloth.CostOfAllCloth;
-                    if (UsersDataAtStore > AtStore)
+                    float AreaOfCloth = WidthOfRollAtStore * LengthOfRollAtStore;
+                    float UsersAreaOfCloth = UsersWidthOfRollAtStore * UsersLengthOfRollAtStore;
+                    ClothArticul = _selectedCloth.Articul;
+                    ClothName = _selectedCloth.Name;
+                    WidthOfRollAtStore = _selectedCloth.WidthOfClothAtStore;
+                    LengthOfRollAtStore = _selectedCloth.LengthOfClothAtStore;
+                    ClothCostOfAllAtStore = _selectedCloth.CostOfAllCloth;
+                    if (UsersAreaOfCloth > AreaOfCloth)
                     {
-                        SurplusCost = (UsersDataAtStore - AtStore) * _selectedCloth.CostOfCloth;
-                        ShortageCost = 0;
+                        ClothSurplusCost = (UsersAreaOfCloth - AreaOfCloth) * _selectedCloth.CostOfCloth;
+                        ClothShortageCost = 0;
                     }
-                    else if (UsersDataAtStore < AtStore)
+                    else if (UsersAreaOfCloth < AreaOfCloth)
                     {
-                        ShortageCost = CostOfAllAtStore * UsersDataAtStore / AtStore;
-                        SurplusCost = 0;
+                        ClothShortageCost = ClothCostOfAllAtStore * UsersAreaOfCloth / AreaOfCloth;
+                        ClothSurplusCost = 0;
                     }
-                    if ((AtStore - _usersDataAtStore) > (AtStore * 0.2) || (_usersDataAtStore - AtStore) > (AtStore * 0.2))
+                    if ((AreaOfCloth - UsersAreaOfCloth) > (AreaOfCloth * 0.2) ||
+                        (UsersAreaOfCloth - AreaOfCloth) > (AreaOfCloth * 0.2))
                     {
-                        Discrepancy = "Расхождения между реальными и учетными данными по закупочным суммам превышают 20%";
+                        ClothDiscrepancy = "Расхождения между реальными и учетными данными по закупочным суммам превышают 20%";
                     }
                     else
                     {
-                        Discrepancy = "";
+                        ClothDiscrepancy = "";
                     }
                 }
             }
@@ -158,27 +255,28 @@ namespace WpfApp.ViewModels
                 Set(ref _selectedFurniture, value);
                 if (_selectedFurniture != null)
                 {
-                    Articul = _selectedFurniture.Articul;
-                    Name = _selectedFurniture.Name;
-                    AtStore = _selectedFurniture.Quantity;
-                    CostOfAllAtStore = _selectedFurniture.CostOfAllFurniture;
-                    if (UsersDataAtStore > AtStore)
+                    FurnitureArticul = _selectedFurniture.Articul;
+                    FurnitureName = _selectedFurniture.Name;
+                    FurnitureQuantityAtStore = _selectedFurniture.Quantity;
+                    FurnitureCostOfAllAtStore = _selectedFurniture.CostOfAllFurniture;
+                    if (UsersQuantityAtStore > FurnitureQuantityAtStore)
                     {
-                        SurplusCost = (UsersDataAtStore - AtStore) * _selectedFurniture.Cost;
-                        ShortageCost = 0;
+                        FurnitureSurplusCost = (UsersQuantityAtStore - FurnitureQuantityAtStore) * _selectedFurniture.Cost;
+                        FurnitureShortageCost = 0;
                     }
-                    else if (UsersDataAtStore < AtStore)
+                    else if (UsersQuantityAtStore < FurnitureQuantityAtStore)
                     {
-                        ShortageCost = CostOfAllAtStore * UsersDataAtStore / AtStore;
-                        SurplusCost = 0;
+                        FurnitureShortageCost = FurnitureCostOfAllAtStore * UsersQuantityAtStore / FurnitureQuantityAtStore;
+                        FurnitureSurplusCost = 0;
                     }
-                    if ((AtStore - _usersDataAtStore) > (AtStore * 0.2) || (_usersDataAtStore - AtStore) > (AtStore * 0.2))
+                    if ((FurnitureQuantityAtStore - UsersQuantityAtStore) > (FurnitureQuantityAtStore * 0.2) || 
+                        (UsersQuantityAtStore - FurnitureQuantityAtStore) > (FurnitureQuantityAtStore * 0.2))
                     {
-                        Discrepancy = "Расхождения между реальными и учетными данными по закупочным суммам превышают 20%";
+                        FurnitureDiscrepancy = "Расхождения между реальными и учетными данными по закупочным суммам превышают 20%";
                     }
                     else
                     {
-                        Discrepancy = "";
+                        FurnitureDiscrepancy = "";
                     }
                 }
             }
@@ -188,65 +286,77 @@ namespace WpfApp.ViewModels
 
         #region Команды
 
-        #region Команда подтвержения инвентаризации к элементу
+        #region Команда подтвержения инвентаризации к ткани
 
-        public ICommand AddInventoryElement { get; }
+        public ICommand AddClothCommand { get; }
 
-        private bool CanAddInventoryElementExecute(object parameter) => true;
-        private void OnAddInventoryElementExecuted(object parameter)
+        private bool CanAddClothCommandExecute(object parameter) => true;
+        private void OnAddClothCommandExecuted(object parameter)
         {
-            if (SelectedCloth == null && SelectedFurniture == null)
+            if (SelectedCloth == null)
                 MessageBox.Show("Вы не выбрали элемент");
             else
             {
-                if (UsersDataAtStore == 0)
+                if (UsersLengthOfRollAtStore == 0 || UsersWidthOfRollAtStore == 0)
                     MessageBox.Show("Введите реальные данные об элементе");
                 else
                 {
-                    if (ClothsAtStoreNotInventory.Any(x => x.Articul == Articul))
+                    foreach (var cloth in ClothsAtStoreNotInventory)
                     {
-                        foreach (var cloth in ClothsAtStoreNotInventory)
+                        if (ClothArticul == cloth.Articul)
                         {
-                            if (Articul == cloth.Articul)
+                            ClothsAtStoreInventory.Add(cloth);
+                            ClothsAtStoreNotInventory.Remove(cloth);
+                            InventoryCloths.Add(new InventoryMaterial()
                             {
-                                ClothsAtStoreInventory.Add(cloth);
-                                ClothsAtStoreNotInventory.Remove(cloth);
-                                InventoryMaterials.Add(new InventoryMaterial()
-                                {
-                                    Articul = cloth.Articul,
-                                    Type = "ткань",
-                                    SystemQuantity = cloth.AreaOfClothAtStoreIn,
-                                    RealQuantity = UsersDataAtStore,
-                                    CostOfAllMaterials = cloth.CostOfAllCloth,
-                                });
-                                break;
-                            }
+                                Articul = cloth.Articul,
+                                Type = "ткань",
+                                SystemLengthOfCloth = cloth.LengthOfClothAtStore,
+                                SystemWidthOfCloth = cloth.WidthOfClothAtStore,
+                                RealWidthOfCloth = UsersWidthOfRollAtStore,
+                                RealLengthOfCloth = UsersLengthOfRollAtStore,
+                                CostOfAllMaterials = cloth.CostOfAllCloth,
+                            });
+                            break;
                         }
-                        Cleaner();
                     }
-                    else if (FurnituresAtStoreNotInventory.Any(x => x.Articul == Articul))
-                    {
-                        foreach (var furniture in FurnituresAtStoreNotInventory)
-                        {
-                            if (Articul == furniture.Articul)
-                            {
-                                FurnituresAtStoreInventory.Add(furniture);
-                                FurnituresAtStoreNotInventory.Remove(furniture);
-                                InventoryMaterials.Add(new InventoryMaterial()
-                                {
-                                    Articul = furniture.Articul,
-                                    Type = "фурнитура",
-                                    SystemQuantity = furniture.Quantity,
-                                    RealQuantity = UsersDataAtStore,
-                                    CostOfAllMaterials = furniture.CostOfAllFurniture,
-                                });
-                                break;
-                            }
-                        }
-                        Cleaner();
-                    }
+                    Cleaner();
                 }
 
+            }
+        }
+
+        #endregion
+
+        #region Команда подтвержения инвентаризации к фурнитуре
+
+        public ICommand AddFurnutureCommand { get; }
+
+        private bool CanAddFurnutureCommandExecute(object parameter) => true;
+        private void OnAddFurnutureCommandExecuted(object parameter)
+        {
+            if (SelectedFurniture == null)
+                MessageBox.Show("Вы не выбрали элемент");
+            else
+            {
+                foreach (var furniture in FurnituresAtStoreNotInventory)
+                {
+                    if (FurnitureArticul == furniture.Articul)
+                    {
+                        FurnituresAtStoreInventory.Add(furniture);
+                        FurnituresAtStoreNotInventory.Remove(furniture);
+                        InventoryFurnitures.Add(new InventoryMaterial()
+                        {
+                            Articul = furniture.Articul,
+                            Type = "фурнитура",
+                            SystemQuantity = furniture.Quantity,
+                            RealQuantity = UsersQuantityAtStore,
+                            CostOfAllMaterials = furniture.CostOfAllFurniture,
+                        });
+                        break;
+                    }
+                }
+                Cleaner();
             }
         }
 
@@ -272,7 +382,7 @@ namespace WpfApp.ViewModels
             float furnitureSurplusCost = 0;
             float furnitureCostOfAll = 0;
 
-            if (InventoryMaterials.Count == 0)
+            if (InventoryCloths.Count == 0 || InventoryFurnitures.Count == 0)
                 MessageBox.Show("Вы не провели инвентаризацию");
             else
             {
@@ -309,10 +419,10 @@ namespace WpfApp.ViewModels
                         cmd.ExecuteNonQuery();
                         cmd.Parameters.Clear();
 
-                        foreach (var cloth in InventoryMaterials.Where(x => x.Type == "ткань"))
+                        foreach (var cloth in InventoryCloths)
                         {
-                            clothSystemQuantity += cloth.SystemQuantity;
-                            clothRealQuantity += cloth.RealQuantity;
+                            clothSystemQuantity += (cloth.SystemLengthOfCloth * cloth.SystemWidthOfCloth);
+                            clothRealQuantity += (cloth.RealLengthOfCloth * cloth.RealWidthOfCloth);
                             clothCostOfAll += cloth.CostOfAllMaterials;
                         }
                         if (clothSystemQuantity > clothRealQuantity)
@@ -326,7 +436,7 @@ namespace WpfApp.ViewModels
                             clothSurplusCost = (clothRealQuantity - clothSystemQuantity) * clothCostOfAll;
                         }
 
-                        foreach (var furniture in InventoryMaterials.Where(x => x.Type == "фурнитура"))
+                        foreach (var furniture in InventoryFurnitures)
                         {
                             furnitureSystemQuantity += furniture.SystemQuantity;
                             furnitureRealQuantity += furniture.RealQuantity;
@@ -388,7 +498,8 @@ namespace WpfApp.ViewModels
 
             #region Команды
 
-            AddInventoryElement = new LambdaCommand(OnAddInventoryElementExecuted, CanAddInventoryElementExecute);
+            AddClothCommand = new LambdaCommand(OnAddClothCommandExecuted, CanAddClothCommandExecute);
+            AddFurnutureCommand = new LambdaCommand(OnAddFurnutureCommandExecuted, CanAddFurnutureCommandExecute);
             ConfirmInventoryCommand = new LambdaCommand(OnConfirmInventoryCommandExecuted, CanConfirmInventoryCommandExecute);
 
             #endregion
@@ -449,8 +560,8 @@ namespace WpfApp.ViewModels
             try
             {
                 string sql = "select cloth.Cloth_Image, cloth.Cloth_Articul, cloth.Cloth_Name, " +
-                    "cloth.Cloth_Area, cloth.`Cloth_Cost(rub)`, " +
-                    "clothstore.ClothStore_AreaOfRoll from clothstore  " +
+                    "cloth.`Cloth_Width(cm)`, cloth.`Cloth_Length(cm)`, cloth.`Cloth_Cost(rub)`, " +
+                    "clothstore.ClothStore_WidthOfRoll, clothstore.ClothStore_LengthOfRoll from clothstore  " +
                     "inner join cloth " +
                     "on clothstore.ClothStore_Cloth_Articul = cloth.Cloth_Articul;";
 
@@ -469,10 +580,12 @@ namespace WpfApp.ViewModels
                             Image = reader.GetString(0),
                             Articul = reader.GetString(1),
                             Name = reader.GetString(2),
-                            AreaOfCloth = reader.GetFloat(3),
-                            CostOfCloth = reader.GetFloat(4),
-                            AreaOfClothAtStoreIn = reader.GetFloat(5),
-                            CostOfAllCloth = reader.GetFloat(5) / (reader.GetFloat(3)) * reader.GetFloat(4),
+                            WidthOfCloth = reader.GetFloat(3),
+                            LengthOfCloth = reader.GetFloat(4),
+                            CostOfCloth = reader.GetFloat(5),
+                            WidthOfClothAtStore = reader.GetFloat(6),
+                            LengthOfClothAtStore = reader.GetFloat(7),
+                            CostOfAllCloth = (reader.GetFloat(6) * reader.GetFloat(6)) / (reader.GetFloat(3) * reader.GetFloat(4)) * reader.GetFloat(4),
                         });
                     }
                 }
@@ -491,14 +604,31 @@ namespace WpfApp.ViewModels
 
         private void Cleaner()
         {
-            Articul = "";
-            Name = "";
-            AtStore = 0;
-            CostOfAllAtStore = 0;
-            ShortageCost = 0;
-            SurplusCost = 0;
-            Discrepancy = "";
-            UsersDataAtStore = 0;
+            ClothArticul = "";
+            FurnitureArticul = "";
+
+            ClothName = "";
+            FurnitureName = "";
+
+            WidthOfRollAtStore = 0;
+            LengthOfRollAtStore = 0;
+            FurnitureQuantityAtStore = 0;
+
+            ClothCostOfAllAtStore = 0;
+            FurnitureCostOfAllAtStore = 0;
+
+            ClothShortageCost = 0;
+            FurnitureShortageCost = 0;
+
+            ClothSurplusCost = 0;
+            FurnitureSurplusCost = 0;
+
+            ClothDiscrepancy = "";
+            FurnitureDiscrepancy = "";
+
+            UsersLengthOfRollAtStore = 0;
+            UsersWidthOfRollAtStore = 0;
+            UsersQuantityAtStore = 0;
         }
 
     }

@@ -159,7 +159,8 @@ namespace WpfApp.ViewModels
                 MySqlCommand cmd = new MySqlCommand();
                 cmd.Connection = conn;
                 string sql = "select cloth.Cloth_Image, clothstore.ClothStore_Cloth_Articul, cloth.Cloth_Name, " +
-                    "cloth.Cloth_Area / 10000, cloth.`Cloth_Cost(rub)`, clothstore.ClothStore_AreaOfRoll / 10000 " +
+                    "cloth.`Cloth_Width(cm)`, cloth.`Cloth_Length(cm)`, cloth.`Cloth_Cost(rub)`, " +
+                    "clothstore.ClothStore_WidthOfRoll, clothstore.ClothStore_LengthOfRoll " +
                     "from clothstore inner join cloth on " +
                     "clothstore.ClothStore_Cloth_Articul = cloth.Cloth_Articul;";
                 cmd.CommandText = sql;
@@ -175,10 +176,12 @@ namespace WpfApp.ViewModels
                             Image = reader.GetString(0),
                             Articul = reader.GetString(1),
                             Name = reader.GetString(2),
-                            AreaOfCloth = reader.GetFloat(3),
-                            CostOfCloth = reader.GetFloat(4),
-                            AreaOfClothAtStoreIn = reader.GetFloat(5),
-                            CostOfAllCloth = reader.GetFloat(5) / reader.GetFloat(3) * reader.GetFloat(4),
+                            WidthOfCloth = reader.GetFloat(3),
+                            LengthOfCloth = reader.GetFloat(4),
+                            CostOfCloth = reader.GetFloat(5),
+                            WidthOfClothAtStore = reader.GetFloat(6),
+                            LengthOfClothAtStore = reader.GetFloat(7),
+                            CostOfAllCloth = (reader.GetFloat(6) * reader.GetFloat(7)) / (reader.GetFloat(3) * reader.GetFloat(4)) * reader.GetFloat(5),
                         });
                     }
                 }

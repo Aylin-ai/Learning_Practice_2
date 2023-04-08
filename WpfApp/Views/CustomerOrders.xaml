@@ -45,57 +45,33 @@
                             <StackPanel>
 
                                 <WrapPanel>
-                                    <Label Content="Номер заказа -"
-                                               Margin="0"
-                                               FontSize="15"/>
-                                    <Label Content="{Binding OrderId}"
-                                               Margin="0"
-                                               FontSize="15"/>
+                                    <Label Content="Номер заказа -"/>
+                                    <Label Content="{Binding OrderId}"/>
                                 </WrapPanel>
 
                                 <WrapPanel>
-                                    <Label Content="Дата создания заказа -"
-                                               Margin="0"
-                                               FontSize="15"/>
-                                    <Label Content="{Binding OrderCreationDate}"
-                                               Margin="0"
-                                               FontSize="15"/>
+                                    <Label Content="Дата создания заказа -"/>
+                                    <Label Content="{Binding OrderCreationDate}"/>
                                 </WrapPanel>
 
                                 <WrapPanel>
-                                    <Label Content="Этап заказа -"
-                                               Margin="0"
-                                               FontSize="15"/>
-                                    <Label Content="{Binding OrderPhase}"
-                                               Margin="0"
-                                               FontSize="15"/>
+                                    <Label Content="Этап заказа -"/>
+                                    <Label Content="{Binding OrderPhase}"/>
                                 </WrapPanel>
 
                                 <WrapPanel>
-                                    <Label Content="Заказчик -"
-                                               Margin="0"
-                                               FontSize="15"/>
-                                    <Label Content="{Binding OrderCustomer}"
-                                               Margin="0"
-                                               FontSize="15"/>
+                                    <Label Content="Заказчик -"/>
+                                    <Label Content="{Binding OrderCustomer}"/>
                                 </WrapPanel>
 
                                 <WrapPanel>
-                                    <Label Content="Менеджер -"
-                                               Margin="0"
-                                               FontSize="15"/>
-                                    <Label Content="{Binding OrderManager}"
-                                               Margin="0"
-                                               FontSize="15"/>
+                                    <Label Content="Менеджер -"/>
+                                    <Label Content="{Binding OrderManager}"/>
                                 </WrapPanel>
 
                                 <WrapPanel>
-                                    <Label Content="Общая цена -"
-                                               Margin="0"
-                                               FontSize="15"/>
-                                    <Label Content="{Binding OrderCost}"
-                                               Margin="0"
-                                               FontSize="15"/>
+                                    <Label Content="Общая цена -"/>
+                                    <Label Content="{Binding OrderCost}"/>
                                 </WrapPanel>
 
                             </StackPanel>
@@ -125,38 +101,23 @@
                                 <StackPanel>
 
                                     <WrapPanel>
-                                        <Label Content="Артикул -"
-                                               Margin="0"
-                                               FontSize="15"/>
-                                        <Label Content="{Binding ProductArticul}"
-                                               Margin="0"
-                                               FontSize="15"/>
+                                        <Label Content="Артикул -"/>
+                                        <Label Content="{Binding ProductArticul}"/>
                                     </WrapPanel>
 
                                     <WrapPanel>
-                                        <Label Content="Имя -"
-                                               Margin="0"
-                                               FontSize="15"/>
-                                        <Label Content="{Binding ProductName}"
-                                               Margin="0"
-                                               FontSize="15"/>
+                                        <Label Content="Имя -"/>
+                                        <Label Content="{Binding ProductName}"/>
                                     </WrapPanel>
 
                                     <WrapPanel>
-                                        <Label Content="Кол-во -"
-                                               Margin="0"/>
-                                        <Label Content="{Binding ProductQuantity}"
-                                               Margin="0"
-                                               FontSize="15"/>
+                                        <Label Content="Кол-во -"/>
+                                        <Label Content="{Binding ProductQuantity}"/>
                                     </WrapPanel>
 
                                     <WrapPanel>
-                                        <Label Content="Общая стоимость -"
-                                               Margin="0"
-                                               FontSize="15"/>
-                                        <Label Content="{Binding ProductPriceXQuantity}"
-                                               Margin="0"
-                                               FontSize="15"/>
+                                        <Label Content="Общая стоимость -"/>
+                                        <Label Content="{Binding ProductPriceXQuantity}"/>
                                     </WrapPanel>
 
                                 </StackPanel>

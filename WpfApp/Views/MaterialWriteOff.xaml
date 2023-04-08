@@ -8,9 +8,9 @@
         mc:Ignorable="d"
         Icon="{Binding IconSource}"
         Title="Списание материалов" 
-        Height="550" Width="800"
+        Height="650" Width="800"
         MinHeight="550" MinWidth="850"
-        MaxHeight="550" MaxWidth="850">
+        MaxHeight="650" MaxWidth="850">
     <Window.DataContext>
         <vm:MaterialWriteOffViewModel/>
     </Window.DataContext>
@@ -58,38 +58,33 @@
                                 <StackPanel>
 
                                     <WrapPanel>
-                                        <Label Content="Артикул - "
-                                               Margin="0"
-                                               FontSize="15"/>
-                                        <Label Content="{Binding Articul}"
-                                               Margin="0"
-                                               FontSize="15"/>
+                                        <Label Content="Артикул - "/>
+                                        <Label Content="{Binding Articul}"/>
                                     </WrapPanel>
 
                                     <WrapPanel>
-                                        <Label Content="Тип материала -"
-                                               Margin="0"
-                                               FontSize="15"/>
-                                        <Label Content="{Binding TypeOfMaterial}"
-                                               Margin="0"
-                                               FontSize="15"/>
+                                        <Label Content="Тип материала -"/>
+                                        <Label Content="{Binding TypeOfMaterial}"/>
                                     </WrapPanel>
 
                                     <WrapPanel>
-                                        <Label Content="Кол-во(шт/м2) - "
-                                               Margin="0"/>
-                                        <Label Content="{Binding ComingQuantity}"
-                                               Margin="0"
-                                               FontSize="15"/>
+                                        <Label Content="Кол-во(шт) - "/>
+                                        <Label Content="{Binding ComingQuantity}"/>
                                     </WrapPanel>
 
                                     <WrapPanel>
-                                        <Label Content="Общая стоимость - "
-                                               Margin="0"
-                                               FontSize="15"/>
-                                        <Label Content="{Binding ComingCost}"
-                                               Margin="0"
-                                               FontSize="15"/>
+                                        <Label Content="Ширина(см) - "/>
+                                        <Label Content="{Binding ComingWidthOfRoll}"/>
+                                    </WrapPanel>
+
+                                    <WrapPanel>
+                                        <Label Content="Длина(см) - "/>
+                                        <Label Content="{Binding ComingLengthOfRoll}"/>
+                                    </WrapPanel>
+
+                                    <WrapPanel>
+                                        <Label Content="Общая стоимость - "/>
+                                        <Label Content="{Binding ComingCost}"/>
                                     </WrapPanel>
 
                                 </StackPanel>
@@ -160,18 +155,25 @@
                             </StackPanel>
 
                             <StackPanel>
-                                <Label Content="На складе"/>
-                                <Label Content="{Binding ClothArea}"
-                                   HorizontalAlignment="Center"/>
-                            </StackPanel>
-
-                            <StackPanel>
                                 <Label Content="Единица измерения"/>
                                 <ComboBox HorizontalAlignment="Center"
                               ItemsSource="{Binding MeasurementUnits}"
                               SelectedItem="{Binding MeasurementUnit}"/>
                             </StackPanel>
 
+                        </WrapPanel>
+
+                        <WrapPanel>
+                            <StackPanel>
+                                <Label Content="Ширина рулона на складе"/>
+                                <Label Content="{Binding WidthOfRoll}"
+                                   HorizontalAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel>
+                                <Label Content="Длина рулона на складе"/>
+                                <Label Content="{Binding LengthOfRoll}"
+                                   HorizontalAlignment="Center"/>
+                            </StackPanel>
                         </WrapPanel>
 
                         <WrapPanel>
@@ -185,8 +187,12 @@
 
                         </WrapPanel>
 
-                        <Label Content="Площадь ткани для добавления"/>
-                        <TextBox Text="{Binding UserArea, Mode=TwoWay, 
+                        <Label Content="Ширина ткани для списания"/>
+                        <TextBox Text="{Binding UserWidth, Mode=TwoWay, 
+                        UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <Label Content="Длина ткани для списания"/>
+                        <TextBox Text="{Binding UserLength, Mode=TwoWay, 
                         UpdateSourceTrigger=PropertyChanged}"/>
 
 

@@ -60,38 +60,23 @@
                                     <StackPanel>
 
                                         <WrapPanel>
-                                            <Label Content="Артикул - "
-                                               Margin="0"
-                                               FontSize="15"/>
-                                            <Label Content="{Binding ProductArticul}"
-                                               Margin="0"
-                                               FontSize="15"/>
+                                            <Label Content="Артикул - "/>
+                                            <Label Content="{Binding ProductArticul}"/>
                                         </WrapPanel>
 
                                         <WrapPanel>
-                                            <Label Content="Имя - "
-                                               Margin="0"
-                                               FontSize="15"/>
-                                            <Label Content="{Binding ProductName}"
-                                               Margin="0"
-                                               FontSize="15"/>
+                                            <Label Content="Имя - "/>
+                                            <Label Content="{Binding ProductName}"/>
                                         </WrapPanel>
 
                                         <WrapPanel>
-                                            <Label Content="Кол-во - "
-                                               Margin="0"/>
-                                            <Label Content="{Binding ProductQuantity}"
-                                               Margin="0"
-                                               FontSize="15"/>
+                                            <Label Content="Кол-во - "/>
+                                            <Label Content="{Binding ProductQuantity}"/>
                                         </WrapPanel>
 
                                         <WrapPanel>
-                                            <Label Content="Общая стоимость - "
-                                               Margin="0"
-                                               FontSize="15"/>
-                                            <Label Content="{Binding ProductPriceXQuantity}"
-                                               Margin="0"
-                                               FontSize="15"/>
+                                            <Label Content="Общая стоимость - "/>
+                                            <Label Content="{Binding ProductPriceXQuantity}"/>
                                         </WrapPanel>
 
                                     </StackPanel>
@@ -106,8 +91,7 @@
             </DockPanel>
 
             <ScrollViewer Grid.Column="1">
-                <StackPanel IsEnabled="{Binding IsStackPanel2Enabled}" 
-                        Margin="10, 0">
+                <StackPanel IsEnabled="{Binding IsStackPanel2Enabled}">
 
                     <Label Content="Добавление товара"
                        HorizontalAlignment="Center"/>

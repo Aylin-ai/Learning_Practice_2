@@ -9,8 +9,8 @@
         mc:Ignorable="d"
         Icon="{Binding IconSource}"
         Title="Список материалов на складе" 
-        Width="1000" Height="600" 
-        MinWidth="800" MinHeight="400">
+        Width="1100" Height="600" 
+        MinWidth="1000" MinHeight="400">
     <Window.DataContext>
         <vm:MaterialsAtStoreViewModel/>
     </Window.DataContext>
@@ -28,26 +28,26 @@
         <StackPanel DockPanel.Dock="Top" Margin="10" HorizontalAlignment="Left">
             <Label Content="Выберите е.и. размерности"/>
             <ComboBox>
-                <ComboBoxItem Content="см2"
+                <ComboBoxItem Content="см"
                               IsSelected="True">
                     <ComboBoxItem.InputBindings>
                         <MouseBinding Command="{Binding ToCMCommand}"
                                       MouseAction="LeftClick"/>
                     </ComboBoxItem.InputBindings>
                 </ComboBoxItem>
-                <ComboBoxItem Content="м2">
+                <ComboBoxItem Content="м">
                     <ComboBoxItem.InputBindings>
                         <MouseBinding Command="{Binding ToMCommand}"
                                       MouseAction="LeftClick"/>
                     </ComboBoxItem.InputBindings>
                 </ComboBoxItem>
-                <ComboBoxItem Content="дм2">
+                <ComboBoxItem Content="дм">
                     <ComboBoxItem.InputBindings>
                         <MouseBinding Command="{Binding ToDMCommand}"
                                       MouseAction="LeftClick"/>
                     </ComboBoxItem.InputBindings>
                 </ComboBoxItem>
-                <ComboBoxItem Content="мм2">
+                <ComboBoxItem Content="мм">
                     <ComboBoxItem.InputBindings>
                         <MouseBinding Command="{Binding ToMMCommand}"
                                       MouseAction="LeftClick"/>
@@ -89,10 +89,13 @@
                         <DataGridTextColumn Header="Артикул" Binding="{Binding Articul}"/>
                         <DataGridTextColumn Header="Название" Binding="{Binding Name}"
                                         MinWidth="250" Width="250"/>
-                        <DataGridTextColumn Header="Площадь" Binding="{Binding AreaOfCloth}"/>
+                        <DataGridTextColumn Header="Ширина" Binding="{Binding WidthOfCloth}"/>
+                        <DataGridTextColumn Header="Длина" Binding="{Binding LengthOfCloth}"/>
                         <DataGridTextColumn Header="Цена" Binding="{Binding CostOfCloth}"/>
-                        <DataGridTextColumn Header="Ткани на складе" 
-                                                Binding="{Binding AreaOfClothAtStoreIn}"/>
+                        <DataGridTextColumn Header="Ширина ткани на складе" 
+                                                Binding="{Binding WidthOfClothAtStore}"/>
+                        <DataGridTextColumn Header="Длина ткани на складе" 
+                                                Binding="{Binding LengthOfClothAtStore}"/>
                         <DataGridTextColumn Header="Закупочная стоимость"
                                                 Binding="{Binding CostOfAllCloth}"/>
                     </DataGrid.Columns>

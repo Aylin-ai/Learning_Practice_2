@@ -31,10 +31,7 @@ namespace WpfApp.ViewModels
         private ObservableCollection<ComingMaterial> _writeOffMaterials = new ObservableCollection<ComingMaterial>();
         public ObservableCollection<ComingMaterial> WriteOffMaterials { get => _writeOffMaterials; set => Set(ref _writeOffMaterials, value); }
 
-
-
-
-        private ObservableCollection<string> _measurementUnits = new ObservableCollection<string>() { "см2", "м2", "дм2", "мм2" };
+        private ObservableCollection<string> _measurementUnits = new ObservableCollection<string>() { "см", "м", "дм", "мм" };
         public ObservableCollection<string> MeasurementUnits { get => _measurementUnits; set => Set(ref _measurementUnits, value); }
 
         private ObservableCollection<string> _clothsArticuls = new ObservableCollection<string>();
@@ -42,9 +39,6 @@ namespace WpfApp.ViewModels
 
         private ObservableCollection<ClothStore> _cloths = new ObservableCollection<ClothStore>();
         public ObservableCollection<ClothStore> Cloths { get => _cloths; set => Set(ref _cloths, value); }
-
-
-
 
         private ObservableCollection<FurnitureStore> _furnitures = new ObservableCollection<FurnitureStore>();
         public ObservableCollection<FurnitureStore> Furnitures { get => _furnitures; set => Set(ref _furnitures, value); }
@@ -67,11 +61,13 @@ namespace WpfApp.ViewModels
         #region Данные для списания ткани
 
         private ComingMaterial _selectedMaterial;
-        private string _measurementUnit = "см2";
+        private string _measurementUnit = "см";
         private string _selectedArticulOfCloth;
-        private string _userArea = "";
-        private string _clothArea;
-        private string _clothWriteOffCost;
+        private float _userWidth;
+        private float _userLength;
+        private float _widthOfRoll;
+        private float _lengthOfRoll;
+        private float _clothWriteOffCost;
 
         public ComingMaterial SelectedMaterial { get => _selectedMaterial; set => Set(ref _selectedMaterial, value); }
         public string SelectedArticulOfCloth
@@ -80,83 +76,115 @@ namespace WpfApp.ViewModels
             set
             {
                 Set(ref _selectedArticulOfCloth, value);
-                float UserArea;
                 foreach (var item in Cloths)
                 {
                     if (item.Articul == _selectedArticulOfCloth)
                     {
                         switch (MeasurementUnit)
                         {
-                            case "см2":
-                                ClothArea = item.AreaOfClothAtStoreIn.ToString();
+                            case "см":
+                                WidthOfRoll = item.WidthOfClothAtStore;
+                                LengthOfRoll = item.LengthOfClothAtStore;
                                 break;
-                            case "м2":
-                                ClothArea = (item.AreaOfClothAtStoreIn / 10000).ToString();
+                            case "м":
+                                WidthOfRoll = (item.WidthOfClothAtStore / 100);
+                                LengthOfRoll = (item.LengthOfClothAtStore / 100);
                                 break;
-                            case "дм2":
-                                ClothArea = (item.AreaOfClothAtStoreIn / 100).ToString();
+                            case "дм":
+                                WidthOfRoll = (item.WidthOfClothAtStore / 10);
+                                LengthOfRoll = (item.LengthOfClothAtStore / 10);
                                 break;
-                            case "мм2":
-                                ClothArea = (item.AreaOfClothAtStoreIn * 100).ToString();
+                            case "мм":
+                                WidthOfRoll = (item.WidthOfClothAtStore * 10);
+                                LengthOfRoll = (item.LengthOfClothAtStore * 10);
                                 break;
                         }
-                        if (float.TryParse(_userArea, out UserArea))
-                        {
-                            float first = UserArea * item.CostOfAllCloth;
-                            float second = float.Parse(ClothArea);
-                            float third = (first / second);
-                            ClothWriteOffCost = third.ToString();
-                        }
+                        float first = (_userWidth * UserLength) * item.CostOfAllCloth;
+                        float second = WidthOfRoll * LengthOfRoll;
+                        float third = (first / second);
+                        ClothWriteOffCost = third;
                     }
                 }
             }
         }
-        public string UserArea
+
+        public float UserWidth
         {
-            get => _userArea;
+            get => _userWidth;
             set
             {
-                if (_userArea != value)
+                Set(ref _userWidth, value);
+                foreach (var item in Cloths)
                 {
-                    if (value.Any(x => !char.IsLetter(x)))
+                    if (item.Articul == SelectedArticulOfCloth)
                     {
-                        Set(ref _userArea, value);
-                    }
-                    else
-                        Set(ref _userArea, "");
-                    float UserArea;
-                    foreach (var item in Cloths)
-                    {
-                        if (item.Articul == SelectedArticulOfCloth)
+                        switch (MeasurementUnit)
                         {
-                            switch (MeasurementUnit)
-                            {
-                                case "см2":
-                                    ClothArea = item.AreaOfClothAtStoreIn.ToString();
-                                    break;
-                                case "м2":
-                                    ClothArea = (item.AreaOfClothAtStoreIn / 10000).ToString();
-                                    break;
-                                case "дм2":
-                                    ClothArea = (item.AreaOfClothAtStoreIn / 100).ToString();
-                                    break;
-                                case "мм2":
-                                    ClothArea = (item.AreaOfClothAtStoreIn * 100).ToString();
-                                    break;
-                            }
-                            if (float.TryParse(_userArea, out UserArea))
-                            {
-                                float first = UserArea * item.CostOfAllCloth;
-                                float second = float.Parse(ClothArea);
-                                float third = (first / second);
-                                ClothWriteOffCost = third.ToString();
-                            }
+                            case "см":
+                                WidthOfRoll = item.WidthOfClothAtStore;
+                                LengthOfRoll = item.LengthOfClothAtStore;
+                                break;
+                            case "м":
+                                WidthOfRoll = (item.WidthOfClothAtStore / 100);
+                                LengthOfRoll = (item.LengthOfClothAtStore / 100);
+                                break;
+                            case "дм":
+                                WidthOfRoll = (item.WidthOfClothAtStore / 10);
+                                LengthOfRoll = (item.LengthOfClothAtStore / 10);
+                                break;
+                            case "мм":
+                                WidthOfRoll = (item.WidthOfClothAtStore * 10);
+                                LengthOfRoll = (item.LengthOfClothAtStore * 10);
+                                break;
                         }
+                        float first = (_userWidth * UserLength) * item.CostOfAllCloth;
+                        float second = WidthOfRoll * LengthOfRoll;
+                        float third = (first / second);
+                        ClothWriteOffCost = third;
                     }
                 }
             }
         }
-        public string ClothArea { get => _clothArea; set => Set(ref _clothArea, value); }
+
+        public float UserLength
+        {
+            get => _userLength;
+            set
+            {
+                Set(ref _userLength, value);
+                foreach (var item in Cloths)
+                {
+                    if (item.Articul == SelectedArticulOfCloth)
+                    {
+                        switch (MeasurementUnit)
+                        {
+                            case "см":
+                                WidthOfRoll = item.WidthOfClothAtStore;
+                                LengthOfRoll = item.LengthOfClothAtStore;
+                                break;
+                            case "м":
+                                WidthOfRoll = (item.WidthOfClothAtStore / 100);
+                                LengthOfRoll = (item.LengthOfClothAtStore / 100);
+                                break;
+                            case "дм":
+                                WidthOfRoll = (item.WidthOfClothAtStore / 10);
+                                LengthOfRoll = (item.LengthOfClothAtStore / 10);
+                                break;
+                            case "мм":
+                                WidthOfRoll = (item.WidthOfClothAtStore * 10);
+                                LengthOfRoll = (item.LengthOfClothAtStore * 10);
+                                break;
+                        }
+                        float first = (_userWidth * UserLength) * item.CostOfAllCloth;
+                        float second = WidthOfRoll * LengthOfRoll;
+                        float third = (first / second);
+                        ClothWriteOffCost = third;
+                    }
+                }
+            }
+        }
+
+        
         public string MeasurementUnit
         {
             get => _measurementUnit;
@@ -170,25 +198,32 @@ namespace WpfApp.ViewModels
                     {
                         switch (_measurementUnit)
                         {
-                            case "см2":
-                                ClothArea = item.AreaOfClothAtStoreIn.ToString();
+                            case "см":
+                                WidthOfRoll = item.WidthOfClothAtStore;
+                                LengthOfRoll = item.LengthOfClothAtStore;
                                 break;
-                            case "м2":
-                                ClothArea = (item.AreaOfClothAtStoreIn / 10000).ToString();
+                            case "м":
+                                WidthOfRoll = (item.WidthOfClothAtStore / 100);
+                                LengthOfRoll = (item.LengthOfClothAtStore / 100); 
                                 break;
-                            case "дм2":
-                                ClothArea = (item.AreaOfClothAtStoreIn / 100).ToString();
+                            case "дм":
+                                WidthOfRoll = (item.WidthOfClothAtStore / 10);
+                                LengthOfRoll = (item.LengthOfClothAtStore / 10);
                                 break;
-                            case "мм2":
-                                ClothArea = (item.AreaOfClothAtStoreIn * 100).ToString();
+                            case "мм":
+                                WidthOfRoll = (item.WidthOfClothAtStore * 10);
+                                LengthOfRoll = (item.LengthOfClothAtStore * 10);
                                 break;
                         }
-                        UserArea = "";
+                        UserWidth = 0;
+                        UserLength = 0;
                     }
                 }
             }
         }
-        public string ClothWriteOffCost { get => _clothWriteOffCost; set => Set(ref _clothWriteOffCost, value); }
+        public float WidthOfRoll { get => _widthOfRoll; set => Set(ref _widthOfRoll, value); }
+        public float LengthOfRoll { get => _lengthOfRoll; set => Set(ref _lengthOfRoll, value); }
+        public float ClothWriteOffCost { get => _clothWriteOffCost; set => Set(ref _clothWriteOffCost, value); }
 
         #endregion
 
@@ -267,13 +302,13 @@ namespace WpfApp.ViewModels
             }
             else
             {
-                if (UserArea == "" || UserArea.Any(x => char.IsLetter(x)))
+                if (UserWidth == 0 || UserLength == 0)
                 {
                     MessageBox.Show("Вы не ввели необходимые для добавления данные");
                 }
                 else
                 {
-                    if (float.Parse(UserArea) > float.Parse(ClothArea))
+                    if (UserWidth > WidthOfRoll || UserLength > LengthOfRoll)
                     {
                         MessageBox.Show("Вы не можете списать больше, чем есть на складе");
                         return;
@@ -286,60 +321,68 @@ namespace WpfApp.ViewModels
                             {
                                 switch (MeasurementUnit)
                                 {
-                                    case "см2":
-                                        material.ComingQuantity += int.Parse(UserArea) / 10000;
+                                    case "см":
+                                        material.ComingLengthOfRoll += UserLength;
+                                        material.ComingWidthOfRoll += UserWidth;
                                         break;
-                                    case "м2":
-                                        material.ComingQuantity += int.Parse(UserArea);
+                                    case "м":
+                                        material.ComingLengthOfRoll += UserLength * 100;
+                                        material.ComingWidthOfRoll += UserWidth * 100;
                                         break;
-                                    case "дм2":
-                                        material.ComingQuantity += int.Parse(UserArea) / 100;
+                                    case "дм":
+                                        material.ComingLengthOfRoll += UserLength * 10;
+                                        material.ComingWidthOfRoll += UserWidth * 10;
                                         break;
-                                    case "мм2":
-                                        material.ComingQuantity += int.Parse(UserArea) / 1000000;
+                                    case "мм":
+                                        material.ComingLengthOfRoll += UserLength / 10;
+                                        material.ComingWidthOfRoll += UserWidth / 10;
                                         break;
                                 }
-                                material.ComingCost += float.Parse(ClothWriteOffCost);
+                                material.ComingCost += ClothWriteOffCost;
                                 Cleaner();
                                 return;
                             }
                         }
                         switch (MeasurementUnit)
                         {
-                            case "см2":
+                            case "см":
                                 WriteOffMaterials.Add(new ComingMaterial
                                 {
                                     Articul = SelectedArticulOfCloth,
                                     TypeOfMaterial = "ткань",
-                                    ComingQuantity = float.Parse(UserArea) / 10000,
-                                    ComingCost = float.Parse(ClothWriteOffCost)
+                                    ComingWidthOfRoll = UserWidth,
+                                    ComingLengthOfRoll = UserLength,
+                                    ComingCost = ClothWriteOffCost
                                 });
                                 break;
-                            case "м2":
+                            case "м":
                                 WriteOffMaterials.Add(new ComingMaterial
                                 {
                                     Articul = SelectedArticulOfCloth,
                                     TypeOfMaterial = "ткань",
-                                    ComingQuantity = float.Parse(UserArea),
-                                    ComingCost = float.Parse(ClothWriteOffCost)
+                                    ComingWidthOfRoll = UserWidth * 100,
+                                    ComingLengthOfRoll = UserLength * 100,
+                                    ComingCost = ClothWriteOffCost
                                 });
                                 break;
-                            case "дм2":
+                            case "дм":
                                 WriteOffMaterials.Add(new ComingMaterial
                                 {
                                     Articul = SelectedArticulOfCloth,
                                     TypeOfMaterial = "ткань",
-                                    ComingQuantity = float.Parse(UserArea) / 100,
-                                    ComingCost = float.Parse(ClothWriteOffCost)
+                                    ComingWidthOfRoll = UserWidth * 10,
+                                    ComingLengthOfRoll = UserLength * 10,
+                                    ComingCost = ClothWriteOffCost
                                 });
                                 break;
-                            case "мм2":
+                            case "мм":
                                 WriteOffMaterials.Add(new ComingMaterial
                                 {
                                     Articul = SelectedArticulOfCloth,
                                     TypeOfMaterial = "ткань",
-                                    ComingQuantity = float.Parse(UserArea) / 1000000,
-                                    ComingCost = float.Parse(ClothWriteOffCost)
+                                    ComingWidthOfRoll = UserWidth / 10,
+                                    ComingLengthOfRoll = UserLength / 10,
+                                    ComingCost = ClothWriteOffCost
                                 });
                                 break;
                         }
@@ -350,40 +393,44 @@ namespace WpfApp.ViewModels
                     {
                         switch (MeasurementUnit)
                         {
-                            case "см2":
+                            case "см":
                                 WriteOffMaterials.Add(new ComingMaterial
                                 {
                                     Articul = SelectedArticulOfCloth,
                                     TypeOfMaterial = "ткань",
-                                    ComingQuantity = float.Parse(UserArea) / 10000,
-                                    ComingCost = float.Parse(ClothWriteOffCost)
+                                    ComingWidthOfRoll = UserWidth,
+                                    ComingLengthOfRoll = UserLength,
+                                    ComingCost = ClothWriteOffCost
                                 });
                                 break;
-                            case "м2":
+                            case "м":
                                 WriteOffMaterials.Add(new ComingMaterial
                                 {
                                     Articul = SelectedArticulOfCloth,
                                     TypeOfMaterial = "ткань",
-                                    ComingQuantity = float.Parse(UserArea),
-                                    ComingCost = float.Parse(ClothWriteOffCost)
+                                    ComingWidthOfRoll = UserWidth * 100,
+                                    ComingLengthOfRoll = UserLength * 100,
+                                    ComingCost = ClothWriteOffCost
                                 });
                                 break;
-                            case "дм2":
+                            case "дм":
                                 WriteOffMaterials.Add(new ComingMaterial
                                 {
                                     Articul = SelectedArticulOfCloth,
                                     TypeOfMaterial = "ткань",
-                                    ComingQuantity = float.Parse(UserArea) / 100,
-                                    ComingCost = float.Parse(ClothWriteOffCost)
+                                    ComingWidthOfRoll = UserWidth * 10,
+                                    ComingLengthOfRoll = UserLength * 10,
+                                    ComingCost = ClothWriteOffCost
                                 });
                                 break;
-                            case "мм2":
+                            case "мм":
                                 WriteOffMaterials.Add(new ComingMaterial
                                 {
                                     Articul = SelectedArticulOfCloth,
                                     TypeOfMaterial = "ткань",
-                                    ComingQuantity = float.Parse(UserArea) / 1000000,
-                                    ComingCost = float.Parse(ClothWriteOffCost)
+                                    ComingWidthOfRoll = UserWidth / 10,
+                                    ComingLengthOfRoll = UserLength / 10,
+                                    ComingCost = ClothWriteOffCost
                                 });
                                 break;
                         }
@@ -526,7 +573,8 @@ namespace WpfApp.ViewModels
                         "set FurnitureStore_Quantity = FurnitureStore_Quantity - @quantity " +
                         "where FurnitureStore_Furniture_Articul = @furnitureArticul;";
                     string sqlCloth = "update clothstore " +
-                        "set ClothStore_ClothArea = ClothStore_ClothArea - @area " +
+                        "set ClothStore_WidthOfRoll = ClothStore_WidthOfRoll - @widthOfRoll, " +
+                        "set ClothStore_LengthOfRoll = ClothStore_LengthOfRoll - @lengthOfRoll " +
                         "where ClothStore_Cloth_Articul = @clothArticul";
                     MySqlCommand cmd = new MySqlCommand();
                     cmd.Connection = conn;
@@ -536,7 +584,8 @@ namespace WpfApp.ViewModels
                         {
                             case "ткань":
                                 cmd.CommandText = sqlCloth;
-                                cmd.Parameters.AddWithValue("@area", material.ComingQuantity);
+                                cmd.Parameters.AddWithValue("@widthOfRoll", material.ComingWidthOfRoll);
+                                cmd.Parameters.AddWithValue("@lengthOfRoll", material.ComingLengthOfRoll);
                                 cmd.Parameters.AddWithValue("@clothArticul", material.Articul);
                                 await cmd.ExecuteNonQueryAsync();
                                 cmd.Parameters.Clear();
@@ -586,7 +635,8 @@ namespace WpfApp.ViewModels
                             case "ткань":
                                 Word.Paragraph ClothParagraph = document.Paragraphs.Add();
                                 Word.Range ClothRange = ClothParagraph.Range;
-                                ClothRange.Text = $"Со склада было списано {material.ComingQuantity} м2 ткани {material.Articul} стоимостью {material.ComingCost} рублей";
+                                ClothRange.Text = $"Со склада было списано {material.ComingWidthOfRoll} см ширины и {material.ComingLengthOfRoll} см длины" +
+                                    $" ткани {material.Articul} стоимостью {material.ComingCost} рублей";
                                 ClothParagraph.set_Style("Обычный;MainStyle");
                                 ClothRange.InsertParagraphAfter();
                                 break;
@@ -637,7 +687,7 @@ namespace WpfApp.ViewModels
             try
             {
                 string sql = "SELECT c.Cloth_Articul, c.Cloth_Name, c.`Cloth_Length(cm)`, c.`Cloth_Width(cm)`, c.`Cloth_Cost(rub)`, cs.ClothStore_Roll, " +
-                    "cs.ClothStore_AreaOfRoll " +
+                    "cs.ClothStore_WidthOfRoll, cs.ClothStore_LengthOfRoll " +
                     "from cloth c " +
                     "inner join clothstore cs " +
                     "on c.Cloth_Articul = cs.ClothStore_Cloth_Articul;";
@@ -656,11 +706,13 @@ namespace WpfApp.ViewModels
                         {
                             Articul = reader.GetString(0),
                             Name = reader.GetString(1),
-                            AreaOfCloth = reader.GetFloat(2) * reader.GetFloat(3),
+                            LengthOfCloth = reader.GetFloat(2),
+                            WidthOfCloth = reader.GetFloat(3),
                             CostOfCloth = reader.GetFloat(4),
                             RollAtStore = reader.GetInt32(5),
-                            AreaOfClothAtStoreIn = reader.GetFloat(6),
-                            CostOfAllCloth = ((reader.GetFloat(6)) / (reader.GetFloat(2) * reader.GetFloat(3))) * reader.GetFloat(4)
+                            WidthOfClothAtStore = reader.GetFloat(6),
+                            LengthOfClothAtStore = reader.GetFloat(7),
+                            CostOfAllCloth = ((reader.GetFloat(6) * reader.GetFloat(7)) / (reader.GetFloat(2) * reader.GetFloat(3))) * reader.GetFloat(4)
                         });
                     }
                 }
@@ -744,11 +796,15 @@ namespace WpfApp.ViewModels
             FurnitureQuantity = "";
             FurnitureWriteOffCost = "";
             UserQuantity = "";
+
             SelectedArticulOfCloth = null;
-            ClothArea = "";
-            MeasurementUnit = "см2";
-            ClothWriteOffCost = "";
-            UserArea = "";
+            WidthOfRoll = 0;
+            LengthOfRoll = 0;
+            UserLength = 0;
+            UserWidth = 0;
+            MeasurementUnit = "см";
+            ClothWriteOffCost = 0;
+
             IsDockPanelEnabled = true;
             IsTabControlEnabled = false;
         }

@@ -9,8 +9,8 @@
         mc:Ignorable="d"
         Icon="{Binding IconSource}"
         Title="Список изделий" 
-        MinHeight="400"  Height="600" 
-        MinWidth="1200" Width="100">
+        MinHeight="400" MaxHeight="1200"  Height="600" 
+        MinWidth="1200" MaxWidth="1400" Width="1200">
     <Window.DataContext>
         <vm:ProductListViewModel/>
     </Window.DataContext>

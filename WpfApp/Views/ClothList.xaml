@@ -9,8 +9,8 @@
         mc:Ignorable="d"
         Icon="{Binding IconSource}"
         Title="Список тканей" 
-        MinHeight="400"  Height="600" 
-        MinWidth="800" Width="800">
+        MinHeight="400" MaxHeight="1200" Height="600" 
+        MinWidth="600" MaxWidth="1000" Width="700">
     <Window.DataContext>
         <vm:ClothListViewModel/>
     </Window.DataContext>
@@ -62,29 +62,45 @@
 
             <TabItem Header="Ткань">
 
-                <DataGrid ItemsSource="{Binding Cloths}" 
-                      AutoGenerateColumns="False">
-                    <DataGrid.Columns >
-                        <DataGridTemplateColumn Header="Картинка">
-                            <DataGridTemplateColumn.CellEditingTemplate>
-                                <DataTemplate>
-                                    <Image Width="300" Height="300" Source="{Binding Image}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellEditingTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Артикул" 
-                                                Binding="{Binding Articul}"/>
-                        <DataGridTextColumn Header="Название" 
-                                                Binding="{Binding Name}"
-                                                MinWidth="250" Width="250"/>
-                        <DataGridTextColumn Header="Длина" 
-                                                Binding="{Binding Length}"/>
-                        <DataGridTextColumn Header="Ширина" 
-                                                Binding="{Binding Width}"/>
-                        <DataGridTextColumn Header="Цена(руб)" 
-                                                Binding="{Binding Cost}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+                <ListView ItemsSource="{Binding Cloths}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate DataType="model:Cloth">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{Binding Image}"
+                                       Height="200" Width="200"/>
+
+                                <StackPanel>
+
+                                    <WrapPanel>
+                                        <Label Content="Артикул -"/>
+                                        <Label Content="{Binding Articul}"/>
+                                    </WrapPanel>
+
+                                    <WrapPanel>
+                                        <Label Content="Имя -"/>
+                                        <Label Content="{Binding Name}"/>
+                                    </WrapPanel>
+
+                                    <WrapPanel>
+                                        <Label Content="Ширина -"/>
+                                        <Label Content="{Binding Width}"/>
+                                    </WrapPanel>
+
+                                    <WrapPanel>
+                                        <Label Content="Длина -"/>
+                                        <Label Content="{Binding Length}"/>
+                                    </WrapPanel>
+
+                                    <WrapPanel>
+                                        <Label Content="Цена -"/>
+                                        <Label Content="{Binding Cost}"/>
+                                    </WrapPanel>
+
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
                 
             </TabItem>
 

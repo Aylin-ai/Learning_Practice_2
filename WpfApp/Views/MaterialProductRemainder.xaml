@@ -105,8 +105,13 @@
                                     </WrapPanel>
 
                                     <WrapPanel>
-                                        <Label Content="Площадь -"/>
-                                        <Label Content="{Binding AreaOfCloth}"/>
+                                        <Label Content="Ширина -"/>
+                                        <Label Content="{Binding WidthOfCloth}"/>
+                                    </WrapPanel>
+
+                                    <WrapPanel>
+                                        <Label Content="Длина -"/>
+                                        <Label Content="{Binding LengthOfCloth}"/>
                                     </WrapPanel>
 
                                     <WrapPanel>
@@ -115,8 +120,13 @@
                                     </WrapPanel>
 
                                     <WrapPanel>
-                                        <Label Content="Площадь на складе -"/>
-                                        <Label Content="{Binding AreaOfClothAtStoreIn}"/>
+                                        <Label Content="Ширина на складе -"/>
+                                        <Label Content="{Binding WidthOfClothAtStore}"/>
+                                    </WrapPanel>
+
+                                    <WrapPanel>
+                                        <Label Content="Длина на складе -"/>
+                                        <Label Content="{Binding LengthOfClothAtStore}"/>
                                     </WrapPanel>
 
                                     <WrapPanel>
