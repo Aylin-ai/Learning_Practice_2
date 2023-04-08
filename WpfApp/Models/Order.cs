@@ -8,7 +8,7 @@ using WpfApp.ViewModels.Base;
 
 namespace WpfApp.Models
 {
-    internal class Order : ViewModel
+    public class Order : ViewModel
     {
 
         private int _orderId;

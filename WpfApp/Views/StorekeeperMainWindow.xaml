@@ -35,6 +35,8 @@
                     Command="{Binding MaterialComingWindowCommand}"/>
             <Button Content="Инвентаризация"
                     Command="{Binding InventoryWindowCommand}"/>
+            <Button Content="Раскрой"
+                    Command="{Binding ProductCutWindowCommand}"/>
             <Button Content="Выход из системы"
                     Command="{Binding AuthorizationWindowCommand}"/>
         </StackPanel>

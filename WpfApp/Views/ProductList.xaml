@@ -72,7 +72,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <ListView ItemsSource="{Binding FrontProducts}"
+            <ListView ItemsSource="{Binding Products}"
                       SelectedItem="{Binding SelectedProduct}">
                 <ListView.ItemTemplate>
                     <DataTemplate DataType="model:Product">

@@ -119,6 +119,19 @@ namespace WpfApp.ViewModels
 
         #endregion
 
+        #region Команда перехода на страницу раскроя
+
+        public ICommand ProductCutWindowCommand { get; }
+
+        private bool CanProductCutWindowCommandExecute(object parameter) => true;
+        private void OnProductCutWindowCommandExecuted(object parameter)
+        {
+            ProductCut productCut = new ProductCut();
+            productCut.Show();
+        }
+
+        #endregion
+
         #region Команда для перехода на страницу авторизации
 
         public ICommand AuthorizationWindowCommand { get; }
@@ -146,6 +159,7 @@ namespace WpfApp.ViewModels
             MaterialWriteOffWindowCommand = new LambdaCommand(OnMaterialWriteOffWindowCommandExecuted, CanMaterialWriteOffWindowCommandExecute);
             MaterialComingWindowCommand = new LambdaCommand(OnMaterialComingWindowCommandExecuted, CanMaterialComingWindowCommandExecute);
             InventoryWindowCommand = new LambdaCommand(OnInventoryWindowCommandExecuted, CanInventoryWindowCommandExecute);
+            ProductCutWindowCommand = new LambdaCommand(OnProductCutWindowCommandExecuted, CanProductCutWindowCommandExecute);
             AuthorizationWindowCommand = new LambdaCommand(OnAuthorizationWindowCommandExecuted, CanAuthorizationWindowCommandExecute);
 
             #endregion

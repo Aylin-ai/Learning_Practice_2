@@ -1,0 +1,182 @@
+﻿<Window x:Class="WpfApp.Views.ProductCut"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp.Views"
+        mc:Ignorable="d"
+        xmlns:vm="clr-namespace:WpfApp.ViewModels"
+        xmlns:model="clr-namespace:WpfApp.Models"
+        Title="ProductCut" 
+        Height="800" Width="1000">
+    <Window.DataContext>
+        <vm:ProductCutViewModel/>
+    </Window.DataContext>
+    <DockPanel LastChildFill="True">
+
+        <WrapPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center">
+            <Image Source="{Binding ImageSource}" Width="70"/>
+            <Label Style="{StaticResource ResourceKey=TitleStyle}" 
+               Content="Раскрой" DockPanel.Dock="Top"/>
+        </WrapPanel>
+
+        <Grid>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <ListView ItemsSource="{Binding ProductsOnCloth}"
+                      SelectedItem="{Binding SelectedRoll}">
+                <ListView.ItemTemplate>
+                    <DataTemplate DataType="model:ClothRollToCut">
+
+                        <StackPanel Orientation="Horizontal">
+
+                            <Image Source="{Binding ClothImage}"
+                                   Width="150" Height="150"/>
+
+                            <StackPanel>
+
+                                <WrapPanel>
+                                    <Label Content="Артикул -"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                    <Label Content="{Binding ClothArticul}"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                </WrapPanel>
+
+                                <WrapPanel>
+                                    <Label Content="Ширина рулона -"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                    <Label Content="{Binding WidthOfRoll}"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                </WrapPanel>
+
+                                <WrapPanel>
+                                    <Label Content="Длина рулона -"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                    <Label Content="{Binding LengthOfRoll}"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                </WrapPanel>
+
+                                <WrapPanel>
+                                    <Label Content="Изделий на рулон -"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                    <Label Content="{Binding ProductQuantity}"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                </WrapPanel>
+
+                            </StackPanel>
+
+                        </StackPanel>
+                        
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <StackPanel Grid.Column="1">
+
+                <ListView ItemsSource="{Binding ProductsInRoll}"
+                          Margin="10">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate DataType="model:ProductToCut">
+
+                            <StackPanel Orientation="Horizontal">
+
+                                <Image Source="{Binding Image}"
+                                           Width="150" Height="150"/>
+
+                                <StackPanel>
+
+                                    <WrapPanel>
+                                        <Label Content="Артикул -"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                        <Label Content="{Binding Articul}"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                    </WrapPanel>
+
+                                    <WrapPanel>
+                                        <Label Content="Имя -"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                        <Label Content="{Binding Name}"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                    </WrapPanel>
+
+                                    <WrapPanel>
+                                        <Label Content="Ширина -"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                        <Label Content="{Binding Width}"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                    </WrapPanel>
+
+                                    <WrapPanel>
+                                        <Label Content="Длина -"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                        <Label Content="{Binding Length}"
+                                               Margin="0"
+                                               FontSize="15"/>
+                                    </WrapPanel>
+
+                                </StackPanel>
+
+                            </StackPanel>
+
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <Viewbox Grid.Column="1" Stretch="Uniform"
+                 Height="{Binding Width}" Width="{Binding Length}"
+                         Margin="10">
+
+                    <ItemsControl ItemsSource="{Binding ProductsInRoll}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Canvas Background="Silver" 
+                                Height="{Binding Width}"
+                                Width="{Binding Length}"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.Resources>
+                            <Style TargetType="ContentPresenter">
+                                <Setter Property="Canvas.Left" Value="{Binding X}"/>
+                                <Setter Property="Canvas.Top" Value="{Binding Y}"/>
+                            </Style>
+
+                            <DataTemplate DataType="{x:Type model:ProductToCut}">
+                                <Rectangle Width="{Binding Length}" Height="{Binding Width}"
+                               Stroke="Black" StrokeThickness="0.5"/>
+                            </DataTemplate>
+                        </ItemsControl.Resources>
+                    </ItemsControl>
+
+                </Viewbox>
+
+            </StackPanel>
+
+
+        </Grid>
+        
+    </DockPanel>
+</Window>

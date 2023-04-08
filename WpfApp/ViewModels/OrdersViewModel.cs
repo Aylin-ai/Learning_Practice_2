@@ -10,6 +10,7 @@ using System.Windows.Input;
 using WpfApp.Infrastructure.Commands;
 using WpfApp.Models;
 using WpfApp.ViewModels.Base;
+using WpfApp.Views;
 
 namespace WpfApp.ViewModels
 {
@@ -154,6 +155,19 @@ namespace WpfApp.ViewModels
 
         #endregion
 
+        #region Команда перехода на страницу раскроя
+
+        public ICommand ProductCutWindowCommand { get; }
+
+        private bool CanProductCutWindowCommandExecute(object parameter) => true;
+        private void OnProductCutWindowCommandExecuted(object parameter)
+        {
+            ProductCut productCut = new ProductCut();
+            productCut.Show();
+        }
+
+        #endregion
+
         #endregion
 
         public OrdersViewModel(string login)
@@ -165,6 +179,7 @@ namespace WpfApp.ViewModels
 
             OrderConfirmCommand = new LambdaCommand(OnOrderConfirmCommandExecuted, CanOrderConfirmCommandExecute);
             OrderDenyCommand = new LambdaCommand(OnOrderDenyCommandExecuted, CanOrderDenyCommandExecute);
+            ProductCutWindowCommand = new LambdaCommand(OnProductCutWindowCommandExecuted, CanProductCutWindowCommandExecute);
 
             #endregion
 

@@ -310,7 +310,7 @@ namespace WpfApp.ViewModels
             try
             {
                 string sql = "select cloth.Cloth_Image, cloth.Cloth_Articul, cloth.Cloth_Name, cloth.Cloth_Area, cloth.`Cloth_Cost(rub)`, " +
-                    "clothproduct.ClothProduct_ClothArea from clothproduct inner join cloth " +
+                    "clothproduct.ClothProduct_ClothWidth, clothproduct.ClothProduct_ClothLength from clothproduct inner join cloth " +
                     "on clothproduct.ClothProduct_Cloth_Articul = cloth.Cloth_Articul " +
                     "where clothproduct.ClothProduct_Product_Articul = @articul;";
 
@@ -330,10 +330,10 @@ namespace WpfApp.ViewModels
                             Image = reader.GetString(0),
                             Articul = reader.GetString(1),
                             Name = reader.GetString(2),
-                            ClothArea = reader.GetFloat(5),
-                            Cost = (reader.GetFloat(5) / reader.GetFloat(3)) * reader.GetFloat(4),
+                            ClothArea = reader.GetFloat(5) * reader.GetFloat(6),
+                            Cost = ((reader.GetFloat(5) * reader.GetFloat(6)) / reader.GetFloat(3)) * reader.GetFloat(4),
                         });
-                        SelfCost += (reader.GetFloat(5) / reader.GetFloat(3)) * reader.GetFloat(4);
+                        SelfCost += ((reader.GetFloat(5) * reader.GetFloat(6)) / reader.GetFloat(3)) * reader.GetFloat(4);
                     }
                 }
                 reader.Close();
