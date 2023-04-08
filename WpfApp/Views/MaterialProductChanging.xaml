@@ -9,9 +9,9 @@
         mc:Ignorable="d"
         Icon="{Binding IconSource}"
         Title="Движение материалов/изделий" 
-        Height="800" Width="800"
+        Height="1000" Width="1200"
         MinHeight="600" MinWidth="800"
-        MaxHeight="1000" MaxWidth="1000">
+        MaxHeight="1400" MaxWidth="1400">
     <Window.DataContext>
         <vm:MaterialProductChangingViewModel/>
     </Window.DataContext>

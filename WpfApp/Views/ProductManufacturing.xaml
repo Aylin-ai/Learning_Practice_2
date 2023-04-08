@@ -60,91 +60,95 @@
 
                     <TabItem Header="Ткани">
 
-                        <ListView ItemsSource="{Binding ClothsInProduct}"
+                        <DockPanel LastChildFill="True">
+                            <ListView ItemsSource="{Binding ClothsInProduct}"
                                   SelectedItem="{Binding SelectedCloth}">
-                            <ListView.ItemTemplate>
-                                <DataTemplate DataType="model:ClothInProduct">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate DataType="model:ClothInProduct">
 
-                                    <StackPanel>
-                                        <WrapPanel>
-                                            <Label Content="Артикул -"/>
-                                            <Label Content="{Binding Articul}"/>
-                                        </WrapPanel>
+                                        <StackPanel>
+                                            <WrapPanel>
+                                                <Label Content="Артикул -"/>
+                                                <Label Content="{Binding Articul}"/>
+                                            </WrapPanel>
 
-                                        <WrapPanel>
-                                            <Label Content="Название -"/>
-                                            <Label Content="{Binding Name}"/>
-                                        </WrapPanel>
+                                            <WrapPanel>
+                                                <Label Content="Название -"/>
+                                                <Label Content="{Binding Name}"/>
+                                            </WrapPanel>
 
-                                        <WrapPanel>
-                                            <Label Content="Площадь -"/>
-                                            <Label Content="{Binding ClothArea}"/>
-                                        </WrapPanel>
+                                            <WrapPanel>
+                                                <Label Content="Площадь -"/>
+                                                <Label Content="{Binding ClothArea}"/>
+                                            </WrapPanel>
 
-                                        <WrapPanel>
-                                            <Label Content="Цена -"/>
-                                            <Label Content="{Binding Cost}"/>
-                                        </WrapPanel>
-                                    </StackPanel>
+                                            <WrapPanel>
+                                                <Label Content="Цена -"/>
+                                                <Label Content="{Binding Cost}"/>
+                                            </WrapPanel>
+                                        </StackPanel>
 
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </DockPanel>
 
                     </TabItem>
 
                     <TabItem Header="Фурнитура">
 
-                        <ListView ItemsSource="{Binding FurnituresInProduct}"
+                        <DockPanel LastChildFill="True">
+                            <ListView ItemsSource="{Binding FurnituresInProduct}"
                                   SelectedItem="{Binding SelectedFurniture}">
-                            <ListView.ItemTemplate>
-                                <DataTemplate DataType="model:FurnitureInProduct">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate DataType="model:FurnitureInProduct">
 
-                                    <StackPanel>
-                                        <WrapPanel>
-                                            <Label Content="Артикул -"/>
-                                            <Label Content="{Binding Articul}"/>
-                                        </WrapPanel>
+                                        <StackPanel>
+                                            <WrapPanel>
+                                                <Label Content="Артикул -"/>
+                                                <Label Content="{Binding Articul}"/>
+                                            </WrapPanel>
 
-                                        <WrapPanel>
-                                            <Label Content="Название -"/>
-                                            <Label Content="{Binding Name}"/>
-                                        </WrapPanel>
+                                            <WrapPanel>
+                                                <Label Content="Название -"/>
+                                                <Label Content="{Binding Name}"/>
+                                            </WrapPanel>
 
-                                        <WrapPanel>
-                                            <Label Content="Длина(см) -"/>
-                                            <Label Content="{Binding Length}"/>
-                                        </WrapPanel>
+                                            <WrapPanel>
+                                                <Label Content="Длина(см) -"/>
+                                                <Label Content="{Binding Length}"/>
+                                            </WrapPanel>
 
-                                        <WrapPanel>
-                                            <Label Content="Ширина(см) -"/>
-                                            <Label Content="{Binding Width}"/>
-                                        </WrapPanel>
+                                            <WrapPanel>
+                                                <Label Content="Ширина(см) -"/>
+                                                <Label Content="{Binding Width}"/>
+                                            </WrapPanel>
 
-                                        <WrapPanel>
-                                            <Label Content="Размещение -"/>
-                                            <Label Content="{Binding Placing}"/>
-                                        </WrapPanel>
+                                            <WrapPanel>
+                                                <Label Content="Размещение -"/>
+                                                <Label Content="{Binding Placing}"/>
+                                            </WrapPanel>
 
-                                        <WrapPanel>
-                                            <Label Content="Поворот -"/>
-                                            <Label Content="{Binding Rotation}"/>
-                                        </WrapPanel>
+                                            <WrapPanel>
+                                                <Label Content="Поворот -"/>
+                                                <Label Content="{Binding Rotation}"/>
+                                            </WrapPanel>
 
-                                        <WrapPanel>
-                                            <Label Content="Кол-во -"/>
-                                            <Label Content="{Binding Quantity}"/>
-                                        </WrapPanel>
+                                            <WrapPanel>
+                                                <Label Content="Кол-во -"/>
+                                                <Label Content="{Binding Quantity}"/>
+                                            </WrapPanel>
 
-                                        <WrapPanel>
-                                            <Label Content="Цена -"/>
-                                            <Label Content="{Binding Cost}"/>
-                                        </WrapPanel>
-                                    </StackPanel>
+                                            <WrapPanel>
+                                                <Label Content="Цена -"/>
+                                                <Label Content="{Binding Cost}"/>
+                                            </WrapPanel>
+                                        </StackPanel>
 
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </DockPanel>
 
                     </TabItem>
 
@@ -165,7 +169,7 @@
                            HorizontalAlignment="Center"/>
 
                     <StackPanel>
-                        <Label Content="Требуемое кол-во(м2/шт)"/>
+                        <Label Content="Требуемое кол-во(см2/шт)"/>
                         <Label Content="{Binding SystemQuantity}"/>
                     </StackPanel>
 

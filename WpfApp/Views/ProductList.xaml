@@ -255,8 +255,10 @@
                             </ListView.ItemTemplate>
                         </ListView>
 
-                        <Label Content="Себестоимость товара"/>
-                        <Label Content="{Binding SelCost}"/>
+                        <WrapPanel>
+                            <Label Content="Себестоимость товара -"/>
+                            <Label Content="{Binding SelfCost}"/>
+                        </WrapPanel>
 
                         <Label Content="История изменения спецификации"
                                HorizontalAlignment="Center"/>

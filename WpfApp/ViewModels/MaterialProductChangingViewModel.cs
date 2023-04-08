@@ -81,6 +81,8 @@ namespace WpfApp.ViewModels
             set
             {
                 Set(ref _selectedCloth, value);
+                OldQuantity = 0;
+                NewQuantity = 0;
                 GetChangesAtStore("ткань", _selectedCloth.Articul, SelectedFirstDate.ToString("yyyy-MM-dd HH:mm:ss"), SelectedSecondDate.ToString("yyyy-MM-dd HH:mm:ss"));
                 if (HistoryOfChangesAtStore.Count > 0)
                 {
@@ -97,6 +99,8 @@ namespace WpfApp.ViewModels
             set
             {
                 Set(ref _selectedFurniture, value);
+                OldQuantity = 0;
+                NewQuantity = 0;
                 GetChangesAtStore("фурнитура", _selectedFurniture.Articul, SelectedFirstDate.ToString("yyyy-MM-dd HH:mm:ss"), SelectedSecondDate.ToString("yyyy-MM-dd HH:mm:ss"));
                 if (HistoryOfChangesAtStore.Count > 0)
                 {
@@ -113,6 +117,8 @@ namespace WpfApp.ViewModels
             set
             {
                 Set(ref _selectedProduct, value);
+                OldQuantity = 0;
+                NewQuantity = 0;
                 GetChangesAtStore("изделие", _selectedProduct.Articul, SelectedFirstDate.ToString("yyyy-MM-dd HH:mm:ss"), SelectedSecondDate.ToString("yyyy-MM-dd HH:mm:ss"));
                 if (HistoryOfChangesAtStore.Count > 0)
                 {
